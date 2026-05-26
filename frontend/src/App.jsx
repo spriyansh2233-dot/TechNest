@@ -791,7 +791,7 @@ export default function App() {
               scale: [1, 1.15, 0.9, 1]
             }}
             transition={{ repeat: Infinity, duration: 25, ease: "easeInOut" }}
-            className="absolute top-[10%] left-[-15%] w-[45vw] h-[45vw] max-w-[650px] rounded-full bg-[#8A2BE2]/14 blur-[140px] mix-blend-screen"
+            className="absolute top-[10%] left-[-15%] w-[45vw] h-[45vw] max-w-[650px] rounded-full bg-[#8A2BE2]/14 blur-[140px] will-change-transform"
           />
           
           <motion.div 
@@ -801,7 +801,7 @@ export default function App() {
               scale: [1, 0.9, 1.1, 1]
             }}
             transition={{ repeat: Infinity, duration: 30, ease: "easeInOut" }}
-            className="absolute bottom-[10%] right-[-15%] w-[50vw] h-[50vw] max-w-[700px] rounded-full bg-[#4f46e5]/10 blur-[160px] mix-blend-screen"
+            className="absolute bottom-[10%] right-[-15%] w-[50vw] h-[50vw] max-w-[700px] rounded-full bg-[#4f46e5]/10 blur-[160px] will-change-transform"
           />
 
           <motion.div 
@@ -810,7 +810,7 @@ export default function App() {
               y: [0, 50, -60, 0],
             }}
             transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
-            className="absolute top-[50%] left-[20%] w-[35vw] h-[35vw] max-w-[500px] rounded-full bg-[#4f46e5]/8 blur-[130px] mix-blend-screen"
+            className="absolute top-[50%] left-[20%] w-[35vw] h-[35vw] max-w-[500px] rounded-full bg-[#4f46e5]/8 blur-[130px] will-change-transform"
           />
 
           <motion.div 
@@ -819,7 +819,7 @@ export default function App() {
               y: [0, -40, 50, 0],
             }}
             transition={{ repeat: Infinity, duration: 28, ease: "easeInOut" }}
-            className="absolute top-[75%] right-[20%] w-[30vw] h-[30vw] max-w-[450px] rounded-full bg-[#8A2BE2]/10 blur-[110px] mix-blend-screen"
+            className="absolute top-[75%] right-[20%] w-[30vw] h-[30vw] max-w-[450px] rounded-full bg-[#8A2BE2]/10 blur-[110px] will-change-transform"
           />
 
           {/* Ultra-low opacity rotating atmospheric light streaks */}
@@ -1481,7 +1481,7 @@ export default function App() {
       )}
 
       {/* MAIN CONTAINER */}
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         <AnimatePresence mode="wait">
           <Suspense fallback={<div className="h-[80vh] flex items-center justify-center"><Loader className="animate-spin text-primary" size={48} /></div>}>
             <Routes location={location} key={location.pathname}>
