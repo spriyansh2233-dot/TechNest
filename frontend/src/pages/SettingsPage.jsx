@@ -124,7 +124,7 @@ export default function SettingsPage({ user, showToast, perfModeEnabled, setPerf
                   onClick={() => {
                     const nextVal = !perfModeEnabled;
                     setPerfModeEnabled(nextVal);
-                    localStorage.setItem('smartcart_perf_mode', nextVal ? 'true' : 'false');
+                    localStorage.setItem('technest_perf_mode', nextVal ? 'true' : 'false');
                     if (showToast) {
                       showToast(nextVal ? 'Performance Mode enabled (Glows hidden).' : 'Immersive Mode enabled (Glows active).', 'info');
                     }

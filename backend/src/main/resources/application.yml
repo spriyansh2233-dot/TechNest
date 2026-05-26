@@ -1,8 +1,8 @@
 spring:
   application:
-    name: SmartCart
+    name: TechNest
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/smartcart?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/technest?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:priyansh9977}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,7 +23,7 @@ jwt:
   expiration: 86400000 # 24 hours in ms
 
 cloudinary:
-  cloud-name: ${CLOUDINARY_CLOUD_NAME:smartcart-demo}
+  cloud-name: ${CLOUDINARY_CLOUD_NAME:technest-demo}
   api-key: ${CLOUDINARY_API_KEY:123456789012345}
   api-secret: ${CLOUDINARY_API_SECRET:abcdefghijklmnopqrstuvwxyz1}
 

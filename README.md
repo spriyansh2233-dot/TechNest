@@ -1,6 +1,6 @@
-# SmartCart AI — Premium Futuristic E-Commerce Platform
+# TechNest — Premium Futuristic E-Commerce Platform
 
-SmartCart AI is a state-of-the-art e-commerce storefront designed for modern tech enthusiasts. It features a cinematic dark mode, neon accents, interactive sliding headers, dynamic technical spec layouts, and a secure shopping experience powered by a Spring Boot backend and React/Vite frontend.
+TechNest is a state-of-the-art e-commerce storefront designed for modern tech enthusiasts. It features a cinematic dark mode, neon accents, interactive sliding headers, dynamic technical spec layouts, and a secure shopping experience powered by a Spring Boot backend and React/Vite frontend.
 
 ---
 
@@ -44,9 +44,9 @@ SmartCart AI is a state-of-the-art e-commerce storefront designed for modern tec
 - MySQL Server (v8.0+)
 
 ### Database Setup
-1. Create a MySQL database named `smartcart`:
+1. Create a MySQL database named `technest`:
    ```sql
-   CREATE DATABASE smartcart;
+   CREATE DATABASE technest;
    ```
 2. By default, the backend connects using `root` username and `priyansh9977` password. To override these parameters, configure the following environment variables:
    - `DB_HOST`: Host (default: `localhost`)

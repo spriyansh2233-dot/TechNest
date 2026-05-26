@@ -107,7 +107,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="font-body-lg text-lg md:text-xl text-[#8A2BE2] font-medium max-w-2xl mx-auto tracking-wide">
-            SmartCart AI curates premium gadgets and futuristic accessories designed to elevate your digital lifestyle.
+            TechNest curates premium gadgets and futuristic accessories designed to elevate your digital lifestyle.
           </p>
 
           <p className="font-body-md text-on-surface-variant max-w-3xl mx-auto leading-relaxed text-sm md:text-base">
@@ -118,7 +118,7 @@ export default function AboutPage() {
         {/* ================= SECTION 2: WHY CHOOSE US ================= */}
         <section className="space-y-12">
           <div className="text-center space-y-2">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Why SmartCart AI</h2>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-primary">Why TechNest</h2>
             <p className="text-sm text-on-surface-variant max-w-md mx-auto">Curated design meets intelligent recommendation systems.</p>
           </div>
 
@@ -174,7 +174,7 @@ export default function AboutPage() {
         {/* ================= SECTION 4: TRUST & STATS ================= */}
         <section className="space-y-12">
           <div className="text-center space-y-2">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Trust by the Numbers</h2>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-primary">Trust by the Numbers</h2>
             <p className="text-sm text-on-surface-variant max-w-md mx-auto">Global standards in catalog scaling and customer protection.</p>
           </div>
 

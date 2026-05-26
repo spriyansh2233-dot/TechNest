@@ -50,7 +50,7 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
         const loggedUser = {
           name: res.data.name,
           email: res.data.email,
-          role: res.data.email === 'admin@smartcart.com' ? 'ADMIN' : 'USER'
+          role: res.data.email === 'admin@technest.com' ? 'ADMIN' : 'USER'
         };
         localStorage.setItem('user', JSON.stringify(loggedUser));
         setUser(loggedUser);

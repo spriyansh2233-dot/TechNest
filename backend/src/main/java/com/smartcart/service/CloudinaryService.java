@@ -27,7 +27,7 @@ public class CloudinaryService {
 
     @PostConstruct
     public void init() {
-        if ("123456789012345".equals(apiKey) || "smartcart-demo".equals(cloudName) || apiKey == null || apiKey.isEmpty()) {
+        if ("123456789012345".equals(apiKey) || "technest-demo".equals(cloudName) || apiKey == null || apiKey.isEmpty()) {
             System.out.println("⚠️ WARNING: Cloudinary credentials are not configured. Running in MOCK mode.");
             isMockMode = true;
         } else {

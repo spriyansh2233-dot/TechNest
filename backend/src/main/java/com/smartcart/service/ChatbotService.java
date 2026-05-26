@@ -33,14 +33,14 @@ public class ChatbotService {
 
     public String respondToMessage(String message) {
         if (message == null || message.trim().isEmpty()) {
-            return "Hello! I am your SmartCart AI Assistant. How can I help you today?";
+            return "Hello! I am your TechNest AI Assistant. How can I help you today?";
         }
 
         String msg = message.toLowerCase().trim();
 
         // 1. GREETINGS
         if (msg.contains("hi") || msg.contains("hello") || msg.contains("hey") || msg.contains("greetings") || msg.contains("ola")) {
-            return "Hi there! 👋 Welcome to SmartCart AI Chatbot. I'm here to assist you with order tracking, return policies, payment issues, and product suggestions. What can I do for you today?";
+            return "Hi there! 👋 Welcome to TechNest AI Chatbot. I'm here to assist you with order tracking, return policies, payment issues, and product suggestions. What can I do for you today?";
         }
 
         // 2. ORDER TRACKING / STATUS
@@ -76,7 +76,7 @@ public class ChatbotService {
 
         // 3. RETURNS & REFUNDS
         if (msg.contains("return") || msg.contains("refund") || msg.contains("replace") || msg.contains("exchange") || msg.contains("policy")) {
-            return "At SmartCart, we strive for 100% satisfaction! 🌟\n\n" +
+            return "At TechNest, we strive for 100% satisfaction! 🌟\n\n" +
                     "• **Return Period:** You can return any item within **30 days** of delivery.\n" +
                     "• **Condition:** Items must be unused and in their original packaging.\n" +
                     "• **Process:** Simply go to your User Dashboard, find the order under history, and click 'Initiate Return'.\n" +
@@ -85,7 +85,7 @@ public class ChatbotService {
 
         // 4. PAYMENTS & CHECKOUT
         if (msg.contains("pay") || msg.contains("payment") || msg.contains("razorpay") || msg.contains("checkout") || msg.contains("credit") || msg.contains("upi") || msg.contains("card")) {
-            return "SmartCart uses **Razorpay** to process payments securely. 💳 We accept:\n" +
+            return "TechNest uses **Razorpay** to process payments securely. 💳 We accept:\n" +
                     "• Credit & Debit Cards (Visa, Mastercard, RuPay)\n" +
                     "• UPI (Google Pay, PhonePe, Paytm)\n" +
                     "• Net Banking & Digital Wallets\n\n" +
@@ -107,7 +107,7 @@ public class ChatbotService {
         }
 
         // 7. DEFAULT FALLBACK
-        return "I am the SmartCart AI Assistant! 🤖 I can answer your questions about return policy, track your package, explain payment procedures, and help you cancel orders. \n\n" +
+        return "I am the TechNest AI Assistant! 🤖 I can answer your questions about return policy, track your package, explain payment procedures, and help you cancel orders. \n\n" +
                 "Try asking me:\n" +
                 "• *'Where is my order?'*\n" +
                 "• *'What is your return policy?'*\n" +

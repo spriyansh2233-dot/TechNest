@@ -5,16 +5,16 @@ export default function ProfilePage({ user, setUser, showToast }) {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: user?.name || '',
-    phone: localStorage.getItem(`smartcart_phone_${user?.email}`) || '+1 (555) 019-2834',
-    address: localStorage.getItem(`smartcart_address_${user?.email}`) || 'Sector 7G, Cyber City, CC 95014'
+    phone: localStorage.getItem(`technest_phone_${user?.email}`) || '+1 (555) 019-2834',
+    address: localStorage.getItem(`technest_address_${user?.email}`) || 'Sector 7G, Cyber City, CC 95014'
   });
 
   if (!user) return null;
 
   const handleSave = (e) => {
     e.preventDefault();
-    localStorage.setItem(`smartcart_phone_${user.email}`, formData.phone);
-    localStorage.setItem(`smartcart_address_${user.email}`, formData.address);
+    localStorage.setItem(`technest_phone_${user.email}`, formData.phone);
+    localStorage.setItem(`technest_address_${user.email}`, formData.address);
     
     // Update global user name if changed
     if (formData.name !== user.name) {
@@ -141,8 +141,8 @@ export default function ProfilePage({ user, setUser, showToast }) {
                     setIsEditing(false);
                     setFormData({
                       name: user.name,
-                      phone: localStorage.getItem(`smartcart_phone_${user.email}`) || '+1 (555) 019-2834',
-                      address: localStorage.getItem(`smartcart_address_${user.email}`) || 'Sector 7G, Cyber City, CC 95014'
+                      phone: localStorage.getItem(`technest_phone_${user.email}`) || '+1 (555) 019-2834',
+                      address: localStorage.getItem(`technest_address_${user.email}`) || 'Sector 7G, Cyber City, CC 95014'
                     });
                   }}
                   className="px-6 py-3 bg-transparent border border-white/10 hover:border-white/20 text-on-surface-variant hover:text-primary font-label-caps text-[11px] uppercase tracking-widest rounded-lg transition-all cursor-pointer"

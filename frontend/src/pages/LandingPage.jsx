@@ -98,7 +98,7 @@ export default function LandingPage({
 
                 <p className="mt-6 text-gray-400 max-w-lg text-lg">
                   Experience next-generation industrial design and peerless
-                  performance curated by SmartCart AI.
+                  performance curated by TechNest.
                 </p>
 
                 <div className="flex gap-4 mt-8">

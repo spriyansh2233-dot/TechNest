@@ -5,29 +5,39 @@
 
 @config "../tailwind.config.js";
 
-@layer utilities {
-    .material-symbols-outlined {
-        font-family: 'Material Symbols Outlined';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 24px;
-        display: inline-block;
-        line-height: 1;
-        text-transform: none;
-        letter-spacing: normal;
-        word-wrap: normal;
-        white-space: nowrap;
-        direction: ltr;
-    }
-    .glass-card {
-        @apply bg-[#2D2D2D]/80 backdrop-blur-[20px] border border-primary/10 rounded-xl transition-all duration-300;
-    }
-    .glass-card:hover {
-        @apply border-primary/30 shadow-[0_10px_40px_rgba(255,255,255,0.05)];
-    }
-    .neon-text-glow {
-        text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
-    }
+/* Material Symbols configuration */
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+}
+
+/* Glassmorphic Cards */
+.glass-card {
+    background-color: rgba(45, 45, 45, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+    border-color: rgba(138, 43, 226, 0.3);
+    box-shadow: 0 10px 40px rgba(138, 43, 226, 0.1);
+    transform: translateY(-2px);
+}
+
+.neon-text-glow {
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
 }
 
 /* Scrollbar styles */
@@ -49,8 +59,15 @@
   background: rgba(138, 43, 226, 0.4);
 }
 
-/* Base body styles */
+/* Base body styles using vanilla CSS properties to ensure compile stability */
 body {
-    @apply bg-surface text-on-surface min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden;
+    background-color: #0c0517;
+    color: #e5e2e1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    overflow-x: hidden;
+    margin: 0;
 }
-

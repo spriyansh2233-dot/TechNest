@@ -62,7 +62,7 @@ export const CartProvider = ({ children }) => {
       const res = await api.get('/api/cart');
       
       // If there are guest cart items in localStorage, merge them with the backend cart
-      const savedCart = localStorage.getItem('smartcart_cart');
+      const savedCart = localStorage.getItem('technest_cart');
       if (savedCart && savedCart !== 'undefined') {
         try {
           const guestCart = JSON.parse(savedCart);
@@ -72,7 +72,7 @@ export const CartProvider = ({ children }) => {
             for (const item of guestCart.items) {
               currentCart = await addProductToBackend(item.product.id, item.quantity);
             }
-            localStorage.removeItem('smartcart_cart');
+            localStorage.removeItem('technest_cart');
             setCart(currentCart);
             return;
           }
@@ -95,7 +95,7 @@ export const CartProvider = ({ children }) => {
       fetchBackendCart();
     } else {
       // Guest mode: load cart from localStorage
-      const savedCart = localStorage.getItem('smartcart_cart');
+      const savedCart = localStorage.getItem('technest_cart');
       if (savedCart && savedCart !== 'undefined') {
         try {
           setCart(JSON.parse(savedCart));
@@ -145,7 +145,7 @@ export const CartProvider = ({ children }) => {
         }
 
         const newCart = { ...prevCart, items: updatedItems };
-        localStorage.setItem('smartcart_cart', JSON.stringify(newCart));
+        localStorage.setItem('technest_cart', JSON.stringify(newCart));
         return newCart;
       });
     }
@@ -179,7 +179,7 @@ export const CartProvider = ({ children }) => {
           return item;
         });
         const newCart = { ...prevCart, items: updatedItems };
-        localStorage.setItem('smartcart_cart', JSON.stringify(newCart));
+        localStorage.setItem('technest_cart', JSON.stringify(newCart));
         return newCart;
       });
     }
@@ -198,7 +198,7 @@ export const CartProvider = ({ children }) => {
       setCart(prevCart => {
         const updatedItems = prevCart.items.filter(item => item.product.id !== productId);
         const newCart = { ...prevCart, items: updatedItems };
-        localStorage.setItem('smartcart_cart', JSON.stringify(newCart));
+        localStorage.setItem('technest_cart', JSON.stringify(newCart));
         return newCart;
       });
     }
@@ -214,7 +214,7 @@ export const CartProvider = ({ children }) => {
       }
     } else {
       // Guest mode local cart clear
-      localStorage.removeItem('smartcart_cart');
+      localStorage.removeItem('technest_cart');
       setCart({ items: [] });
     }
   };

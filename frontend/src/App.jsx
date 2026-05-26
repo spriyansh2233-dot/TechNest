@@ -161,7 +161,7 @@ export default function App() {
   // Chatbot State
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
-    { sender: 'bot', text: 'Hi! I am your SmartCart AI Assistant. 🤖 Ask me anything about returns, tracking, payments, or popular recommendations!' }
+    { sender: 'bot', text: 'Hi! I am your TechNest AI Assistant. 🤖 Ask me anything about returns, tracking, payments, or popular recommendations!' }
   ]);
   const [chatInput, setChatInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -175,7 +175,7 @@ export default function App() {
   const [showGuestCheckoutModal, setShowGuestCheckoutModal] = useState(false);
   const [perfModeEnabled, setPerfModeEnabled] = useState(() => {
     try {
-      return localStorage.getItem('smartcart_perf_mode') === 'true';
+      return localStorage.getItem('technest_perf_mode') === 'true';
     } catch (e) {
       return false;
     }
@@ -183,7 +183,7 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [recentlyViewed, setRecentlyViewed] = useState(() => {
     try {
-      const saved = localStorage.getItem('smartcart_recently_viewed');
+      const saved = localStorage.getItem('technest_recently_viewed');
       return saved ? JSON.parse(saved) : [];
     } catch (e) {
       return [];
@@ -194,7 +194,7 @@ export default function App() {
 
   // Sync wishlist to appropriate storage key depending on user state
   useEffect(() => {
-    const key = user ? `smartcart_wishlist_${user.email}` : 'smartcart_wishlist_guest';
+    const key = user ? `technest_wishlist_${user.email}` : 'technest_wishlist_guest';
     try {
       const saved = localStorage.getItem(key);
       setWishlist(saved && saved !== 'undefined' ? JSON.parse(saved) : []);
@@ -204,7 +204,7 @@ export default function App() {
   }, [user]);
 
   useEffect(() => {
-    const key = user ? `smartcart_wishlist_${user.email}` : 'smartcart_wishlist_guest';
+    const key = user ? `technest_wishlist_${user.email}` : 'technest_wishlist_guest';
     localStorage.setItem(key, JSON.stringify(wishlist));
   }, [wishlist, user]);
 
@@ -255,9 +255,9 @@ export default function App() {
   // Handle logo scroll behavior on route changes
   useEffect(() => {
     if (location.pathname === '/') {
-      const shouldScroll = sessionStorage.getItem('smartcart_scroll_to_top');
+      const shouldScroll = sessionStorage.getItem('technest_scroll_to_top');
       if (shouldScroll === 'true') {
-        sessionStorage.removeItem('smartcart_scroll_to_top');
+        sessionStorage.removeItem('technest_scroll_to_top');
         setTimeout(() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 100);
@@ -271,7 +271,7 @@ export default function App() {
     if (location.pathname === '/') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      sessionStorage.setItem('smartcart_scroll_to_top', 'true');
+      sessionStorage.setItem('technest_scroll_to_top', 'true');
       navigate('/');
     }
   };
@@ -365,7 +365,7 @@ export default function App() {
       setRecentlyViewed(prev => {
         const filtered = prev.filter(p => p.id !== product.id);
         const updated = [product, ...filtered].slice(0, 5); // Keep last 5
-        localStorage.setItem('smartcart_recently_viewed', JSON.stringify(updated));
+        localStorage.setItem('technest_recently_viewed', JSON.stringify(updated));
         return updated;
       });
 
@@ -435,14 +435,14 @@ export default function App() {
         const loggedUser = {
           name: res.data.name,
           email: res.data.email,
-          role: res.data.email === 'admin@smartcart.com' ? 'ADMIN' : 'USER'
+          role: res.data.email === 'admin@technest.com' ? 'ADMIN' : 'USER'
         };
         
         // Sync wishlist
-        const guestWishlistStr = localStorage.getItem('smartcart_wishlist_guest');
+        const guestWishlistStr = localStorage.getItem('technest_wishlist_guest');
         let userWishlist = [];
         try {
-          const userWishlistKey = `smartcart_wishlist_${loggedUser.email}`;
+          const userWishlistKey = `technest_wishlist_${loggedUser.email}`;
           const userSaved = localStorage.getItem(userWishlistKey);
           userWishlist = userSaved && userSaved !== 'undefined' ? JSON.parse(userSaved) : [];
           
@@ -455,7 +455,7 @@ export default function App() {
                   userWishlist.push(item);
                 }
               }
-              localStorage.removeItem('smartcart_wishlist_guest');
+              localStorage.removeItem('technest_wishlist_guest');
             }
           }
           localStorage.setItem(userWishlistKey, JSON.stringify(userWishlist));
@@ -483,10 +483,10 @@ export default function App() {
         };
 
         // Sync wishlist
-        const guestWishlistStr = localStorage.getItem('smartcart_wishlist_guest');
+        const guestWishlistStr = localStorage.getItem('technest_wishlist_guest');
         let userWishlist = [];
         try {
-          const userWishlistKey = `smartcart_wishlist_${loggedUser.email}`;
+          const userWishlistKey = `technest_wishlist_${loggedUser.email}`;
           const userSaved = localStorage.getItem(userWishlistKey);
           userWishlist = userSaved && userSaved !== 'undefined' ? JSON.parse(userSaved) : [];
           
@@ -499,7 +499,7 @@ export default function App() {
                   userWishlist.push(item);
                 }
               }
-              localStorage.removeItem('smartcart_wishlist_guest');
+              localStorage.removeItem('technest_wishlist_guest');
             }
           }
           localStorage.setItem(userWishlistKey, JSON.stringify(userWishlist));
@@ -591,7 +591,7 @@ export default function App() {
           key: razorpayKey,
           amount: amount,
           currency: currency,
-          name: "SmartCart AI",
+          name: "TechNest",
           description: "Premium Electronic Purchase",
           order_id: razorpayOrderId,
           handler: async function (response) {
@@ -619,7 +619,7 @@ export default function App() {
           },
           prefill: {
             name: user?.name || "Customer",
-            email: user?.email || "customer@smartcart.com",
+            email: user?.email || "customer@technest.com",
             contact: "9999999999"
           },
           theme: {
@@ -940,7 +940,7 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="font-headline-lg text-[18px] text-primary font-bold">
-                      {paymentStep === 'success' ? 'Payment Successful' : 'SmartCart Checkout'}
+                      {paymentStep === 'success' ? 'Payment Successful' : 'TechNest Checkout'}
                     </h4>
                     <p className="font-body-md text-[12px] text-on-surface-variant mt-1">Secure Checkout</p>
                   </div>
@@ -1032,7 +1032,7 @@ export default function App() {
                   <div className="space-y-2">
                     <h3 className="font-headline-lg text-[22px] text-primary font-bold">Order Confirmed</h3>
                     <p className="font-body-md text-[13px] text-on-surface-variant max-w-[320px] mx-auto leading-relaxed">
-                      Your order has been placed successfully. Thank you for shopping with SmartCart AI.
+                      Your order has been placed successfully. Thank you for shopping with TechNest.
                     </p>
                   </div>
 
@@ -1144,7 +1144,7 @@ export default function App() {
             >
               <span className="material-symbols-outlined text-[28px] text-[#8A2BE2] group-hover:shadow-[0_0_15px_rgba(138,43,226,0.5)] rounded-lg transition-all duration-300" data-icon="deployed_code">deployed_code</span>
               <span className="font-bold">
-                SmartCart<span className="text-[#8A2BE2] text-[10px] uppercase align-super ml-1 border border-[#8A2BE2]/50 px-1 rounded shadow-[0_0_8px_rgba(138,43,226,0.3)] group-hover:border-[#8A2BE2] group-hover:shadow-[0_0_12px_rgba(138,43,226,0.6)] transition-all">AI</span>
+                TechNest<span className="text-[#8A2BE2] text-[10px] uppercase align-super ml-1 border border-[#8A2BE2]/50 px-1 rounded shadow-[0_0_8px_rgba(138,43,226,0.3)] group-hover:border-[#8A2BE2] group-hover:shadow-[0_0_12px_rgba(138,43,226,0.6)] transition-all">PRO</span>
               </span>
             </button>
             <div className="hidden md:flex gap-6">
@@ -1503,7 +1503,7 @@ export default function App() {
         </AnimatePresence>
 </main>
       {/* FOOTER */}
-      <footer className="bg-surface-container-highest border-t border-outline-variant/30 pt-20 pb-10 px-margin-mobile md:px-margin-desktop mt-auto">
+      <footer className="bg-[#050505]/40 backdrop-blur-xl border-t border-white/10 pt-20 pb-10 px-margin-mobile md:px-margin-desktop mt-auto relative z-10">
         <div className="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-outline-variant/30">
           
           {/* Col 1: Brand Details */}
@@ -1511,7 +1511,7 @@ export default function App() {
             <div className="flex items-center gap-2 cursor-pointer group" onClick={handleLogoClick}>
               <span className="material-symbols-outlined text-[32px] text-primary group-hover:text-[#8A2BE2] transition-colors" data-icon="deployed_code">deployed_code</span>
               <span className="font-headline-lg text-headline-lg tracking-tight text-primary group-hover:text-[#8A2BE2] transition-colors hidden sm:block">
-                SmartCart<span className="text-[#8A2BE2] text-[12px] uppercase align-super ml-1 border border-[#8A2BE2] px-1 rounded">AI</span>
+                TechNest<span className="text-[#8A2BE2] text-[12px] uppercase align-super ml-1 border border-[#8A2BE2] px-1 rounded">PRO</span>
               </span>
             </div>
             <p className="font-body-md text-[14px] text-on-surface-variant leading-relaxed">
@@ -1545,7 +1545,7 @@ export default function App() {
                 <button onClick={() => { navigate('/about'); setSelectedProductId(null); }} className="hover:text-primary transition-colors cursor-pointer">About Us</button>
               </li>
               <li>
-                <button onClick={() => showToast("Contact us at support@smartcart.com", "info")} className="hover:text-primary transition-colors cursor-pointer">Contact Support</button>
+                <button onClick={() => showToast("Contact us at support@technest.com", "info")} className="hover:text-primary transition-colors cursor-pointer">Contact Support</button>
               </li>
             </ul>
           </div>
@@ -1556,7 +1556,7 @@ export default function App() {
             <ul className="space-y-4 font-body-md text-[14px] text-on-surface-variant">
               <li className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-[18px]" data-icon="mail">mail</span>
-                <a href="mailto:support@smartcart.com" className="hover:text-primary transition-colors">support@smartcart.com</a>
+                <a href="mailto:support@technest.com" className="hover:text-primary transition-colors">support@technest.com</a>
               </li>
               <li className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-[18px]" data-icon="phone_in_talk">phone_in_talk</span>
@@ -1602,7 +1602,7 @@ export default function App() {
 
         {/* Bottom footer copyright details */}
         <div className="max-w-container-max mx-auto pt-8 flex flex-col sm:flex-row items-center justify-between font-mono-technical text-[10px] text-on-surface-variant gap-4">
-          <p>© {new Date().getFullYear()} SmartCart AI Platform. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} TechNest Platform. All rights reserved.</p>
           <div className="flex gap-4">
             <span className="hover:text-primary cursor-pointer transition-colors">Privacy Policy</span>
             <span className="hover:text-primary cursor-pointer transition-colors">Terms of Service</span>
