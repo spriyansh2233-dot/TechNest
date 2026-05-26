@@ -1,0 +1,188 @@
+Simple AI-Assisted E-Commerce Platform - PRD
+1. Product Overview
+Product Name
+
+SmartCart
+
+Description
+
+SmartCart is a simple e-commerce web application that helps users browse, search, and purchase products online. The platform includes basic AI-assisted features like product recommendations and chatbot support to improve user experience.
+
+The goal is to create a beginner-friendly but professional full-stack project suitable for placements and resume building.
+
+2. Main Goals
+Allow users to buy products online easily
+Provide personalized product suggestions
+Enable secure payments and order tracking
+Build a responsive and user-friendly platform
+Add basic AI functionality without overcomplicating the system
+3. Target Users
+College students
+General online shoppers
+Small product sellers
+4. Core Features
+1. User Authentication
+Features
+Signup/Login
+JWT authentication
+Forgot password
+2. Product Catalog
+Features
+View all products
+Product details page
+Categories
+Search functionality
+Filter by price/category
+3. Shopping Cart & Checkout
+Features
+Add to cart
+Remove items
+Update quantity
+Checkout system
+4. Payment Integration
+Features
+Online payment gateway
+Order confirmation
+Payment status
+
+Use:
+
+Razorpay
+5. Order Tracking
+Features
+View order history
+Track order status
+Cancel order
+6. Simple AI Features
+AI Product Recommendations
+
+Show:
+
+Similar products
+Frequently bought items
+Recommended products based on category
+
+You do NOT need deep machine learning initially. Simple logic works:
+
+“People who bought this also viewed”
+Category-based suggestions
+Recently viewed products
+
+This already counts as “AI-assisted” in many college projects because the industry itself sometimes renames sorting algorithms as intelligence. Civilization is fragile.
+
+7. AI Chatbot (Simple)
+Features
+Answer FAQs
+Help users navigate
+Return/refund guidance
+
+You can integrate:
+
+OpenAI API
+OR
+Simple predefined chatbot responses
+5. Tech Stack
+Frontend
+React
+Tailwind CSS
+Backend
+Spring Boot
+Database
+MySQL
+Deployment
+Render / Railway / Vercel
+6. Database Tables
+Users
+id
+name
+email
+password
+Products
+id
+name
+description
+category
+price
+stock
+Cart
+id
+user_id
+product_id
+quantity
+Orders
+id
+user_id
+total_price
+payment_status
+7. APIs Required
+Auth APIs
+Register
+Login
+Product APIs
+Get products
+Search products
+Filter products
+Cart APIs
+Add/remove cart items
+Order APIs
+Place order
+View orders
+8. UI Pages
+Home Page
+Login/Register
+Product Listing
+Product Details
+Cart
+Checkout
+User Dashboard
+Admin Dashboard
+9. Admin Features
+Add/Edit/Delete products
+Manage orders
+Manage users
+View sales
+10. Security Features
+Password hashing
+JWT authentication
+Secure payment gateway
+API validation
+11. Success Metrics
+Number of users
+Orders placed
+Cart conversion rate
+User engagement
+12. Future Improvements
+
+Later you can add:
+
+Better recommendation engine
+Voice search
+Seller dashboard
+Wishlist
+Reviews & ratings
+AI image search
+13. Development Roadmap
+Phase 1
+Authentication
+Product pages
+Cart system
+Phase 2
+Checkout & payments
+Order management
+Phase 3
+Recommendations
+Chatbot
+Phase 4
+Deployment & optimization
+Best Placement Strategy
+
+For your resume/interviews:
+
+Focus on clean UI
+Proper backend structure
+Secure authentication
+REST APIs
+Database relationships
+Deployment
+
+These matter MORE than “advanced AI.”

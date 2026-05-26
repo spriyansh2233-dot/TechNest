@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: SmartCart
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/smartcart?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:priyansh9977}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # In production, use 'validate' or Flyway/Liquibase
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: 8081
+
+jwt:
+  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970} # Replace with a secure 256-bit random key in production
+  expiration: 86400000 # 24 hours in ms
+
+cloudinary:
+  cloud-name: ${CLOUDINARY_CLOUD_NAME:smartcart-demo}
+  api-key: ${CLOUDINARY_API_KEY:123456789012345}
+  api-secret: ${CLOUDINARY_API_SECRET:abcdefghijklmnopqrstuvwxyz1}
+
+razorpay:
+  key-id: ${RAZORPAY_KEY_ID:rzp_test_dummyId}
+  key-secret: ${RAZORPAY_KEY_SECRET:dummySecretValue}
+

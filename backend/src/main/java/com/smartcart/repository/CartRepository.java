@@ -1,0 +1,11 @@
+package com.smartcart.repository;
+
+import com.smartcart.entity.Cart;
+import com.smartcart.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface CartRepository extends JpaRepository<Cart, Long> {
+    Optional<Cart> findByUser(User user);
+}
