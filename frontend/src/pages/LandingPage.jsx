@@ -197,7 +197,7 @@ export default function LandingPage({
 
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 relative z-10">
           <div>
-            <h2 className="font-headline-xl text-headline-xl text-primary mb-2">Explore by Category</h2>
+            <h2 className="font-headline-xl text-headline-xl text-white mb-2">Explore by Category</h2>
             <p className="font-body-md text-body-md text-on-surface-variant">Discover premium tech curated for modern lifestyles.</p>
           </div>
         </div>
@@ -228,7 +228,7 @@ export default function LandingPage({
               {/* Bottom Content Overlay */}
               <div className="relative z-10 flex items-end justify-between w-full gap-4 mt-auto">
                 <div className="text-left">
-                  <h3 className="font-headline-lg text-[20px] text-primary mb-1 font-bold group-hover:text-primary transition-colors">
+                  <h3 className="font-headline-lg text-[20px] text-white mb-1 font-bold group-hover:text-white transition-colors">
                     {cat.name}
                   </h3>
                   <p className="font-body-md text-[13px] text-on-surface-variant group-hover:text-primary/90 transition-colors leading-snug">
@@ -252,11 +252,11 @@ export default function LandingPage({
         <div className="mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#8A2BE2]/30 bg-[#8A2BE2]/5 mb-4">
             <span className="material-symbols-outlined text-[#8A2BE2] text-[14px]" data-icon="auto_awesome">auto_awesome</span>
-            <span className="font-label-caps text-[10px] text-primary uppercase tracking-widest">
+            <span className="font-label-caps text-[10px] text-[#a855f7] font-semibold uppercase tracking-widest">
               {personalRecommendations && personalRecommendations.length > 0 ? "Personalized" : "Trending Now"}
             </span>
           </div>
-          <h2 className="font-headline-lg text-headline-lg text-primary mb-2">Recommended for You</h2>
+          <h2 className="font-headline-lg text-headline-lg text-white mb-2">Recommended for You</h2>
           <p className="font-body-md text-body-md text-on-surface-variant">
             {personalRecommendations && personalRecommendations.length > 0 
               ? "Products inspired by your shopping trends." 
@@ -315,7 +315,7 @@ export default function LandingPage({
                 <span className="material-symbols-outlined text-[#8A2BE2] text-[14px]" data-icon="history">history</span>
                 <span className="font-label-caps text-[10px] text-primary uppercase tracking-widest">History</span>
               </div>
-              <h2 className="font-headline-lg text-headline-lg text-primary mb-2">Recently Viewed</h2>
+              <h2 className="font-headline-lg text-headline-lg text-white mb-2">Recently Viewed</h2>
               <p className="font-body-md text-body-md text-on-surface-variant">Pick up where you left off.</p>
             </div>
             
