@@ -60,7 +60,7 @@ export default function QuickViewModal({
                 
                 {product.discount > 0 && (
                   <div className="absolute top-4 left-4 bg-error/10 border border-error/20 text-error font-mono-technical text-[10px] px-2 py-1 rounded shadow-[0_0_10px_rgba(239,68,68,0.15)]">
-                    SAVE ${product.discount.toFixed(2)}
+                    SAVE ₹{product.discount.toFixed(2)}
                   </div>
                 )}
               </div>
@@ -93,13 +93,21 @@ export default function QuickViewModal({
                 {/* Ratings */}
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex text-amber-400 text-[12px]">
-                    <Star className="fill-current" size={14} />
-                    <Star className="fill-current" size={14} />
-                    <Star className="fill-current" size={14} />
-                    <Star className="fill-current" size={14} />
-                    <Star className="fill-current opacity-50" size={14} />
+                    {Array.from({ length: 5 }).map((_, idx) => {
+                      const ratingVal = product.rating ? product.rating : (4.5 + (product.id % 5) * 0.1);
+                      const starIndex = idx + 1;
+                      if (ratingVal >= starIndex) {
+                        return <Star key={idx} className="fill-current" size={14} />;
+                      } else if (ratingVal >= starIndex - 0.5) {
+                        return <Star key={idx} className="fill-current opacity-75" size={14} />;
+                      } else {
+                        return <Star key={idx} className="opacity-20" size={14} />;
+                      }
+                    })}
                   </div>
-                  <span className="font-mono-technical text-[11px] text-on-surface-variant">4.7 (98 reviews)</span>
+                  <span className="font-mono-technical text-[11px] text-on-surface-variant">
+                    {(product.rating ? product.rating : (4.5 + (product.id % 5) * 0.1)).toFixed(1)} ({20 + (product.id % 7) * 47} reviews)
+                  </span>
                 </div>
 
                 {(() => {
@@ -151,11 +159,11 @@ export default function QuickViewModal({
                 {/* Price Display */}
                 <div className="flex items-baseline gap-4 mb-6">
                   <span className="font-mono-technical text-[28px] text-primary font-bold">
-                    ${finalPrice.toFixed(2)}
+                    ₹{finalPrice.toFixed(2)}
                   </span>
                   {product.discount > 0 && (
                     <span className="font-mono-technical text-[16px] text-on-surface-variant line-through">
-                      ${product.price.toFixed(2)}
+                      ₹{product.price.toFixed(2)}
                     </span>
                   )}
                 </div>

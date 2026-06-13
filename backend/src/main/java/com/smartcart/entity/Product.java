@@ -37,6 +37,10 @@ public class Product {
     @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
 
+    private String brand;
+
+    private Double rating;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 }

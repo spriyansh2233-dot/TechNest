@@ -395,7 +395,7 @@ export default function LandingPage({
               <div className="flex items-center gap-3 mb-6">
                 <span className="material-symbols-outlined text-[#8A2BE2] text-[28px] animate-pulse">headphones</span>
                 <div>
-                  <h3 className="font-headline-lg text-[22px] text-primary font-bold">Sonic Pro ANC</h3>
+                  <h3 className="font-headline-lg text-[22px] text-primary font-bold">Nova Sonic ANC</h3>
                   <p className="font-mono-technical text-[10px] text-on-surface-variant uppercase tracking-wider">Acoustic Engineering Specs</p>
                 </div>
               </div>

@@ -22,7 +22,8 @@ public class CartService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
-    public CartService(CartRepository cartRepository, UserRepository userRepository, ProductRepository productRepository) {
+    public CartService(CartRepository cartRepository, UserRepository userRepository,
+            ProductRepository productRepository) {
         this.cartRepository = cartRepository;
         this.userRepository = userRepository;
         this.productRepository = productRepository;

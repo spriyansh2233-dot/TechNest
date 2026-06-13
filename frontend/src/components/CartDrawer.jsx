@@ -86,7 +86,7 @@ export default function CartDrawer({
                             </button>
                           </div>
                           <span className="font-mono-technical text-[16px] text-primary block mt-1">
-                            ${(item.product.discount > 0 ? item.product.price - item.product.discount : item.product.price).toFixed(2)}
+                            ₹{(item.product.discount > 0 ? item.product.price - item.product.discount : item.product.price).toFixed(2)}
                           </span>
                         </div>
                         
@@ -124,15 +124,15 @@ export default function CartDrawer({
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between font-body-md text-[14px] text-on-surface-variant">
                     <span>Subtotal</span>
-                    <span className="font-mono-technical">${subtotal.toFixed(2)}</span>
+                    <span className="font-mono-technical">₹{subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between font-body-md text-[14px] text-on-surface-variant">
                     <span>Tax (8%)</span>
-                    <span className="font-mono-technical">${tax.toFixed(2)}</span>
+                    <span className="font-mono-technical">₹{tax.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between font-body-lg text-[18px] text-primary pt-3 border-t border-outline-variant/20 font-bold">
                     <span>Total</span>
-                    <span className="font-mono-technical">${total.toFixed(2)}</span>
+                    <span className="font-mono-technical">₹{total.toFixed(2)}</span>
                   </div>
                 </div>
                 

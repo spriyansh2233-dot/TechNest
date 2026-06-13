@@ -120,7 +120,7 @@ export default function App() {
   // Filter States
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [priceRange, setPriceRange] = useState(1500);
+  const [priceRange, setPriceRange] = useState(30000);
 
   // Premium UX states
   const [loadingProducts, setLoadingProducts] = useState(true);

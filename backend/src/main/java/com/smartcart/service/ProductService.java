@@ -54,6 +54,8 @@ public class ProductService {
         product.setDiscount(productDetails.getDiscount());
         product.setStock(productDetails.getStock());
         product.setCategory(productDetails.getCategory());
+        product.setBrand(productDetails.getBrand());
+        product.setRating(productDetails.getRating());
         if (productDetails.getImageUrl() != null) {
             product.setImageUrl(productDetails.getImageUrl());
         }

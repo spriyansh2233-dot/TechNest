@@ -12,8 +12,8 @@ export default function ProductCard({
   onToggleWishlist,
   onQuickView // New callback prop
 }) {
-  // Stable ratings generated based on product ID
-  const rating = (4.5 + (prod.id % 5) * 0.1).toFixed(1);
+  // Stable ratings generated based on product ID (fallback if database rating is empty)
+  const rating = prod.rating ? prod.rating.toFixed(1) : (4.5 + (prod.id % 5) * 0.1).toFixed(1);
   const reviewsCount = 20 + (prod.id % 7) * 47;
 
   // Extract Short Specs from description
@@ -94,7 +94,7 @@ export default function ProductCard({
 
         {prod.discount > 0 && (
           <div className="absolute bottom-0 right-0 bg-error/10 border border-error/20 text-error font-mono-technical text-[10px] px-2 py-1 rounded shadow-[0_0_15px_rgba(239,68,68,0.2)]">
-            SAVE ${prod.discount.toFixed(2)}
+            SAVE ₹{prod.discount.toFixed(2)}
           </div>
         )}
       </div>
@@ -123,11 +123,11 @@ export default function ProductCard({
 
         <div className="flex justify-between items-end mb-4">
           <span className="font-mono-technical text-[18px] text-primary font-bold">
-            ${prod.discount > 0 ? (prod.price - prod.discount).toFixed(2) : prod.price.toFixed(2)}
+            ₹{prod.discount > 0 ? (prod.price - prod.discount).toFixed(2) : prod.price.toFixed(2)}
           </span>
           {prod.discount > 0 && (
             <span className="font-mono-technical text-[12px] text-on-surface-variant line-through block">
-              ${prod.price.toFixed(2)}
+              ₹{prod.price.toFixed(2)}
             </span>
           )}
         </div>

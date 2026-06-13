@@ -1,0 +1,389 @@
+{
+  "incorrectMappings": [
+    {
+      "id": 20,
+      "name": "Nova Sonic ANC",
+      "currentImage": "/images/products/headphone-stand.png",
+      "intendedType": "headphones",
+      "isCorrect": false
+    },
+    {
+      "id": 21,
+      "name": "Nova Echo Air",
+      "currentImage": "/images/products/earbuds/earbuds 1.jpg",
+      "intendedType": "earbuds",
+      "isCorrect": false
+    },
+    {
+      "id": 22,
+      "name": "Nova Pulse ANC",
+      "currentImage": "/images/products/headphones/hp 1.jpg",
+      "intendedType": "headphones",
+      "isCorrect": false
+    },
+    {
+      "id": 23,
+      "name": "Nova Resonance Pro",
+      "currentImage": "/images/products/headphones/hp2.jpg",
+      "intendedType": "headphones",
+      "isCorrect": false
+    },
+    {
+      "id": 24,
+      "name": "Nova Wave Studio",
+      "currentImage": "/images/products/headphones/hp3.jpg",
+      "intendedType": "headphones",
+      "isCorrect": false
+    },
+    {
+      "id": 25,
+      "name": "Nova Orbit Max",
+      "currentImage": "/images/products/headphones/hp4.jpg",
+      "intendedType": "headphones",
+      "isCorrect": false
+    },
+    {
+      "id": 26,
+      "name": "Nova AeroBeat",
+      "currentImage": "/images/products/earbuds/earbuds 2.jpg",
+      "intendedType": "earbuds",
+      "isCorrect": false
+    },
+    {
+      "id": 27,
+      "name": "Nova SyncPods Elite",
+      "currentImage": "/images/products/earbuds/earbuds 3.jpg",
+      "intendedType": "earbuds",
+      "isCorrect": false
+    },
+    {
+      "id": 28,
+      "name": "Nova Soundstage Pro",
+      "currentImage": "/images/products/speaker/speaker.jpg",
+      "intendedType": "speaker",
+      "isCorrect": false
+    },
+    {
+      "id": 29,
+      "name": "Nova StreamCast Mic",
+      "currentImage": "/images/products/headphones/hp5.jpg",
+      "intendedType": "microphone",
+      "isCorrect": false
+    },
+    {
+      "id": 30,
+      "name": "Nova EchoSphere Speaker",
+      "currentImage": "/images/products/speaker/speaker1.jpg",
+      "intendedType": "speaker",
+      "isCorrect": false
+    },
+    {
+      "id": 31,
+      "name": "Nova RaveBox",
+      "currentImage": "/images/products/speaker/speaker2.jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 32,
+      "name": "Nova Monitor 5",
+      "currentImage": "/images/products/speaker/speaker3.jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 33,
+      "name": "Nova PurePods",
+      "currentImage": "/images/products/earbuds/earbuds 4.jpg",
+      "intendedType": "earbuds",
+      "isCorrect": false
+    },
+    {
+      "id": 34,
+      "name": "Nova AirFlow",
+      "currentImage": "/images/products/headphones/hp6.jpg",
+      "intendedType": "headphones",
+      "isCorrect": false
+    },
+    {
+      "id": 35,
+      "name": "Nova Clarity Bud",
+      "currentImage": "/images/products/earbuds/earbuds 5.jpg",
+      "intendedType": "earbuds",
+      "isCorrect": false
+    },
+    {
+      "id": 36,
+      "name": "Nova Symphony One",
+      "currentImage": "/images/products/headphones/hp7.jpg",
+      "intendedType": "headphones",
+      "isCorrect": false
+    },
+    {
+      "id": 37,
+      "name": "Nova BeatBuds",
+      "currentImage": "/images/products/earbuds/earbuds 6.jpg",
+      "intendedType": "earbuds",
+      "isCorrect": false
+    },
+    {
+      "id": 38,
+      "name": "Nova Horizon Watch",
+      "currentImage": "/images/products/smartwatch/sw 1.jpg",
+      "intendedType": "smartwatch",
+      "isCorrect": false
+    },
+    {
+      "id": 39,
+      "name": "Nova Apex Fit",
+      "currentImage": "/images/products/smartwatch/sw.jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 40,
+      "name": "Nova Chronos X",
+      "currentImage": "/images/products/smart-device/Central smart home hub connecting all Zigbee and Thread smart devices locally. 2.jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 41,
+      "name": "Nova Motion Pro",
+      "currentImage": "/images/products/smart-device/Central smart home hub connecting all Zigbee and Thread smart devices locally..jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 42,
+      "name": "Nova Elevate Ultra",
+      "currentImage": "/images/products/smart-device/Compact motion sensor detecting movement up to 7 metres with 170-degree range..jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 43,
+      "name": "Nova Active Pulse",
+      "currentImage": "/images/products/smart-device/Compact smart plug with power consumption monitoring and scheduled timers..jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 44,
+      "name": "Nova Zenith Watch",
+      "currentImage": "/images/products/smartwatch/sw2.jpg",
+      "intendedType": "smartwatch",
+      "isCorrect": false
+    },
+    {
+      "id": 45,
+      "name": "Nova Aura Ring",
+      "currentImage": "/images/products/smart-device/Compact smart plug with power consumption monitoring and scheduled timers..jpg",
+      "intendedType": "smartring",
+      "isCorrect": false
+    },
+    {
+      "id": 46,
+      "name": "Nova FitBand Lite",
+      "currentImage": "/images/products/smartwatch/sw3.jpg",
+      "intendedType": "smartwatch",
+      "isCorrect": false
+    },
+    {
+      "id": 47,
+      "name": "Nova Aero Tracker",
+      "currentImage": "/images/products/smartwatch/sw4.jpg",
+      "intendedType": "smartwatch",
+      "isCorrect": false
+    },
+    {
+      "id": 48,
+      "name": "Nova Chronos Classic",
+      "currentImage": "/images/products/smart-device/Intelligent thermostat featuring automatic schedule learning and geofencing..jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 49,
+      "name": "Nova Horizon Lite",
+      "currentImage": "/images/products/smart-device/Interlinked smart smoke and carbon monoxide detector sending real-time alerts..jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 50,
+      "name": "Nova Luxe Smartwatch",
+      "currentImage": "/images/products/smartwatch/sw5.jpg",
+      "intendedType": "smartwatch",
+      "isCorrect": false
+    },
+    {
+      "id": 51,
+      "name": "Nova Ring Pro",
+      "currentImage": "/images/products/smart-device/Intelligent thermostat featuring automatic schedule learning and geofencing..jpg",
+      "intendedType": "smartring",
+      "isCorrect": false
+    },
+    {
+      "id": 52,
+      "name": "Nova Zenith Fit",
+      "currentImage": "/images/products/smartwatch/sw6.jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 63,
+      "name": "Nova Aegis Gaming Headset",
+      "currentImage": "/images/products/smart-device/Modern flush-mount ambient smart ceiling panel with adjustable white tones..jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 64,
+      "name": "Nova SpectraVision 27",
+      "currentImage": "/images/products/monitor.png",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 66,
+      "name": "Nova Strike Mechanical",
+      "currentImage": "/images/products/smart-device/Nova Guardian Cam.jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 84,
+      "name": "Nova FlexLink Cable",
+      "currentImage": "/images/products/charger/cable 2.jpg",
+      "intendedType": "cable",
+      "isCorrect": false
+    },
+    {
+      "id": 85,
+      "name": "Nova PowerVault 10K",
+      "currentImage": "/images/products/charger/powerbank.png",
+      "intendedType": "powerbank",
+      "isCorrect": false
+    },
+    {
+      "id": 86,
+      "name": "Nova Dock Pro",
+      "currentImage": "/images/products/charger/8in1 docking station.jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 87,
+      "name": "Nova AirStand Qi",
+      "currentImage": "/images/products/charger/5in 1 charger.jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 88,
+      "name": "Nova PowerVault 20K",
+      "currentImage": "/images/products/charger/powervault.jpg",
+      "intendedType": "powerbank",
+      "isCorrect": false
+    },
+    {
+      "id": 90,
+      "name": "Nova BaseStation Stand",
+      "currentImage": "/images/products/earbuds/earbuds 7.jpg",
+      "intendedType": "earbuds",
+      "isCorrect": false
+    },
+    {
+      "id": 91,
+      "name": "Nova FlexLink Micro",
+      "currentImage": "/images/products/headphones/hp8.jpg",
+      "intendedType": "microphone",
+      "isCorrect": false
+    },
+    {
+      "id": 92,
+      "name": "Nova MagMount Car",
+      "currentImage": "/images/products/charger/Magnetic air-vent car mount with integrated 15W wireless fast charger..jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 94,
+      "name": "Nova FlexLink Lightning",
+      "currentImage": "/images/products/charger/cable 3.jpg",
+      "intendedType": "cable",
+      "isCorrect": false
+    },
+    {
+      "id": 95,
+      "name": "Nova Travel Charge Hub",
+      "currentImage": "/images/products/charger/8in1 docking station.jpg",
+      "intendedType": "dock",
+      "isCorrect": false
+    },
+    {
+      "id": 96,
+      "name": "Nova DeskMat Ambient",
+      "currentImage": "/images/products/charger/deskmat ambient.jpg",
+      "intendedType": "other",
+      "isCorrect": false
+    },
+    {
+      "id": 97,
+      "name": "Nova PowerVault Mini",
+      "currentImage": "/images/products/charger/powerbank.png",
+      "intendedType": "powerbank",
+      "isCorrect": false
+    },
+    {
+      "id": 98,
+      "name": "Nova MultiLink Hub 5-in-1",
+      "currentImage": "/images/products/charger/8in1 docking station.jpg",
+      "intendedType": "dock",
+      "isCorrect": false
+    }
+  ],
+  "duplicateList": [
+    [
+      "/images/products/smart-device/Central smart home hub connecting all Zigbee and Thread smart devices locally. 2.jpg",
+      2
+    ],
+    [
+      "/images/products/smart-device/Central smart home hub connecting all Zigbee and Thread smart devices locally..jpg",
+      2
+    ],
+    [
+      "/images/products/smart-device/Compact motion sensor detecting movement up to 7 metres with 170-degree range..jpg",
+      2
+    ],
+    [
+      "/images/products/smart-device/Compact smart plug with power consumption monitoring and scheduled timers..jpg",
+      3
+    ],
+    [
+      "/images/products/smart-device/Intelligent thermostat featuring automatic schedule learning and geofencing..jpg",
+      2
+    ],
+    [
+      "/images/products/smart-device/Nova Guardian Cam.jpg",
+      2
+    ],
+    [
+      "/images/products/smart-device/Smart doorbell featuring two-way audio, custom quick replies, and human detection..jpg",
+      2
+    ],
+    [
+      "/images/products/smart-device/Weather-proof wireless outdoor camera with rechargeable battery and solar panel support..jpg",
+      2
+    ],
+    [
+      "/images/products/charger/powerbank.png",
+      2
+    ],
+    [
+      "/images/products/charger/8in1 docking station.jpg",
+      3
+    ]
+  ]
+}

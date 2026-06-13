@@ -109,7 +109,7 @@ export default function Shop({
               </span>
             )}
             <button 
-              onClick={() => { setSearchTerm(''); setSelectedCategory('All'); setPriceRange(1500); }}
+              onClick={() => { setSearchTerm(''); setSelectedCategory('All'); setPriceRange(30000); }}
               className="text-[10px] text-on-surface-variant hover:text-error font-label-caps uppercase tracking-widest transition-colors cursor-pointer"
             >
               Clear All
@@ -136,7 +136,7 @@ export default function Shop({
                     : 'No products available in this category right now.'}
                 </p>
                 <button 
-                  onClick={() => { setSearchTerm(''); setSelectedCategory('All'); setPriceRange(1500); }}
+                  onClick={() => { setSearchTerm(''); setSelectedCategory('All'); setPriceRange(30000); }}
                   className="px-6 py-3 bg-primary text-surface font-label-caps text-[11px] uppercase tracking-widest rounded-xl hover:bg-primary/90 shadow-[0_0_15px_rgba(138,43,226,0.3)] transition-all cursor-pointer font-bold"
                 >
                   Browse All Products

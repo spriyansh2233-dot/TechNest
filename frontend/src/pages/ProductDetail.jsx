@@ -66,7 +66,7 @@ export default function ProductDetail({
               />
               {selectedProduct.discount > 0 && (
                 <div className="absolute top-8 left-8 bg-error/10 border border-error/20 text-error font-mono-technical text-[12px] px-3 py-1 rounded shadow-[0_0_15px_rgba(239,68,68,0.2)]">
-                  SAVE ${selectedProduct.discount.toFixed(2)}
+                  SAVE ₹{selectedProduct.discount.toFixed(2)}
                 </div>
               )}
             </div>
@@ -107,13 +107,21 @@ export default function ProductDetail({
             
             <div className="flex items-center gap-4 mb-6">
               <div className="flex text-amber-400 text-[14px]">
-                <span className="material-symbols-outlined fill-current" data-icon="star">star</span>
-                <span className="material-symbols-outlined fill-current" data-icon="star">star</span>
-                <span className="material-symbols-outlined fill-current" data-icon="star">star</span>
-                <span className="material-symbols-outlined fill-current" data-icon="star">star</span>
-                <span className="material-symbols-outlined" data-icon="star_half">star_half</span>
+                {Array.from({ length: 5 }).map((_, idx) => {
+                  const ratingVal = selectedProduct.rating ? selectedProduct.rating : (4.5 + (selectedProduct.id % 5) * 0.1);
+                  const starIndex = idx + 1;
+                  if (ratingVal >= starIndex) {
+                    return <span key={idx} className="material-symbols-outlined fill-current" data-icon="star">star</span>;
+                  } else if (ratingVal >= starIndex - 0.5) {
+                    return <span key={idx} className="material-symbols-outlined fill-current" data-icon="star_half">star_half</span>;
+                  } else {
+                    return <span key={idx} className="material-symbols-outlined" data-icon="star_outline">star_outline</span>;
+                  }
+                })}
               </div>
-              <span className="font-mono-technical text-[12px] text-on-surface-variant underline decoration-outline-variant/30 underline-offset-4">4.8 (124 Reviews)</span>
+              <span className="font-mono-technical text-[12px] text-on-surface-variant underline decoration-outline-variant/30 underline-offset-4">
+                {(selectedProduct.rating ? selectedProduct.rating : (4.5 + (selectedProduct.id % 5) * 0.1)).toFixed(1)} ({20 + (selectedProduct.id % 7) * 47} Reviews)
+              </span>
             </div>
 
             {(() => {
@@ -148,11 +156,11 @@ export default function ProductDetail({
               <div className="flex items-end gap-6 mb-6">
                 {selectedProduct.discount > 0 ? (
                   <div className="flex flex-col">
-                    <span className="font-mono-technical text-[14px] text-on-surface-variant line-through mb-1 block">${selectedProduct.price.toFixed(2)}</span>
-                    <span className="font-mono-technical text-[32px] text-primary block leading-none">${(selectedProduct.price - selectedProduct.discount).toFixed(2)}</span>
+                    <span className="font-mono-technical text-[14px] text-on-surface-variant line-through mb-1 block">₹{selectedProduct.price.toFixed(2)}</span>
+                    <span className="font-mono-technical text-[32px] text-primary block leading-none">₹{(selectedProduct.price - selectedProduct.discount).toFixed(2)}</span>
                   </div>
                 ) : (
-                  <span className="font-mono-technical text-[32px] text-primary block leading-none">${selectedProduct.price.toFixed(2)}</span>
+                  <span className="font-mono-technical text-[32px] text-primary block leading-none">₹{selectedProduct.price.toFixed(2)}</span>
                 )}
                 <span className={`font-label-caps text-[10px] uppercase tracking-widest mb-1 ${selectedProduct.stock > 0 ? 'text-emerald-400' : 'text-error'}`}>
                   {selectedProduct.stock > 0 ? 'In Stock' : 'Out of Stock'}

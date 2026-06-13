@@ -91,7 +91,7 @@ export default function MyOrdersPage({
                   </div>
                   <div>
                     <span className="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest block mb-1 font-semibold">Total Cost</span>
-                    <span className="font-mono-technical text-[13px] text-primary font-bold">${order.totalAmount.toFixed(2)}</span>
+                    <span className="font-mono-technical text-[13px] text-primary font-bold">₹{order.totalAmount.toFixed(2)}</span>
                   </div>
                   <div>
                     <span className="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest block mb-1 font-semibold">Payment Status</span>
@@ -129,7 +129,7 @@ export default function MyOrdersPage({
                       <p className="font-body-md text-[11px] text-on-surface-variant mt-0.5">Quantity: {item.quantity}</p>
                     </div>
                     <span className="font-mono-technical text-[13px] text-primary font-semibold flex-shrink-0">
-                      ${(item.priceAtPurchase * item.quantity).toFixed(2)}
+                      ₹{(item.priceAtPurchase * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 ))}

@@ -72,7 +72,7 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
                     {order.items?.map((item) => (
                       <div key={`orderItem-${item.id}`} className="flex justify-between items-center">
                         <span className="font-body-md text-[14px] text-on-surface-variant line-clamp-1 w-2/3">{item.product.name} (x{item.quantity})</span>
-                        <span className="font-mono-technical text-[14px] text-primary">${(item.priceAtPurchase * item.quantity).toFixed(2)}</span>
+                        <span className="font-mono-technical text-[14px] text-primary">₹{(item.priceAtPurchase * item.quantity).toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
@@ -80,7 +80,7 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
                     <div>
                       <span className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest block mb-1">Order Total</span>
-                      <span className="font-mono-technical text-[18px] text-primary">${order.totalAmount.toFixed(2)}</span>
+                      <span className="font-mono-technical text-[18px] text-primary">₹{order.totalAmount.toFixed(2)}</span>
                     </div>
 
                     <div className="flex items-center gap-3">

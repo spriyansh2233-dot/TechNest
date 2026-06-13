@@ -106,7 +106,7 @@ export default function AdminDashboard({
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest block mb-2">Price ($)</label>
+                  <label className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest block mb-2">Price (₹)</label>
                   <input 
                     type="number" 
                     step="0.01" 
@@ -124,7 +124,7 @@ export default function AdminDashboard({
                   />
                 </div>
                 <div>
-                  <label className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest block mb-2">Discount ($)</label>
+                  <label className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest block mb-2">Discount (₹)</label>
                   <input 
                     type="number" 
                     step="0.01" 
@@ -290,9 +290,9 @@ export default function AdminDashboard({
                         <span className="font-mono-technical text-[10px] text-on-surface-variant">{prod.category}</span>
                       </td>
                       <td className="p-4 font-mono-technical text-[14px] text-primary">
-                        ${prod.price.toFixed(2)}
+                        ₹{prod.price.toFixed(2)}
                         {prod.discount > 0 && (
-                          <span className="block text-[10px] text-error">-${prod.discount.toFixed(2)}</span>
+                          <span className="block text-[10px] text-error">-₹{prod.discount.toFixed(2)}</span>
                         )}
                       </td>
                       <td className="p-4">
@@ -377,7 +377,7 @@ export default function AdminDashboard({
                     {order.items?.map((item) => (
                       <div key={`adminOrderItem-${item.id}`} className="flex justify-between font-body-md text-[14px] text-on-surface-variant">
                         <span className="line-clamp-1 w-3/4">• {item.product.name} (x{item.quantity})</span>
-                        <span className="font-mono-technical text-primary">${(item.priceAtPurchase * item.quantity).toFixed(2)}</span>
+                        <span className="font-mono-technical text-primary">₹{(item.priceAtPurchase * item.quantity).toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
@@ -385,7 +385,7 @@ export default function AdminDashboard({
                   <div className="flex items-center justify-between gap-4 pt-2 flex-wrap">
                     <div>
                       <span className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest block mb-1">Order Total</span>
-                      <span className="font-mono-technical text-[18px] text-primary">${order.totalAmount.toFixed(2)}</span>
+                      <span className="font-mono-technical text-[18px] text-primary">₹{order.totalAmount.toFixed(2)}</span>
                     </div>
 
                     <div className="flex items-center gap-3">
