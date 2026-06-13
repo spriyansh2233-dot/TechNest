@@ -9,12 +9,12 @@ export default {
     extend: {
       colors: {
         "surface": "#FFFFFF",
-        "background": "#F8F9FB",
+        "background": "#F8F9FC",
         "primary": "#6D5DFC",
         "secondary": "#8B7CFF",
         "on-surface": "#111827",
         "on-background": "#111827",
-        "on-surface-variant": "#6B7280",
+        "on-surface-variant": "#4B5563",
         "outline": "#E5E7EB",
         "outline-variant": "#D1D5DB",
         "error": "#EF4444",

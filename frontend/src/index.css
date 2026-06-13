@@ -20,12 +20,12 @@
     direction: ltr;
 }
 
-/* Glassmorphic Cards */
+/* Glassmorphic Cards - Light Theme */
 .glass-card {
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(109, 93, 252, 0.08);
     border-radius: 0.75rem;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
@@ -33,7 +33,7 @@
 
 .glass-card:hover {
     border-color: rgba(109, 93, 252, 0.2);
-    box-shadow: 0 10px 25px -5px rgba(109, 93, 252, 0.15), 0 8px 10px -6px rgba(109, 93, 252, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(109, 93, 252, 0.12), 0 8px 10px -6px rgba(109, 93, 252, 0.08);
     transform: translateY(-2px);
 }
 
@@ -60,9 +60,14 @@
   background: rgba(109, 93, 252, 0.6);
 }
 
-/* Base body styles using vanilla CSS properties to ensure compile stability */
+/* Base body styles - Ambient Glow Light Theme */
 body {
-    background-color: #F8F9FB;
+    background-color: #F8F9FC;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(109, 93, 252, 0.04) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(139, 124, 255, 0.03) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(96, 165, 250, 0.03) 0px, transparent 50%);
+    background-attachment: fixed;
     color: #111827;
     min-height: 100vh;
     display: flex;
@@ -71,4 +76,42 @@ body {
     font-size: 16px;
     overflow-x: hidden;
     margin: 0;
+}
+
+/* Premium Refined Styles */
+.premium-navbar {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 249, 252, 0.9) 100%) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(109, 93, 252, 0.08) !important;
+    box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.03) !important;
+    transition: all 0.3s ease !important;
+}
+
+.premium-category-card {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(109, 93, 252, 0.06) !important;
+    box-shadow: 0px 8px 30px rgba(15, 23, 42, 0.03) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: 1.25rem !important;
+}
+
+.premium-category-card:hover {
+    box-shadow: 0px 20px 45px rgba(109, 93, 252, 0.1) !important;
+    border-color: rgba(109, 93, 252, 0.25) !important;
+    transform: translateY(-4px) scale(1.02) !important;
+}
+
+.premium-product-card {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(109, 93, 252, 0.06) !important;
+    box-shadow: 0px 8px 30px rgba(15, 23, 42, 0.02) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: 1.25rem !important;
+}
+
+.premium-product-card:hover {
+    box-shadow: 0px 20px 45px rgba(109, 93, 252, 0.08) !important;
+    border-color: rgba(109, 93, 252, 0.25) !important;
+    transform: translateY(-6px) scale(1.01) !important;
 }

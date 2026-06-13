@@ -157,7 +157,7 @@ export default function ProductDetail({
                 ) : (
                   <span className="font-mono-technical text-[32px] text-primary block leading-none">₹{selectedProduct.price?.toLocaleString()}</span>
                 )}
-                <span className={`font-label-caps text-[10px] uppercase tracking-widest mb-1 font-bold ${selectedProduct.stock > 0 ? (selectedProduct.stock <= 10 ? 'text-orange-500' : 'text-emerald-500') : 'text-error'}`}>
+                <span className={`font-label-caps text-[10px] uppercase tracking-widest mb-1 font-bold ${selectedProduct.stock > 0 ? (selectedProduct.stock <= 10 ? 'text-primary' : 'text-success') : 'text-error'}`}>
                   {selectedProduct.stock > 0 ? (selectedProduct.stock <= 10 ? `Only ${selectedProduct.stock} Left` : 'In Stock') : 'Out of Stock'}
                 </span>
               </div>
@@ -168,7 +168,7 @@ export default function ProductDetail({
                     {qtyInCart === 0 ? (
                       <button 
                         onClick={() => addToCart(selectedProduct)}
-                        className="flex-grow py-4 bg-primary text-surface font-label-caps text-[12px] uppercase tracking-widest rounded-xl hover:bg-primary/90 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer font-bold"
+                        className="flex-grow py-4 bg-primary text-white font-label-caps text-[12px] uppercase tracking-widest rounded-xl hover:bg-secondary transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer font-bold"
                       >
                         <span className="material-symbols-outlined text-[18px]" data-icon="shopping_cart">shopping_cart</span>
                         <span>Add to Cart</span>
@@ -199,7 +199,7 @@ export default function ProductDetail({
                   </div>
                   
                   {/* Delivery Estimation Badge */}
-                  <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-emerald-400 text-[12px] font-medium animate-fadeIn">
+                  <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-success/5 border border-success/20 text-success text-[12px] font-medium animate-fadeIn">
                     <span className="material-symbols-outlined text-[18px] animate-pulse">local_shipping</span>
                     <span>Free Delivery by <strong className="font-semibold text-primary">{getEstimatedDeliveryDate()}</strong></span>
                   </div>

@@ -5,16 +5,16 @@ export default function ProfilePage({ user, setUser, showToast }) {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: user?.name || '',
-    phone: localStorage.getItem(`technest_phone_${user?.email}`) || '+1 (555) 019-2834',
-    address: localStorage.getItem(`technest_address_${user?.email}`) || 'Sector 7G, Cyber City, CC 95014'
+    phone: localStorage.getItem(`techhub_phone_${user?.email}`) || '+1 (555) 019-2834',
+    address: localStorage.getItem(`techhub_address_${user?.email}`) || 'Sector 7G, Cyber City, CC 95014'
   });
 
   if (!user) return null;
 
   const handleSave = (e) => {
     e.preventDefault();
-    localStorage.setItem(`technest_phone_${user.email}`, formData.phone);
-    localStorage.setItem(`technest_address_${user.email}`, formData.address);
+    localStorage.setItem(`techhub_phone_${user.email}`, formData.phone);
+    localStorage.setItem(`techhub_address_${user.email}`, formData.address);
     
     // Update global user name if changed
     if (formData.name !== user.name) {
@@ -43,10 +43,10 @@ export default function ProfilePage({ user, setUser, showToast }) {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Avatar Sidebar */}
-        <div className="md:col-span-1 glass-card p-8 flex flex-col items-center text-center h-fit border border-white/10 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#8A2BE2] to-transparent"></div>
+        <div className="md:col-span-1 glass-card p-8 flex flex-col items-center text-center h-fit border border-outline relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-primary to-transparent"></div>
           
-          <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#8A2BE2]/20 to-primary/20 border-2 border-[#8A2BE2]/50 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(138,43,226,0.3)]">
+          <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary/20 to-secondary/20 border-2 border-primary/50 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(109,93,252,0.3)]">
             <span className="font-headline-xl text-[32px] text-primary font-bold tracking-wider">{getInitials(user.name)}</span>
           </div>
 
@@ -59,13 +59,13 @@ export default function ProfilePage({ user, setUser, showToast }) {
         </div>
 
         {/* Details Form Area */}
-        <div className="md:col-span-2 glass-card p-8 border border-white/10 relative">
-          <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
+        <div className="md:col-span-2 glass-card p-8 border border-outline relative">
+          <div className="flex justify-between items-center mb-8 border-b border-outline pb-4">
             <h3 className="font-headline-lg text-[18px] text-primary font-bold">Personal Details</h3>
             {!isEditing && (
               <button 
                 onClick={() => setIsEditing(true)}
-                className="px-4 py-2 border border-primary/30 hover:border-primary bg-primary/5 hover:bg-[#8A2BE2]/10 text-primary rounded-lg font-label-caps text-[11px] uppercase tracking-wider transition-all cursor-pointer font-semibold active:scale-95"
+                className="px-4 py-2 border border-primary/30 hover:border-primary bg-primary/5 hover:bg-primary/10 text-primary rounded-lg font-label-caps text-[11px] uppercase tracking-wider transition-all cursor-pointer font-semibold active:scale-95"
               >
                 Edit Profile
               </button>
@@ -82,7 +82,7 @@ export default function ProfilePage({ user, setUser, showToast }) {
                     required 
                     value={formData.name} 
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-[#141414] border border-white/10 rounded-lg p-3.5 font-body-md text-[14px] text-primary outline-none focus:border-[#8A2BE2] transition-colors"
+                    className="w-full bg-surface border border-outline rounded-lg p-3.5 font-body-md text-[14px] text-primary outline-none focus:border-primary transition-colors"
                   />
                 ) : (
                   <p className="font-body-lg text-[15px] text-primary font-medium py-2.5">{user.name}</p>
@@ -104,7 +104,7 @@ export default function ProfilePage({ user, setUser, showToast }) {
                     required 
                     value={formData.phone} 
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-[#141414] border border-white/10 rounded-lg p-3.5 font-body-md text-[14px] text-primary outline-none focus:border-[#8A2BE2] transition-colors"
+                    className="w-full bg-surface border border-outline rounded-lg p-3.5 font-body-md text-[14px] text-primary outline-none focus:border-primary transition-colors"
                   />
                 ) : (
                   <p className="font-body-lg text-[15px] text-primary font-medium py-2.5">{formData.phone}</p>
@@ -119,7 +119,7 @@ export default function ProfilePage({ user, setUser, showToast }) {
                     required 
                     value={formData.address} 
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full bg-[#141414] border border-white/10 rounded-lg p-3.5 font-body-md text-[14px] text-primary outline-none focus:border-[#8A2BE2] transition-colors resize-none"
+                    className="w-full bg-surface border border-outline rounded-lg p-3.5 font-body-md text-[14px] text-primary outline-none focus:border-primary transition-colors resize-none"
                   />
                 ) : (
                   <p className="font-body-lg text-[15px] text-primary font-medium py-2.5 leading-relaxed">{formData.address}</p>
@@ -127,11 +127,11 @@ export default function ProfilePage({ user, setUser, showToast }) {
               </div>
             </div>
 
-            {isEditing && (
-              <div className="flex gap-4 pt-4 border-t border-white/5">
+             {isEditing && (
+              <div className="flex gap-4 pt-4 border-t border-outline">
                 <button 
                   type="submit"
-                  className="px-6 py-3 bg-primary text-surface font-label-caps text-[11px] uppercase tracking-widest rounded-lg hover:bg-primary/90 shadow-[0_0_15px_rgba(138,43,226,0.3)] transition-all cursor-pointer font-bold"
+                  className="px-6 py-3 bg-primary text-white font-label-caps text-[11px] uppercase tracking-widest rounded-lg hover:bg-secondary shadow-[0_4px_15px_rgba(109,93,252,0.25)] transition-all cursor-pointer font-bold"
                 >
                   Save Changes
                 </button>
@@ -141,11 +141,11 @@ export default function ProfilePage({ user, setUser, showToast }) {
                     setIsEditing(false);
                     setFormData({
                       name: user.name,
-                      phone: localStorage.getItem(`technest_phone_${user.email}`) || '+1 (555) 019-2834',
-                      address: localStorage.getItem(`technest_address_${user.email}`) || 'Sector 7G, Cyber City, CC 95014'
+                      phone: localStorage.getItem(`techhub_phone_${user.email}`) || '+1 (555) 019-2834',
+                      address: localStorage.getItem(`techhub_address_${user.email}`) || 'Sector 7G, Cyber City, CC 95014'
                     });
                   }}
-                  className="px-6 py-3 bg-transparent border border-white/10 hover:border-white/20 text-on-surface-variant hover:text-primary font-label-caps text-[11px] uppercase tracking-widest rounded-lg transition-all cursor-pointer"
+                  className="px-6 py-3 bg-transparent border border-outline hover:border-outline-variant text-on-surface-variant hover:text-primary font-label-caps text-[11px] uppercase tracking-widest rounded-lg transition-all cursor-pointer"
                 >
                   Cancel
                 </button>

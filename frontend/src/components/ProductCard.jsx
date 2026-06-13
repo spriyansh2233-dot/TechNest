@@ -24,13 +24,13 @@ export default function ProductCard({
   let topBadgeColor = "";
   if (prod.isBestSeller) {
     topBadge = "🔥 Best Seller";
-    topBadgeColor = "border-orange-500/30 bg-orange-500/10 text-orange-600";
+    topBadgeColor = "border-primary/30 bg-primary/10 text-primary";
   } else if (prod.discount > 40) {
     topBadge = "Deal of the Day";
-    topBadgeColor = "border-rose-500/30 bg-rose-500/10 text-rose-500";
+    topBadgeColor = "border-error/30 bg-error/10 text-error";
   } else if (prod.id % 5 === 0) {
     topBadge = "Top Rated";
-    topBadgeColor = "border-blue-500/30 bg-blue-500/10 text-blue-600";
+    topBadgeColor = "border-info/30 bg-info/10 text-info";
   }
 
   // Stock status
@@ -41,22 +41,19 @@ export default function ProductCard({
     stockColor = "text-error";
   } else if (prod.stock <= 10) {
     stockStatus = `Only ${prod.stock} Left`;
-    stockColor = "text-orange-500";
+    stockColor = "text-primary";
   } else {
     stockStatus = "In Stock";
-    stockColor = "text-emerald-500";
+    stockColor = "text-success";
   }
 
   return (
     <motion.div 
       layout
-      whileHover={{ y: -6, scale: 1.01 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       onClick={onCardClick}
-      className="glass-card bg-surface p-5 flex flex-col relative group cursor-pointer overflow-hidden border border-outline hover:border-primary/50 hover:shadow-lg transition-all duration-300 h-full"
+      className="premium-product-card p-5 flex flex-col relative group cursor-pointer overflow-hidden h-full"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent z-10 opacity-90 group-hover:opacity-75 transition-opacity pointer-events-none"></div>
-      
       <div className="flex justify-between items-start mb-2 relative z-20">
         <div className="flex flex-col gap-1">
             {topBadge && (
@@ -65,7 +62,7 @@ export default function ProductCard({
                 </span>
             )}
             {prod.isFreeDelivery && (
-                <span className="inline-block px-2 py-0.5 border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 rounded-md font-mono-technical text-[9px] uppercase tracking-wider backdrop-blur-md font-semibold">
+                <span className="inline-block px-2 py-0.5 border border-success/30 bg-success/10 text-success rounded-md font-mono-technical text-[9px] uppercase tracking-wider backdrop-blur-md font-semibold">
                 🚚 Free Delivery
                 </span>
             )}
@@ -81,6 +78,9 @@ export default function ProductCard({
       </div>
       
       <div className="flex-grow flex items-center justify-center mb-4 relative h-44 w-full z-0">
+        {/* Soft radial purple spotlight behind the product image */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(109,93,252,0.03)_0%,_transparent_70%)] pointer-events-none z-0 group-hover:scale-110 transition-transform duration-500" />
+        
         <img 
           src={prod.imageUrl} 
           alt={prod.name} 
@@ -161,7 +161,7 @@ export default function ProductCard({
             className={`w-full py-2.5 flex items-center justify-center gap-2 rounded-lg font-label-caps text-[11px] uppercase tracking-widest transition-all shadow-sm cursor-pointer font-bold ${
               prod.stock === 0 
                 ? 'bg-surface-container text-outline cursor-not-allowed border border-outline' 
-                : 'bg-primary/5 text-primary border border-primary/20 hover:bg-primary hover:text-surface hover:shadow-md'
+                : 'bg-primary/5 text-primary border border-primary/20 hover:bg-primary hover:text-white hover:shadow-[0_4px_12px_rgba(109,93,252,0.25)]'
             }`}
           >
             <ShoppingCart size={14} />

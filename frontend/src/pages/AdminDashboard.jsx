@@ -259,7 +259,7 @@ export default function AdminDashboard({
 
               <button 
                 type="submit" 
-                className="w-full py-4 bg-primary text-surface font-label-caps text-[12px] uppercase tracking-widest rounded hover:bg-primary/90 transition-all shadow-[0_0_15px_rgba(138,43,226,0.3)]"
+                className="w-full py-4 bg-primary text-surface font-label-caps text-[12px] uppercase tracking-widest rounded hover:bg-primary/90 transition-all shadow-[0_4px_15px_rgba(109,93,252,0.3)]"
               >
                 {editingProduct ? 'Save Changes' : 'Create Product'}
               </button>
@@ -298,8 +298,8 @@ export default function AdminDashboard({
                       <td className="p-4">
                         <span className={`px-2 py-1 rounded font-mono-technical text-[10px] uppercase border ${
                           prod.stock === 0 ? 'bg-error/10 text-error border-error/20' :
-                          prod.stock < 5 ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                          'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                          prod.stock < 5 ? 'bg-amber-500/10 text-amber-600 border-amber-500/20' :
+                          'bg-emerald-500/10 text-emerald-600 border-emerald-500/20'
                         }`}>
                           {prod.stock}
                         </span>
@@ -361,11 +361,11 @@ export default function AdminDashboard({
 
                     <div className="flex items-center gap-3">
                       <span className="font-mono-technical text-[10px] text-on-surface-variant">REF: #{order.id}</span>
-                      <span className={`px-3 py-1 rounded font-mono-technical text-[10px] uppercase border ${
-                        order.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
-                        order.status === 'SHIPPED' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
+                      <span className={`px-3 py-1 rounded font-mono-technical text-[10px] uppercase tracking-widest border ${
+                        order.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' :
+                        order.status === 'SHIPPED' ? 'bg-blue-500/10 text-blue-600 border-blue-500/20' :
                         order.status === 'CANCELLED' ? 'bg-error/10 text-error border-error/20' :
-                        'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                        'bg-amber-500/10 text-amber-600 border-amber-500/20'
                       }`}>
                         {order.status}
                       </span>
@@ -392,7 +392,7 @@ export default function AdminDashboard({
                       {order.status === 'PAID' && (
                         <button 
                           onClick={() => handleUpdateOrderStatus(order.id, 'SHIPPED')}
-                          className="px-4 py-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 font-label-caps text-[10px] uppercase tracking-widest rounded hover:bg-blue-500/20 transition-colors inline-flex items-center gap-2"
+                          className="px-4 py-2 bg-blue-500/10 text-blue-600 border border-blue-500/20 font-label-caps text-[10px] uppercase tracking-widest rounded hover:bg-blue-500/20 transition-colors inline-flex items-center gap-2"
                         >
                           <span className="material-symbols-outlined text-[14px]" data-icon="local_shipping">local_shipping</span>
                           <span>Mark as Shipped</span>
@@ -433,7 +433,7 @@ export default function AdminDashboard({
                     <p className="font-mono-technical text-[12px] text-on-surface-variant">{u.email}</p>
                   </div>
                   <span className={`px-3 py-1 rounded font-mono-technical text-[10px] uppercase tracking-widest border ${
-                    u.role === 'ADMIN' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-primary/10 text-primary border-primary/20'
+                    u.role === 'ADMIN' ? 'bg-amber-500/10 text-amber-600 border-amber-500/20' : 'bg-primary/10 text-primary border-primary/20'
                   }`}>{u.role}</span>
                 </div>
               ))}

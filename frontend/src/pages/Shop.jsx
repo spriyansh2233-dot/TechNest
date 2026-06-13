@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '../components/ProductCard';
 import { ProductGridSkeleton } from '../components/SkeletonLoader';
@@ -25,6 +25,12 @@ export default function Shop({
   loadingProducts
 }) {
   // Local Filter States
+  useEffect(() => {
+    const element = document.getElementById('product-grid');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [selectedCategory]);
   const [sortBy, setSortBy] = useState('relevance');
   const [minRating, setMinRating] = useState(0);
   const [inStockOnly, setInStockOnly] = useState(false);
@@ -38,7 +44,15 @@ export default function Shop({
     products.forEach(p => { if (p.brand) brands.add(p.brand); });
     return Array.from(brands).sort();
   }, [products]);
-
+// Category counts for display
+  const categoryCounts = useMemo(() => {
+    const counts = {};
+    products.forEach(p => {
+      const cat = p.category || 'Uncategorized';
+      counts[cat] = (counts[cat] || 0) + 1;
+    });
+    return counts;
+  }, [products]);
   const toggleBrand = (brand) => {
     setSelectedBrands(prev => 
       prev.includes(brand) ? prev.filter(b => b !== brand) : [...prev, brand]
@@ -108,7 +122,7 @@ export default function Shop({
   const activeFiltersCount = (selectedCategory !== 'All' ? 1 : 0) + (searchTerm ? 1 : 0) + (minRating > 0 ? 1 : 0) + (inStockOnly ? 1 : 0) + (freeDeliveryOnly ? 1 : 0) + (discountMin > 0 ? 1 : 0) + selectedBrands.length;
 
   return (
-    <div className="animate-fadeIn min-h-[80vh] bg-surface">
+    <div className="animate-fadeIn min-h-[80vh] bg-background">
       <section id="catalog" className="pt-28 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto scroll-mt-28">
         
         {/* Header */}
@@ -170,10 +184,11 @@ export default function Shop({
                 {categories.map(cat => (
                   <button 
                     key={cat}
+                    id={`category-${cat}`}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`block w-full text-left text-[13px] transition-colors cursor-pointer ${selectedCategory === cat ? 'text-primary font-bold' : 'text-on-surface hover:text-primary'}`}
+                    className={`block w-full text-left text-[13px] transition-colors cursor-pointer ${selectedCategory === cat ? 'text-primary font-bold bg-primary/10 rounded' : 'text-on-surface hover:text-primary'}`}
                   >
-                    {cat}
+                    {cat} <span className="ml-2 text-xs text-primary/70">({categoryCounts[cat] || 0})</span>
                   </button>
                 ))}
               </div>
@@ -320,7 +335,7 @@ export default function Shop({
                 </button>
               </motion.div>
             ) : (
-              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              <motion.div layout id="product-grid" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 <AnimatePresence>
                   {processedProducts.map((prod, index) => {
                     const isWishlisted = wishlist.some(item => item.id === prod.id);

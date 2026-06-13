@@ -58,10 +58,10 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
                     
                     {/* Status Badge */}
                     <span className={`px-3 py-1 rounded-full font-mono-technical text-[10px] uppercase tracking-widest border ${
-                      order.status === 'PAID' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' :
-                      order.status === 'SHIPPED' ? 'bg-blue-100 text-blue-700 border-blue-200' :
+                      order.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' :
+                      order.status === 'SHIPPED' ? 'bg-blue-500/10 text-blue-600 border-blue-500/20' :
                       order.status === 'CANCELLED' ? 'bg-error/10 text-error border-error/20' :
-                      'bg-amber-100 text-amber-700 border-amber-200'
+                      'bg-amber-500/10 text-amber-600 border-amber-500/20'
                     }`}>
                       {order.status}
                     </span>

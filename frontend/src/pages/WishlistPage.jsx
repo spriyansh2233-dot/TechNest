@@ -27,7 +27,7 @@ export default function WishlistPage({
           <p className="font-body-md text-body-md text-on-surface-variant mb-6">Explore the catalog and save items you like.</p>
           <button 
             onClick={() => navigate('/shop')}
-            className="px-6 py-3 bg-primary text-surface font-label-caps text-label-caps uppercase rounded-lg hover:bg-primary/80 transition-colors"
+            className="px-6 py-3 bg-primary text-white font-label-caps text-label-caps uppercase rounded-lg hover:bg-secondary transition-colors font-bold shadow-[0_4px_15px_rgba(109,93,252,0.25)] active:scale-95"
           >
             Explore Products
           </button>

@@ -35,8 +35,44 @@ import CartDrawer from './components/CartDrawer';
 import QuickViewModal from './components/QuickViewModal';
 import { ProductGridSkeleton } from './components/SkeletonLoader';
 
+// Custom Brand SVG Icons (Since Lucide does not pack brand-specific icons)
+const FacebookIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const TwitterIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+const InstagramIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
+
+const YoutubeIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
+    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" />
+  </svg>
+);
+
+const LinkedinIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" fill="currentColor" />
+  </svg>
+);
+
 // Lazy loaded page components
-const LandingPage = lazy(() => import('./pages/LandingPage'));
+import LandingPage from './pages/LandingPage';
 const Shop = lazy(() => import('./pages/Shop'));
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -122,7 +158,7 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [priceRange, setPriceRange] = useState(30000);
   const [recentSearches, setRecentSearches] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('technest_recent_searches')) || []; } catch(e) { return []; }
+    try { return JSON.parse(localStorage.getItem('techhub_recent_searches')) || []; } catch(e) { return []; }
   });
 
   const handleSearchCommit = (term) => {
@@ -131,7 +167,7 @@ export default function App() {
     setIsSearchFocused(false);
     const updated = [term, ...recentSearches.filter(t => t !== term)].slice(0, 5);
     setRecentSearches(updated);
-    localStorage.setItem('technest_recent_searches', JSON.stringify(updated));
+    localStorage.setItem('techhub_recent_searches', JSON.stringify(updated));
     navigate('/shop');
   };
 
@@ -139,7 +175,6 @@ export default function App() {
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollDirection, setScrollDirection] = useState('up');
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
@@ -174,7 +209,7 @@ export default function App() {
   // Chatbot State
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
-    { sender: 'bot', text: 'Hi! I am your TechNest AI Assistant. 🤖 Ask me anything about returns, tracking, payments, or popular recommendations!' }
+    { sender: 'bot', text: 'Hi! I am your TechHub AI Assistant. 🤖 Ask me anything about returns, tracking, payments, or popular recommendations!' }
   ]);
   const [chatInput, setChatInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -188,7 +223,7 @@ export default function App() {
   const [showGuestCheckoutModal, setShowGuestCheckoutModal] = useState(false);
   const [perfModeEnabled, setPerfModeEnabled] = useState(() => {
     try {
-      return localStorage.getItem('technest_perf_mode') === 'true';
+      return localStorage.getItem('techhub_perf_mode') === 'true';
     } catch (e) {
       return false;
     }
@@ -196,7 +231,7 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [recentlyViewed, setRecentlyViewed] = useState(() => {
     try {
-      const saved = localStorage.getItem('technest_recently_viewed');
+      const saved = localStorage.getItem('techhub_recently_viewed');
       return saved ? JSON.parse(saved) : [];
     } catch (e) {
       return [];
@@ -207,7 +242,7 @@ export default function App() {
 
   // Sync wishlist to appropriate storage key depending on user state
   useEffect(() => {
-    const key = user ? `technest_wishlist_${user.email}` : 'technest_wishlist_guest';
+    const key = user ? `techhub_wishlist_${user.email}` : 'techhub_wishlist_guest';
     try {
       const saved = localStorage.getItem(key);
       setWishlist(saved && saved !== 'undefined' ? JSON.parse(saved) : []);
@@ -217,27 +252,43 @@ export default function App() {
   }, [user]);
 
   useEffect(() => {
-    const key = user ? `technest_wishlist_${user.email}` : 'technest_wishlist_guest';
+    const key = user ? `techhub_wishlist_${user.email}` : 'techhub_wishlist_guest';
     localStorage.setItem(key, JSON.stringify(wishlist));
   }, [wishlist, user]);
 
   // Smart Scrolling Header & Direction Tracker
+  const lastScrollY = useRef(0);
+  const lastDirection = useRef('up');
+
   useEffect(() => {
+    const threshold = 15; // Minimum scroll delta to trigger a direction change
+    
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      
+      // Update isScrolled state
       setIsScrolled(currentScrollY > 20);
 
-      // Slower, smoother transition for header shrink trigger
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setScrollDirection('down');
-      } else if (currentScrollY < lastScrollY || currentScrollY <= 20) {
+      // Determine scroll direction with threshold to prevent subpixel jitter loops
+      const diff = currentScrollY - lastScrollY.current;
+      
+      if (currentScrollY <= 20) {
         setScrollDirection('up');
+        lastDirection.current = 'up';
+      } else if (Math.abs(diff) >= threshold) {
+        const newDirection = diff > 0 ? 'down' : 'up';
+        if (newDirection !== lastDirection.current) {
+          setScrollDirection(newDirection);
+          lastDirection.current = newDirection;
+        }
       }
-      setLastScrollY(currentScrollY);
+      
+      lastScrollY.current = currentScrollY;
     };
+    
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   // Handle URL category query parameters
   useEffect(() => {
@@ -260,17 +311,20 @@ export default function App() {
     }
   }, [location.search]);
 
-  // Scroll to top on every route change
+  // Scroll to top on every route change (unless redirecting to a specific section)
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const sectionId = sessionStorage.getItem('scroll_to_section');
+    if (!sectionId) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }, [location.pathname]);
 
   // Handle logo scroll behavior on route changes
   useEffect(() => {
     if (location.pathname === '/') {
-      const shouldScroll = sessionStorage.getItem('technest_scroll_to_top');
+      const shouldScroll = sessionStorage.getItem('techhub_scroll_to_top');
       if (shouldScroll === 'true') {
-        sessionStorage.removeItem('technest_scroll_to_top');
+        sessionStorage.removeItem('techhub_scroll_to_top');
         setTimeout(() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 100);
@@ -278,13 +332,50 @@ export default function App() {
     }
   }, [location.pathname]);
 
+  // Handle cross-page scrolling to sections on the Landing Page
+  useEffect(() => {
+    const sectionId = sessionStorage.getItem('scroll_to_section');
+    if (sectionId && location.pathname === '/') {
+      sessionStorage.removeItem('scroll_to_section');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const yOffset = -80;
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 300);
+    }
+  }, [location.pathname]);
+
+  const handleNavClick = (sectionId, route = '/') => {
+    setSelectedProductId(null);
+    if (location.pathname === route) {
+      if (sectionId) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const yOffset = -80;
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      if (sectionId) {
+        sessionStorage.setItem('scroll_to_section', sectionId);
+      }
+      navigate(route);
+    }
+  };
+
   const handleLogoClick = (e) => {
     if (e) e.preventDefault();
     setSelectedProductId(null);
     if (location.pathname === '/') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      sessionStorage.setItem('technest_scroll_to_top', 'true');
+      sessionStorage.setItem('techhub_scroll_to_top', 'true');
       navigate('/');
     }
   };
@@ -378,7 +469,7 @@ export default function App() {
       setRecentlyViewed(prev => {
         const filtered = prev.filter(p => p.id !== product.id);
         const updated = [product, ...filtered].slice(0, 5); // Keep last 5
-        localStorage.setItem('technest_recently_viewed', JSON.stringify(updated));
+        localStorage.setItem('techhub_recently_viewed', JSON.stringify(updated));
         return updated;
       });
 
@@ -448,14 +539,14 @@ export default function App() {
         const loggedUser = {
           name: res.data.name,
           email: res.data.email,
-          role: res.data.email === 'admin@technest.com' ? 'ADMIN' : 'USER'
+          role: res.data.email === 'admin@techhub.com' ? 'ADMIN' : 'USER'
         };
         
         // Sync wishlist
         const guestWishlistStr = localStorage.getItem('technest_wishlist_guest');
         let userWishlist = [];
         try {
-          const userWishlistKey = `technest_wishlist_${loggedUser.email}`;
+          const userWishlistKey = `techhub_wishlist_${loggedUser.email}`;
           const userSaved = localStorage.getItem(userWishlistKey);
           userWishlist = userSaved && userSaved !== 'undefined' ? JSON.parse(userSaved) : [];
           
@@ -468,7 +559,7 @@ export default function App() {
                   userWishlist.push(item);
                 }
               }
-              localStorage.removeItem('technest_wishlist_guest');
+              localStorage.removeItem('techhub_wishlist_guest');
             }
           }
           localStorage.setItem(userWishlistKey, JSON.stringify(userWishlist));
@@ -496,10 +587,10 @@ export default function App() {
         };
 
         // Sync wishlist
-        const guestWishlistStr = localStorage.getItem('technest_wishlist_guest');
+        const guestWishlistStr = localStorage.getItem('techhub_wishlist_guest');
         let userWishlist = [];
         try {
-          const userWishlistKey = `technest_wishlist_${loggedUser.email}`;
+          const userWishlistKey = `techhub_wishlist_${loggedUser.email}`;
           const userSaved = localStorage.getItem(userWishlistKey);
           userWishlist = userSaved && userSaved !== 'undefined' ? JSON.parse(userSaved) : [];
           
@@ -512,7 +603,7 @@ export default function App() {
                   userWishlist.push(item);
                 }
               }
-              localStorage.removeItem('technest_wishlist_guest');
+              localStorage.removeItem('techhub_wishlist_guest');
             }
           }
           localStorage.setItem(userWishlistKey, JSON.stringify(userWishlist));
@@ -604,7 +695,7 @@ export default function App() {
           key: razorpayKey,
           amount: amount,
           currency: currency,
-          name: "TechNest",
+          name: "TechHub",
           description: "Premium Electronic Purchase",
           order_id: razorpayOrderId,
           handler: async function (response) {
@@ -632,7 +723,7 @@ export default function App() {
           },
           prefill: {
             name: user?.name || "Customer",
-            email: user?.email || "customer@technest.com",
+            email: user?.email || "customer@techhub.com",
             contact: "9999999999"
           },
           theme: {
@@ -786,15 +877,22 @@ export default function App() {
   const cartTotal = cartSubtotal + cartTax;
 
   return (
-    <div className="min-h-screen bg-surface text-on-surface flex flex-col selection:bg-[#8A2BE2]/30 selection:text-primary transition-colors duration-300 relative">
+    <div className="min-h-screen bg-background text-on-surface flex flex-col selection:bg-primary/30 selection:text-primary transition-colors duration-300 relative">
       {/* Premium Ambient Background System */}
       {!perfModeEnabled && (
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-          {/* Faint futuristic tech grid overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(109,93,252,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(109,93,252,0.03)_1px,transparent_1px)] bg-[size:50px_50px] opacity-50 pointer-events-none" />
+          {/* Layered premium ambient gradients overlay */}
+          <div className="absolute inset-0" style={{
+              backgroundImage: `
+                radial-gradient(circle at 15% 15%, rgba(109,93,252,0.08) 0%, transparent 60%),
+                radial-gradient(circle at 85% 15%, rgba(139,124,255,0.06) 0%, transparent 55%),
+                radial-gradient(circle at 50% 85%, rgba(96,165,250,0.05) 0%, transparent 70%)
+              `,
+              backgroundSize: 'cover',
+            }} />
           
-          {/* Deep atmospheric dark purple to violet mesh gradient base */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#F8F9FB] via-[#F3F4F6] to-[#E5E7EB] opacity-98" />
+          {/* Light premium mesh base */}
+          <div className="absolute inset-0 bg-[#F8F9FC] opacity-98" />
 
           {/* Slow moving soft glow orbs */}
           <motion.div 
@@ -856,8 +954,8 @@ export default function App() {
                 <span className="material-symbols-outlined text-[24px]">close</span>
               </button>
 
-              <div className="w-16 h-16 rounded-full bg-[#8A2BE2]/10 border border-[#8A2BE2]/30 flex items-center justify-center mx-auto mb-6">
-                <span className="material-symbols-outlined text-[#8A2BE2] text-[32px] animate-pulse">lock</span>
+              <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center mx-auto mb-6">
+                <span className="material-symbols-outlined text-primary text-[32px] animate-pulse">lock</span>
               </div>
 
               <h3 className="font-headline-lg text-[22px] text-primary mb-3 font-bold">Login to Complete Purchase</h3>
@@ -929,7 +1027,7 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="font-headline-lg text-[18px] text-primary font-bold">
-                      {paymentStep === 'success' ? 'Payment Successful' : 'TechNest Checkout'}
+                      {paymentStep === 'success' ? 'Payment Successful' : 'TechHub Checkout'}
                     </h4>
                     <p className="font-body-md text-[12px] text-on-surface-variant mt-1">Secure Checkout</p>
                   </div>
@@ -1021,7 +1119,7 @@ export default function App() {
                   <div className="space-y-2">
                     <h3 className="font-headline-lg text-[22px] text-primary font-bold">Order Confirmed</h3>
                     <p className="font-body-md text-[13px] text-on-surface-variant max-w-[320px] mx-auto leading-relaxed">
-                      Your order has been placed successfully. Thank you for shopping with TechNest.
+                      Your order has been placed successfully. Thank you for shopping with TechHub.
                     </p>
                   </div>
 
@@ -1095,7 +1193,7 @@ export default function App() {
             <div className={`p-2 rounded-full ${
               toast.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 
               toast.type === 'error' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 
-              'bg-[#8A2BE2]/10 text-primary border border-[#8A2BE2]/20'
+              'bg-[#6D5DFC]/10 text-primary border border-[#6D5DFC]/20'
             }`}>
               {toast.type === 'success' && <CheckCircle size={18} />}
               {toast.type === 'error' && <AlertCircle size={18} />}
@@ -1110,55 +1208,49 @@ export default function App() {
       </AnimatePresence>
 
       {/* HEADER NAVBAR */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] border-b shadow-md ${
-        isScrolled 
-          ? scrollDirection === 'down'
-            ? '-translate-y-3 bg-surface/95 border-outline/50 shadow-sm'
-            : 'translate-y-0 bg-surface/90 border-outline shadow-sm' 
-          : 'translate-y-0 bg-surface/80 border-transparent shadow-none'
-      } backdrop-blur-md`}>
-        <div className={`flex justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          isScrolled 
-            ? scrollDirection === 'down' 
-              ? 'py-2 md:py-2.5' 
-              : 'py-3 md:py-3.5' 
-            : 'py-4 md:py-5'
-        }`}>
+      <nav className="fixed top-0 w-full z-50 premium-navbar">
+        <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-2 md:py-3">
           <div className="flex items-center gap-8">
             <button 
-              onClick={handleLogoClick} 
-              className={`flex items-center gap-2 font-headline-lg text-headline-lg tracking-tighter text-primary cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-102 hover:text-primary active:scale-98 group ${
-                isScrolled && scrollDirection === 'down' ? 'scale-[0.92]' : 'scale-100'
-              }`}
+                onClick={handleLogoClick} 
+                className={`flex items-center gap-2 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-102 active:scale-98 group ${isScrolled && scrollDirection === 'down' ? 'scale-[0.92]' : 'scale-100'}`}
             >
-              <span className="material-symbols-outlined text-[28px] text-primary group-hover:shadow-sm rounded-lg transition-all duration-300" data-icon="deployed_code">deployed_code</span>
-              <span className="font-bold">
-                TechNest<span className="text-primary text-[10px] uppercase align-super ml-1 border border-primary/50 px-1 rounded group-hover:border-primary transition-all">PRO</span>
+              <span className="font-headline-lg text-[22px] font-extrabold tracking-tight text-primary transition-colors flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[26px] text-primary">deployed_code</span>
+                TechHub
               </span>
             </button>
-            <div className="hidden md:flex gap-6">
-              <button 
-                onClick={() => { navigate('/'); setSelectedProductId(null); }} 
-                className={`font-body-md text-body-md transition-all cursor-pointer relative ${
-                  location.pathname === '/' ? 'text-primary font-semibold font-bold' : 'text-on-surface-variant hover:text-primary'
-                }`}
-              >
-                Home
-                {location.pathname === '/' && (
-                  <motion.div layoutId="activeNav" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary shadow-sm" />
-                )}
-              </button>
-              <button 
-                onClick={() => { navigate('/shop'); setSelectedProductId(null); }} 
-                className={`font-body-md text-body-md transition-all cursor-pointer relative ${
-                  location.pathname === '/shop' ? 'text-primary font-semibold font-bold' : 'text-on-surface-variant hover:text-primary'
-                }`}
-              >
-                Shop
-                {location.pathname === '/shop' && (
-                  <motion.div layoutId="activeNav" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary shadow-sm" />
-                )}
-              </button>
+            <div className="hidden lg:flex gap-6">
+              {[
+                { name: 'Home', path: '/', action: () => handleNavClick(null, '/') },
+                { name: 'Shop', path: '/shop', action: () => handleNavClick(null, '/shop') },
+                { name: 'Categories', path: 'categories-section', action: () => handleNavClick('categories-section', '/') },
+                { name: 'Deals', path: 'flash-deals', action: () => handleNavClick('flash-deals', '/') },
+                { name: 'New Arrivals', path: 'new-arrivals', action: () => handleNavClick('new-arrivals', '/') },
+                { name: 'Track Orders', path: '/orders', action: () => navigate('/orders') }
+              ].map((item) => {
+                const isActive = item.path === '/' 
+                  ? location.pathname === '/' && !sessionStorage.getItem('scroll_to_section')
+                  : item.path === '/shop' 
+                    ? location.pathname === '/shop'
+                    : item.path === '/orders'
+                      ? location.pathname === '/orders'
+                      : false;
+                return (
+                  <button 
+                    key={item.name}
+                    onClick={item.action} 
+                    className={`font-body-md text-body-md transition-all cursor-pointer relative py-1 hover:text-primary ${
+                      isActive ? 'text-primary font-bold' : 'text-on-surface-variant'
+                    }`}
+                  >
+                    {item.name}
+                    {isActive && (
+                      <motion.div layoutId="activeNav" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary shadow-sm" />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
           
@@ -1166,7 +1258,7 @@ export default function App() {
             {/* Global Search (Desktop - Home/Shop View Only) */}
             {(location.pathname === '/' || location.pathname === '/shop') && (
               <div className="relative">
-                <div className="hidden md:flex items-center bg-surface-container-highest/30 border border-outline-variant/30 rounded-full px-4 py-2 w-64 transition-all focus-within:ring-2 focus-within:ring-primary/50 focus-within:w-80">
+                <div className="hidden lg:flex items-center bg-surface-container-highest/30 border border-outline-variant/30 rounded-full px-4 py-2 w-64 transition-all focus-within:ring-2 focus-within:ring-primary/50 focus-within:w-80">
                   <Search className="text-on-surface-variant mr-2" size={15} />
                   <input 
                     type="text" 
@@ -1219,7 +1311,7 @@ export default function App() {
                             <div className="mb-4">
                               <div className="flex justify-between items-center mb-2">
                                 <h4 className="font-mono-technical text-[9px] text-primary uppercase tracking-wider font-bold">Recent Searches</h4>
-                                <button onMouseDown={(e) => { e.preventDefault(); setRecentSearches([]); localStorage.removeItem('technest_recent_searches'); }} className="text-[9px] text-error hover:underline cursor-pointer">Clear</button>
+                                <button onMouseDown={(e) => { e.preventDefault(); setRecentSearches([]); localStorage.removeItem('techhub_recent_searches'); }} className="text-[9px] text-error hover:underline cursor-pointer">Clear</button>
                               </div>
                               <div className="flex flex-wrap gap-2">
                                 {recentSearches.map(term => (
@@ -1244,7 +1336,7 @@ export default function App() {
                                 onMouseDown={() => handleSearchCommit(term)}
                                 className="px-3 py-1.5 rounded-full bg-surface border border-outline hover:border-primary/50 hover:bg-primary/5 text-primary text-[11px] font-label-caps transition-all cursor-pointer font-semibold shadow-sm"
                               >
-                                  <span className="material-symbols-outlined text-[12px] mr-1 text-orange-500">local_fire_department</span>
+                                  <span className="material-symbols-outlined text-[12px] mr-1 text-primary">local_fire_department</span>
                                   {term}
                               </button>
                             ))}
@@ -1255,9 +1347,9 @@ export default function App() {
                            <div className="grid grid-cols-2 gap-2">
                              {[
                                { name: 'Audio Gear', icon: 'headphones', color: '#6D5DFC' },
-                               { name: 'Smart Wearables', icon: 'watch', color: '#d97706' },
-                               { name: 'Gaming', icon: 'sports_esports', color: '#4f46e5' },
-                               { name: 'Accessories', icon: 'keyboard', color: '#0ea5e9' }
+                               { name: 'Smart Wearables', icon: 'watch', color: '#8B7CFF' },
+                               { name: 'Gaming', icon: 'sports_esports', color: '#5B4AE4' },
+                               { name: 'Accessories', icon: 'keyboard', color: '#B3B3B3' }
                              ].map(cat => (
                                <button 
                                  key={cat.name}
@@ -1283,7 +1375,7 @@ export default function App() {
 
             <button 
               onClick={() => navigate('/wishlist')}
-              className="relative text-primary hover:bg-white/5 transition-all duration-300 p-2 rounded-full active:scale-95 hidden md:block"
+              className="relative text-primary hover:bg-white/5 transition-all duration-300 p-2 rounded-full active:scale-95 hidden lg:block"
             >
               <span className={`material-symbols-outlined ${wishlist.length > 0 && location.pathname !== '/wishlist' ? "text-error" : ""}`} data-icon="favorite">favorite</span>
               {wishlist.length > 0 && (
@@ -1304,7 +1396,7 @@ export default function App() {
             </button>
             
             {user ? (
-              <div className="relative group hidden md:block">
+              <div className="relative group hidden lg:block">
                 <button className="text-primary hover:bg-white/5 transition-all duration-300 p-2 rounded-full active:scale-95 flex items-center gap-2">
                   <span className="material-symbols-outlined text-[24px]" data-icon="account_circle">account_circle</span>
                 </button>
@@ -1338,7 +1430,7 @@ export default function App() {
                 </div>
               </div>
             ) : (
-              <div className="hidden md:flex items-center gap-4">
+              <div className="hidden lg:flex items-center gap-4">
                 <button 
                   onClick={() => navigate('/login')} 
                   className="font-body-md text-body-md text-primary hover:text-primary/70 transition-colors cursor-pointer"
@@ -1356,7 +1448,7 @@ export default function App() {
 
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className="text-primary hover:bg-surface-container transition-all duration-300 p-2 rounded-full active:scale-95 md:hidden"
+              className="text-primary hover:bg-surface-container transition-all duration-300 p-2 rounded-full active:scale-95 lg:hidden"
             >
               <span className="material-symbols-outlined" data-icon="menu">menu</span>
             </button>
@@ -1367,7 +1459,7 @@ export default function App() {
       {/* Mobile Sidebar Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-[110] flex justify-end md:hidden">
+          <div className="fixed inset-0 z-[110] flex justify-end lg:hidden">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -1392,25 +1484,23 @@ export default function App() {
                 </button>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <button 
-                  onClick={() => { navigate('/'); setIsMobileMenuOpen(false); }}
-                  className="text-left font-body-lg text-[16px] text-primary hover:text-primary/70 py-2 border-b border-outline cursor-pointer bg-transparent border-none"
-                >
-                  Home
-                </button>
-                <button 
-                  onClick={() => { navigate('/shop'); setIsMobileMenuOpen(false); }}
-                  className="text-left font-body-lg text-[16px] text-primary hover:text-primary/70 py-2 border-b border-outline cursor-pointer bg-transparent border-none"
-                >
-                  Shop
-                </button>
-                <button 
-                  onClick={() => { navigate('/wishlist'); setIsMobileMenuOpen(false); }}
-                  className="text-left font-body-lg text-[16px] text-primary hover:text-primary/70 py-2 border-b border-outline flex items-center gap-2 cursor-pointer bg-transparent border-none"
-                >
-                  Wishlist {wishlist.length > 0 && <span className="w-2 h-2 bg-error rounded-full" />}
-                </button>
+               <div className="flex flex-col gap-4">
+                {[
+                  { name: 'Home', action: () => { handleNavClick(null, '/'); setIsMobileMenuOpen(false); } },
+                  { name: 'Shop', action: () => { handleNavClick(null, '/shop'); setIsMobileMenuOpen(false); } },
+                  { name: 'Categories', action: () => { handleNavClick('categories-section', '/'); setIsMobileMenuOpen(false); } },
+                  { name: 'Deals', action: () => { handleNavClick('flash-deals', '/'); setIsMobileMenuOpen(false); } },
+                  { name: 'New Arrivals', action: () => { handleNavClick('new-arrivals', '/'); setIsMobileMenuOpen(false); } },
+                  { name: 'Track Orders', action: () => { navigate('/orders'); setIsMobileMenuOpen(false); } }
+                ].map(item => (
+                  <button 
+                    key={item.name}
+                    onClick={item.action}
+                   className="text-left font-body-lg text-[16px] text-primary hover:text-primary/70 py-2 border-b border-outline cursor-pointer bg-transparent border-none transition-colors"
+                  >
+                    {item.name}
+                  </button>
+                ))}
               </div>
 
               <div className="mt-auto border-t border-outline pt-6 space-y-4">
@@ -1473,7 +1563,7 @@ export default function App() {
 
       {/* MOBILE SEARCH BAR */}
       {(location.pathname === '/' || location.pathname === '/shop') && (
-        <div className="md:hidden px-margin-mobile py-3 bg-surface border-b border-outline mt-[72px]">
+        <div className="lg:hidden px-margin-mobile py-3 bg-surface border-b border-outline mt-[72px]">
           <div className="flex items-center bg-surface-container rounded-full px-4 py-2 border border-outline focus-within:border-primary/50">
             <Search className="text-on-surface-variant mr-2" size={16} />
             <input 
@@ -1509,78 +1599,133 @@ export default function App() {
           </Suspense>
         </AnimatePresence>
 </main>
-      {/* FOOTER */}
-      <footer className="bg-surface backdrop-blur-xl border-t border-outline pt-20 pb-10 px-margin-mobile md:px-margin-desktop mt-auto relative z-10">
-        <div className="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-outline">
+      <footer 
+        style={{
+          background: 'linear-gradient(135deg, #0B1329 0%, #0F172A 100%)'
+        }}
+        className="text-on-surface-variant border-t border-outline/50 pt-20 pb-10 px-margin-mobile md:px-margin-desktop mt-auto relative z-10"
+      >
+        <div className="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 pb-16 border-b border-outline/50">
           
           {/* Col 1: Brand Details */}
           <div className="space-y-6">
             <div className="flex items-center gap-2 cursor-pointer group" onClick={handleLogoClick}>
-              <span className="material-symbols-outlined text-[32px] text-primary transition-colors" data-icon="deployed_code">deployed_code</span>
-              <span className="font-headline-lg text-headline-lg tracking-tight text-primary transition-colors hidden sm:block">
-                TechNest<span className="text-primary text-[12px] uppercase align-super ml-1 border border-primary/50 px-1 rounded">PRO</span>
+              <span className="material-symbols-outlined text-[32px] text-white transition-colors" data-icon="deployed_code">deployed_code</span>
+              <span className="font-headline-lg text-headline-lg tracking-tight text-white transition-colors">
+                TechHub<span className="text-primary text-[12px] uppercase align-super ml-1 border border-primary/50 px-1 rounded">PRO</span>
               </span>
             </div>
             <p className="font-body-md text-[14px] text-on-surface-variant leading-relaxed">
-              Premium audio headsets, wearable tech, and minimalist gadgets designed to elevate your personal style.
+              Premium electronics, wearables, gaming gear, and smart devices curated for modern lifestyles.
             </p>
             {/* Social Icons */}
-            <div className="flex items-center gap-4 pt-2">
-              <a href="#" className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-colors" title="Facebook">
-                <span className="material-symbols-outlined text-[18px]" data-icon="share">share</span>
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-colors" title="Twitter">
-                <span className="material-symbols-outlined text-[18px]" data-icon="language">language</span>
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-colors" title="Instagram">
-                <span className="material-symbols-outlined text-[18px]" data-icon="photo_camera">photo_camera</span>
-              </a>
+            <div className="flex items-center gap-3.5 pt-2">
+              {[
+                { icon: FacebookIcon, label: 'Facebook', url: 'https://facebook.com' },
+                { icon: TwitterIcon, label: 'X / Twitter', url: 'https://twitter.com' },
+                { icon: InstagramIcon, label: 'Instagram', url: 'https://instagram.com' },
+                { icon: YoutubeIcon, label: 'YouTube', url: 'https://youtube.com' },
+                { icon: LinkedinIcon, label: 'LinkedIn', url: 'https://linkedin.com' }
+              ].map((soc, idx) => {
+                const IconComponent = soc.icon;
+                return (
+                  <motion.a 
+                    key={idx}
+                    href={soc.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.15, boxShadow: "0 0 15px rgba(109, 93, 252, 0.4)", borderColor: "#6D5DFC" }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors shadow-sm cursor-pointer"
+                    title={soc.label}
+                  >
+                    <IconComponent size={18} />
+                  </motion.a>
+                );
+              })}
             </div>
           </div>
 
-          {/* Col 2: Navigation Links */}
+          {/* Col 2: Shop links */}
           <div className="space-y-6">
-            <h4 className="font-label-caps text-[12px] uppercase tracking-widest text-primary">Sitemap</h4>
-            <ul className="space-y-4 font-body-md text-[14px] text-on-surface-variant">
+            <h4 className="font-label-caps text-[12px] uppercase tracking-widest text-white font-bold">Shop</h4>
+            <ul className="space-y-3 font-body-md text-[14px] text-[#AAB6D8] flex flex-col items-start">
               <li>
-                <button onClick={() => { navigate('/'); setSelectedProductId(null); }} className="hover:text-primary transition-colors cursor-pointer">Home</button>
+                <button onClick={() => navigate('/shop')} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">All Products</button>
               </li>
               <li>
-                <button onClick={() => { navigate('/shop'); setSelectedProductId(null); }} className="hover:text-primary transition-colors cursor-pointer">Shop</button>
+                <button onClick={() => handleNavClick('categories-section', '/')} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Categories</button>
               </li>
               <li>
-                <button onClick={() => { navigate('/about'); setSelectedProductId(null); }} className="hover:text-primary transition-colors cursor-pointer">About Us</button>
+                <button onClick={() => handleNavClick('new-arrivals', '/')} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">New Arrivals</button>
               </li>
               <li>
-                <button onClick={() => showToast("Contact us at support@technest.com", "info")} className="hover:text-primary transition-colors cursor-pointer">Contact Support</button>
+                <button onClick={() => handleNavClick('trending-section', '/')} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Best Sellers</button>
+              </li>
+              <li>
+                <button onClick={() => handleNavClick('flash-deals', '/')} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Deals</button>
+              </li>
+              <li>
+                <button onClick={() => handleNavClick('categories-section', '/')} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Featured Products</button>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Contact details */}
+          {/* Col 3: Customer Support links */}
           <div className="space-y-6">
-            <h4 className="font-label-caps text-[12px] uppercase tracking-widest text-primary">Contact Us</h4>
-            <ul className="space-y-4 font-body-md text-[14px] text-on-surface-variant">
-              <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-[18px]" data-icon="mail">mail</span>
-                <a href="mailto:support@technest.com" className="hover:text-primary transition-colors">support@technest.com</a>
+            <h4 className="font-label-caps text-[12px] uppercase tracking-widest text-white font-bold">Customer Support</h4>
+            <ul className="space-y-3 font-body-md text-[14px] text-[#AAB6D8] flex flex-col items-start">
+              <li>
+                <button onClick={() => showToast("Contact support at support@techhub.com", "info")} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Contact Us</button>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-[18px]" data-icon="phone_in_talk">phone_in_talk</span>
-                <span>+1 800-SMART-NET</span>
+              <li>
+                <button onClick={() => navigate('/orders')} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Track Order</button>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-[18px] mt-1" data-icon="location_on">location_on</span>
-                <span className="leading-relaxed">Sector 7G, Core Node<br/>Cyber City, CC 95014</span>
+              <li>
+                <button onClick={() => showToast("Free delivery on all express shipments.", "info")} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Shipping Policy</button>
+              </li>
+              <li>
+                <button onClick={() => showToast("30-day hassle-free windows for all items.", "info")} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Returns & Refunds</button>
+              </li>
+              <li>
+                <button onClick={() => showToast("2-year warranty card is bundled inside product boxes.", "info")} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Warranty Information</button>
+              </li>
+              <li>
+                <button onClick={() => navigate('/about')} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">FAQ</button>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Newsletter */}
+          {/* Col 4: Company Links */}
           <div className="space-y-6">
-            <h4 className="font-label-caps text-[12px] uppercase tracking-widest text-primary">Newsletter</h4>
+            <h4 className="font-label-caps text-[12px] uppercase tracking-widest text-white font-bold">Company</h4>
+            <ul className="space-y-3 font-body-md text-[14px] text-[#AAB6D8] flex flex-col items-start">
+              <li>
+                <button onClick={() => navigate('/about')} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">About Us</button>
+              </li>
+              <li>
+                <button onClick={() => showToast("We are expanding our product team in 2026. Stay tuned!", "info")} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Careers</button>
+              </li>
+              <li>
+                <button onClick={() => showToast("Visit the TechHub Engineering Blog for updates.", "info")} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Blog</button>
+              </li>
+              <li>
+                <button onClick={() => showToast("TechHub featured in Future Gear magazine.", "info")} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-left">Press</button>
+              </li>
+              <li>
+                <button onClick={() => showToast("Your data privacy is protected using standard compliance guidelines.", "info")} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-[#AAB6D8] text-left">Privacy Policy</button>
+              </li>
+              <li>
+                <button onClick={() => showToast("Review our full terms of service specifications.", "info")} className="hover:translate-x-1 hover:text-white transition-all duration-300 cursor-pointer text-[#AAB6D8] text-left">Terms of Service</button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 5: Newsletter */}
+          <div className="space-y-6">
+            <h4 className="font-label-caps text-[12px] uppercase tracking-widest text-white font-bold">Stay Updated</h4>
             <p className="font-body-md text-[14px] text-on-surface-variant leading-relaxed">
-              Subscribe for the latest products and offers.
+              Subscribe to get deals, launches, and tech news right in your inbox.
             </p>
             <form 
               onSubmit={(e) => { 
@@ -1588,31 +1733,75 @@ export default function App() {
                 showToast("Successfully subscribed to the newsletter!", "success"); 
                 e.target.reset(); 
               }}
-              className="flex items-center bg-surface border border-outline rounded p-2 focus-within:border-primary/50 transition-colors"
+              className="flex items-center bg-white/5 border border-white/10 rounded-xl p-1.5 focus-within:border-primary/60 focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-300"
             >
               <input 
                 type="email" 
                 required
-                placeholder="Email Address..." 
-                className="bg-transparent border-none outline-none w-full text-[13px] font-body-md text-primary px-3 placeholder-on-surface-variant"
+                placeholder="Enter your email..." 
+                className="bg-transparent border-none outline-none w-full text-[13px] font-body-md text-white px-3 placeholder-on-surface-variant/50"
               />
               <button 
                 type="submit"
-                className="p-2 bg-primary hover:bg-primary/90 text-surface rounded transition-colors flex-shrink-0"
+                className="p-2.5 bg-primary hover:bg-[#8B7CFF] hover:shadow-[0_0_15px_rgba(109,93,252,0.4)] text-white rounded-lg transition-all duration-300 flex-shrink-0 active:scale-95 cursor-pointer"
               >
-                <span className="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+                <Send size={14} />
               </button>
             </form>
           </div>
 
         </div>
 
+        {/* TRUST ROW STRIP */}
+        <div className="max-w-container-max mx-auto py-10 border-b border-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {[
+              { icon: Truck, title: "Free Shipping", desc: "Fast nationwide delivery" },
+              { icon: ShieldCheck, title: "Secure Payments", desc: "100% protected checkout" },
+              { icon: RotateCcw, title: "Easy Returns", desc: "30-day hassle-free window" },
+              { icon: Shield, title: "2-Year Warranty", desc: "Full coverage guaranteed" },
+              { icon: Award, title: "Happy Customers", desc: "50k+ active tech lovers" }
+            ].map((trust, idx) => {
+              const IconComponent = trust.icon;
+              return (
+                <motion.div 
+                  key={idx}
+                  whileHover={{ y: -4, scale: 1.02, boxShadow: "0 10px 20px rgba(109, 93, 252, 0.15)", borderColor: "rgba(109, 93, 252, 0.3)" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-3.5 transition-all duration-300"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 shadow-inner">
+                    <IconComponent size={20} />
+                  </div>
+                  <div>
+                    <h5 className="font-bold text-[13px] text-white">{trust.title}</h5>
+                    <p className="text-[11px] text-[#AAB6D8] mt-0.5 leading-snug">{trust.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Bottom footer copyright details */}
-        <div className="max-w-container-max mx-auto pt-8 flex flex-col sm:flex-row items-center justify-between font-mono-technical text-[10px] text-on-surface-variant gap-4">
-          <p>© {new Date().getFullYear()} TechNest Platform. All rights reserved.</p>
+        <div className="max-w-container-max mx-auto pt-8 flex flex-col sm:flex-row items-center justify-between font-mono-technical text-[10px] text-[#AAB6D8] gap-4">
+          <p>© 2025 TechHub. All Rights Reserved.</p>
+          
+          {/* Payment Methods */}
+          <div className="flex items-center gap-2">
+            {['Visa', 'Mastercard', 'PayPal', 'UPI', 'RuPay'].map((method) => (
+              <span 
+                key={method}
+                className="bg-white/5 border border-white/10 text-[#D7DCF2] rounded-md px-2 py-1 text-[9px] uppercase tracking-wider font-mono-technical font-semibold shadow-sm"
+              >
+                {method}
+              </span>
+            ))}
+          </div>
+
           <div className="flex gap-4">
-            <span className="hover:text-primary cursor-pointer transition-colors">Privacy Policy</span>
-            <span className="hover:text-primary cursor-pointer transition-colors">Terms of Service</span>
+            <span onClick={() => showToast("Your data privacy is protected using standard compliance guidelines.", "info")} className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
+            <span onClick={() => showToast("Review our full terms of service specifications.", "info")} className="hover:text-white cursor-pointer transition-colors">Terms of Service</span>
           </div>
         </div>
       </footer>

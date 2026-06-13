@@ -1,23 +1,25 @@
-# TechNest — Premium Futuristic E-Commerce Platform
+# TechHub — Premium Tech Marketplace
 
-TechNest is a state-of-the-art e-commerce storefront designed for modern tech enthusiasts. It features a cinematic dark mode, neon accents, interactive sliding headers, dynamic technical spec layouts, and a secure shopping experience powered by a Spring Boot backend and React/Vite frontend.
+TechHub is a premium, light-themed, state-of-the-art e-commerce storefront designed for modern tech enthusiasts. Inspired by high-end design systems (like Apple Store, Nothing, and Samsung), TechHub features curated light gradients, sleek glassmorphism, stationary ambient background glows, compact navigation, and a secure shopping experience powered by a Spring Boot backend and a React/Vite frontend.
 
 ---
 
 ## 🌟 Key Features
 
-### 1. Futuristic Dark Aesthetic
-- Custom animated background mesh gradient transitioning through deep violet, indigo, and dark cyber tones.
-- GPU-accelerated slow-moving ambient light orbs and low-opacity cyber grid texture overlays.
-- Dynamic glowing borders and glassmorphism elements with spring animations.
+### 1. Premium Light-Theme Styling
+- **Curated Palette**: Utilizes clean `#F8F9FC` page backdrops, `#FFFFFF` cards, soft lavender/blue accents, and modern border systems.
+- **Fixed Ambient Glows**: Stationary fixed radial backdrop glows in `body` for stationary glowing spots as the page scrolls.
+- **Alternating Sections**: Beautiful transitions with alternating white, soft lavender, and soft blue-gray section backgrounds.
 
-### 2. Smart Navigation & Scrolling
-- Shrinking sticky header that moves slightly upwards (`-translate-y-3`) on scroll-down to save screen space, and immediately reveals itself on scroll-up.
-- Smooth ease-in-out scroll to top transitions when navigating the store catalog.
+### 2. Upgraded Product & Category Cards
+- **Product Spotlights**: Elegant radial purple spotlights (`rgba(109, 93, 252, 0.03)`) directly behind product images to draw focus.
+- **Shadows & Elevation**: Custom `.premium-product-card` and `.premium-category-card` styles featuring soft borders and premium diffuse shadows.
+- **Hover Physics**: Micro-interactions with smooth translation and scale springs on card hover.
 
-### 3. Curated Premium Product Catalog
-- **11 Newly Integrated Products** with high-quality PNG renders, detailed technical specifications, dynamic grounding shadow animations, and custom ratings/reviews based on stable IDs.
-- Staggered card entry animations (50ms offset) for a premium, non-distracting loading experience.
+### 3. Smart Compact Navigation
+- **Translucent Header**: High-end glassmorphic sticky navbar with 25% more compact spacing.
+- **Scroll Direction Tracker**: Automatically hides/reveals itself based on page scrolling direction to maximize active screen real estate.
+- **Text-Based Logo**: Clean text and symbol representation utilizing the `deployed_code` Material Icon for consistency.
 
 ### 4. Full-Featured Shopping Experience
 - **Authentication**: Fully functional secure SignUp, Login, and Session Recovery (auto-redirect to login when JWT token expires).
@@ -29,7 +31,7 @@ TechNest is a state-of-the-art e-commerce storefront designed for modern tech en
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React (Vite), Tailwind CSS, Framer Motion, Lucide Icons, Axios
+- **Frontend**: React (Vite), Vanilla CSS, Tailwind CSS, Framer Motion, Lucide Icons, Axios
 - **Backend**: Spring Boot, Java, JPA/Hibernate, Spring Security, JWT (JSON Web Tokens), MySQL
 - **Environment**: Fully containerizable and configured with environment variable overrides.
 
@@ -66,7 +68,7 @@ TechNest is a state-of-the-art e-commerce storefront designed for modern tech en
    ```bash
    mvn spring-boot:run
    ```
-   *The backend will automatically start on port `8081` and seed the database with all 11 premium products.*
+   *The backend will automatically start on port `8081` and seed the database with all premium products.*
 
 ---
 
@@ -84,7 +86,7 @@ TechNest is a state-of-the-art e-commerce storefront designed for modern tech en
    ```bash
    npm run dev
    ```
-   *The frontend will run on the local development port (typically `http://localhost:5173` or `5176`).*
+   *The frontend will run on the local development port (typically `http://localhost:5180`).*
 
 ### Building for Production
 1. To compile the production bundle:
@@ -115,4 +117,4 @@ e commerce/
 ```
 
 ---
-*Created with 💜 for the ultimate futuristic e-commerce showcase.*
+*Created with 💜 for the ultimate premium e-commerce showcase.*
