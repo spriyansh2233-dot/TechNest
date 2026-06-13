@@ -171,7 +171,7 @@ export default function LandingPage({
         </div>
 
       {/* STITCH ECOSYSTEM CATEGORIES */}
-      <div className="w-full bg-gradient-to-b from-[#FFFFFF] to-[#F5F3FF] py-14 border-b border-outline/50">
+      <div className="w-full bg-[#F6F8FC] py-14 border-b border-outline/50">
         <motion.section 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -298,7 +298,7 @@ export default function LandingPage({
 
       {/* DEALS OF THE DAY SECTION */}
       {dealsProds.length > 0 && (
-        <div className="w-full bg-gradient-to-b from-[#FFFFFF] via-[#F4F6FC] to-[#FFFFFF] py-14 border-t border-b border-outline/50">
+        <div className="w-full bg-[#EEF4FF] py-14 border-t border-b border-outline/50">
           <motion.section 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -436,7 +436,7 @@ export default function LandingPage({
       )}
 
       {/* PROMOTIONAL BANNER */}
-      <div className="w-full bg-gradient-to-b from-[#FFFFFF] via-[#F3F4FE] to-[#FFFFFF] py-14">
+      <div className="w-full bg-[#EEF4FF] py-14">
         <motion.section 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

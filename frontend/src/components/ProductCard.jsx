@@ -33,18 +33,26 @@ export default function ProductCard({
     topBadgeColor = "border-info/30 bg-info/10 text-info";
   }
 
-  // Stock status
-  let stockStatus = null;
-  let stockColor = "";
+  // Stock status badge
+  let stockBadge = null;
   if (prod.stock === 0) {
-    stockStatus = "Out of Stock";
-    stockColor = "text-error";
+    stockBadge = (
+      <span className="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-rose-50 text-rose-600 border border-rose-100 font-mono-technical uppercase tracking-wider">
+        Out of Stock
+      </span>
+    );
   } else if (prod.stock <= 10) {
-    stockStatus = `Only ${prod.stock} Left`;
-    stockColor = "text-primary";
+    stockBadge = (
+      <span className="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-50 text-amber-600 border border-amber-100 font-mono-technical uppercase tracking-wider">
+        Only {prod.stock} Left
+      </span>
+    );
   } else {
-    stockStatus = "In Stock";
-    stockColor = "text-success";
+    stockBadge = (
+      <span className="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-100 font-mono-technical uppercase tracking-wider">
+        In Stock
+      </span>
+    );
   }
 
   return (
@@ -102,33 +110,31 @@ export default function ProductCard({
       </div>
       
       <div className="mt-auto relative z-20">
-        <div className="flex justify-between items-center mb-1">
-            <span className="block font-mono-technical text-[9px] text-primary uppercase tracking-wider font-semibold">{prod.brand || prod.category}</span>
-            <span className={`font-mono-technical text-[9px] font-bold ${stockColor} flex items-center gap-1`}>
-               {stockStatus}
-            </span>
+        <div className="flex justify-between items-center mb-2">
+            <span className="block font-mono-technical text-[9px] text-[#6D5DFC] uppercase tracking-wider font-bold">{prod.brand || prod.category}</span>
+            {stockBadge}
         </div>
         
-        <h3 className="font-body-lg text-[14px] font-semibold text-on-surface mb-1 line-clamp-2 group-hover:text-primary transition-colors h-10 leading-5">{prod.name}</h3>
+        <h3 className="font-body-lg text-[14px] font-semibold text-slate-800 mb-1.5 line-clamp-2 group-hover:text-[#6D5DFC] transition-colors h-10 leading-5">{prod.name}</h3>
         
         {/* Rating and Reviews */}
         <div className="flex items-center gap-1 mb-2">
           <div className="flex text-amber-400">
             {[...Array(5)].map((_, i) => (
-                <Star key={i} size={11} className={i < Math.floor(prod.rating) ? "fill-current" : "text-outline"} />
+                <Star key={i} size={11} className={i < Math.floor(prod.rating) ? "fill-current" : "text-slate-200"} />
             ))}
           </div>
-          <span className="font-mono-technical text-[10px] text-on-surface-variant ml-1 font-bold">{rating}</span>
-          <span className="font-mono-technical text-[10px] text-on-surface-variant">({reviewsCount.toLocaleString()})</span>
+          <span className="font-mono-technical text-[10px] text-slate-700 ml-1.5 font-bold">{rating}</span>
+          <span className="font-mono-technical text-[10px] text-slate-400">({reviewsCount.toLocaleString()} reviews)</span>
         </div>
 
-        <div className="flex items-end gap-2 mb-3">
-          <span className="font-mono-technical text-[18px] text-on-surface font-bold">
+        <div className="flex items-end gap-2 mb-3.5">
+          <span className="font-mono-technical text-[18px] text-slate-900 font-bold">
             ₹{prod.price?.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
           </span>
           {prod.originalPrice && prod.discount > 0 && (
             <>
-              <span className="font-mono-technical text-[12px] text-on-surface-variant line-through block pb-0.5">
+              <span className="font-mono-technical text-[12px] text-slate-400 line-through block pb-0.5">
                 ₹{prod.originalPrice.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
               </span>
               <span className="font-mono-technical text-[10px] text-emerald-600 font-bold pb-0.5">
@@ -139,17 +145,17 @@ export default function ProductCard({
         </div>
         
         {qtyInCart > 0 ? (
-          <div className="w-full flex items-center justify-between bg-primary/5 border border-primary/20 rounded-lg p-1.5 backdrop-blur-md">
+          <div className="w-full flex items-center justify-between bg-[#EEF2FF] border border-[#6D5DFC]/20 rounded-lg p-1.5 backdrop-blur-md">
             <button 
               onClick={(e) => { e.stopPropagation(); onUpdateCartQty(prod.id, qtyInCart - 1); }}
-              className="w-8 h-8 flex items-center justify-center text-primary hover:bg-surface rounded-md transition-colors shadow-sm cursor-pointer"
+              className="w-8 h-8 flex items-center justify-center text-[#6D5DFC] hover:bg-white rounded-md transition-all shadow-sm cursor-pointer"
             >
               <span className="material-symbols-outlined text-[16px]">remove</span>
             </button>
-            <span className="font-mono-technical text-[14px] text-primary w-8 text-center font-bold">{qtyInCart}</span>
+            <span className="font-mono-technical text-[14px] text-[#6D5DFC] w-8 text-center font-bold">{qtyInCart}</span>
             <button 
               onClick={(e) => { e.stopPropagation(); onUpdateCartQty(prod.id, qtyInCart + 1); }}
-              className="w-8 h-8 flex items-center justify-center text-primary hover:bg-surface rounded-md transition-colors shadow-sm cursor-pointer"
+              className="w-8 h-8 flex items-center justify-center text-[#6D5DFC] hover:bg-white rounded-md transition-all shadow-sm cursor-pointer"
             >
               <span className="material-symbols-outlined text-[16px]">add</span>
             </button>
@@ -160,8 +166,8 @@ export default function ProductCard({
             onClick={(e) => { e.stopPropagation(); onAddToCart(prod); }}
             className={`w-full py-2.5 flex items-center justify-center gap-2 rounded-lg font-label-caps text-[11px] uppercase tracking-widest transition-all shadow-sm cursor-pointer font-bold ${
               prod.stock === 0 
-                ? 'bg-surface-container text-outline cursor-not-allowed border border-outline' 
-                : 'bg-primary/5 text-primary border border-primary/20 hover:bg-primary hover:text-white hover:shadow-[0_4px_12px_rgba(109,93,252,0.25)]'
+                ? 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200' 
+                : 'bg-[#6D5DFC] text-white hover:bg-[#5B4AF5] hover:shadow-[0_4px_12px_rgba(109,93,252,0.3)]'
             }`}
           >
             <ShoppingCart size={14} />

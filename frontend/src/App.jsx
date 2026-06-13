@@ -1601,7 +1601,7 @@ export default function App() {
 </main>
       <footer 
         style={{
-          background: 'linear-gradient(135deg, #0B1329 0%, #0F172A 100%)'
+          backgroundColor: '#0F172A'
         }}
         className="text-on-surface-variant border-t border-outline/50 pt-20 pb-10 px-margin-mobile md:px-margin-desktop mt-auto relative z-10"
       >
