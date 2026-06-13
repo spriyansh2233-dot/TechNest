@@ -29,7 +29,7 @@ export default function QuickViewModal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/70 backdrop-blur-md z-[150]"
+            className="fixed inset-0 bg-black/40 backdrop-blur-md z-[150]"
           />
 
           {/* Modal Card */}
@@ -38,24 +38,24 @@ export default function QuickViewModal({
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 30 }}
             transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}
-            className="relative glass-card border border-white/20 p-6 md:p-8 max-w-4xl w-full z-[151] shadow-[0_0_50px_rgba(138,43,226,0.3)] bg-[#0f0f0f]/95 backdrop-blur-2xl text-left rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-8 my-auto"
+            className="relative glass-card border border-outline p-6 md:p-8 max-w-4xl w-full z-[151] shadow-2xl bg-surface/95 backdrop-blur-2xl text-left rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-8 my-auto"
           >
             {/* Close Button */}
             <button 
               onClick={onClose}
-              className="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors cursor-pointer p-2 rounded-full bg-white/5 hover:bg-white/10 z-[160]"
+              className="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors cursor-pointer p-2 rounded-full bg-surface-container hover:bg-outline/20 z-[160]"
             >
               <X size={18} />
             </button>
 
             {/* Gallery Panel */}
             <div className="flex flex-col gap-4 justify-between h-full">
-              <div className="glass-card bg-surface p-8 flex items-center justify-center relative min-h-[300px] md:min-h-[400px] rounded-xl relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+              <div className="glass-card bg-surface-container border border-outline p-8 flex items-center justify-center relative min-h-[300px] md:min-h-[400px] rounded-xl overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none"></div>
                 <img 
                   src={product.imageUrl} 
                   alt={product.name} 
-                  className="max-h-[250px] md:max-h-[320px] object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.4)] animate-float mix-blend-screen transition-transform duration-300 group-hover:scale-105" 
+                  className="max-h-[250px] md:max-h-[320px] object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.4)] animate-float transition-transform duration-300 group-hover:scale-105" 
                 />
                 
                 {product.discount > 0 && (
@@ -71,11 +71,11 @@ export default function QuickViewModal({
                   <button 
                     key={i}
                     onClick={() => setActiveThumb(i)}
-                    className={`w-16 h-16 p-2 rounded-lg glass-card border flex items-center justify-center transition-all ${
-                      activeThumb === i ? 'border-[#8A2BE2] bg-[#8A2BE2]/10 scale-105' : 'border-white/5 hover:border-white/20'
+                    className={`w-16 h-16 p-2 rounded-lg glass-card border flex items-center justify-center transition-all cursor-pointer ${
+                      activeThumb === i ? 'border-primary bg-primary/10 scale-105' : 'border-outline hover:border-primary/50'
                     }`}
                   >
-                    <img src={img} alt="" className="max-h-full object-contain mix-blend-screen" />
+                    <img src={img} alt="" className="max-h-full object-contain" />
                   </button>
                 ))}
               </div>
@@ -121,11 +121,11 @@ export default function QuickViewModal({
                       </p>
                       {specsText && (
                         <div className="space-y-2">
-                          <h4 className="font-mono-technical text-[10px] text-[#8A2BE2] uppercase tracking-wider font-semibold">Technical Specifications</h4>
-                          <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[11px] text-on-surface-variant bg-white/5 p-3 rounded-lg border border-white/5">
+                          <h4 className="font-mono-technical text-[10px] text-primary uppercase tracking-wider font-semibold">Technical Specifications</h4>
+                          <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[11px] text-on-surface-variant bg-surface-container p-3 rounded-lg border border-outline">
                             {specsText.split(", ").map((spec, i) => (
                               <li key={i} className="flex items-center gap-2">
-                                <span className="w-1 h-1 rounded-full bg-[#8A2BE2]" />
+                                <span className="w-1 h-1 rounded-full bg-primary" />
                                 <span>{spec}</span>
                               </li>
                             ))}
@@ -137,7 +137,7 @@ export default function QuickViewModal({
                 })()}
 
                 {/* Specification Highlights */}
-                <div className="space-y-2 border-t border-b border-white/5 py-4 mb-6">
+                <div className="space-y-2 border-t border-b border-outline py-4 mb-6">
                   <div className="flex justify-between text-[12px]">
                     <span className="text-on-surface-variant/70">Availability</span>
                     <span className={`font-semibold ${product.stock > 0 ? 'text-emerald-400' : 'text-error'}`}>
@@ -174,37 +174,37 @@ export default function QuickViewModal({
                     qtyInCart === 0 ? (
                       <button 
                         onClick={() => onAddToCart(product)}
-                        className="flex-grow py-3.5 bg-primary text-surface font-label-caps text-[11px] uppercase tracking-widest rounded-xl hover:bg-primary/95 shadow-[0_0_15px_rgba(138,43,226,0.3)] hover:shadow-[0_0_20px_rgba(138,43,226,0.5)] flex items-center justify-center gap-2 cursor-pointer font-bold"
+                        className="flex-grow py-3.5 bg-primary text-surface font-label-caps text-[11px] uppercase tracking-widest rounded-xl hover:bg-primary/95 shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer font-bold"
                       >
                         <ShoppingCart size={14} />
                         Add to Cart
                       </button>
                     ) : (
-                      <div className="flex-grow flex items-center justify-between bg-surface border border-outline-variant/30 rounded-xl p-1">
+                      <div className="flex-grow flex items-center justify-between bg-surface-container border border-outline rounded-xl p-1">
                         <button 
                           onClick={() => onUpdateCartQty(product.id, qtyInCart - 1)}
-                          className="w-10 h-10 flex items-center justify-center text-primary hover:bg-white/5 rounded-lg transition-colors cursor-pointer"
+                          className="w-10 h-10 flex items-center justify-center text-primary hover:bg-outline/20 rounded-lg transition-colors cursor-pointer"
                         >
                           <span className="material-symbols-outlined text-[16px]">remove</span>
                         </button>
                         <span className="font-mono-technical text-[14px] text-primary w-8 text-center">{qtyInCart}</span>
                         <button 
                           onClick={() => onUpdateCartQty(product.id, qtyInCart + 1)}
-                          className="w-10 h-10 flex items-center justify-center text-primary hover:bg-white/5 rounded-lg transition-colors cursor-pointer"
+                          className="w-10 h-10 flex items-center justify-center text-primary hover:bg-outline/20 rounded-lg transition-colors cursor-pointer"
                         >
                           <span className="material-symbols-outlined text-[16px]">add</span>
                         </button>
                       </div>
                     )
                   ) : (
-                    <button disabled className="flex-grow py-3.5 bg-surface-variant text-on-surface-variant border border-outline-variant/30 font-label-caps text-[11px] uppercase tracking-widest rounded-xl cursor-not-allowed">
+                    <button disabled className="flex-grow py-3.5 bg-surface-container text-on-surface-variant border border-outline font-label-caps text-[11px] uppercase tracking-widest rounded-xl cursor-not-allowed">
                       Out of Stock
                     </button>
                   )}
 
                   <button 
                     onClick={() => onToggleWishlist(product)}
-                    className="w-12 h-12 flex items-center justify-center bg-surface border border-outline-variant/30 text-on-surface-variant hover:text-error hover:border-error/50 rounded-xl transition-all cursor-pointer"
+                    className="w-12 h-12 flex items-center justify-center bg-surface border border-outline text-on-surface-variant hover:text-error hover:border-error/50 hover:bg-error/5 rounded-xl transition-all cursor-pointer shadow-sm"
                   >
                     <Heart size={18} className={isWishlisted ? "text-error fill-current" : ""} />
                   </button>
@@ -217,7 +217,7 @@ export default function QuickViewModal({
                       onAddToCart(product);
                       navigate('/shop');
                     }}
-                    className="w-full mt-3 py-3 bg-transparent border border-[#8A2BE2]/40 text-[#8A2BE2] hover:bg-[#8A2BE2]/10 font-label-caps text-[11px] uppercase tracking-widest rounded-xl transition-all cursor-pointer font-bold text-center"
+                    className="w-full mt-3 py-3 bg-transparent border border-primary/40 text-primary hover:bg-primary/10 font-label-caps text-[11px] uppercase tracking-widest rounded-xl transition-all cursor-pointer font-bold text-center"
                   >
                     Buy Now
                   </button>

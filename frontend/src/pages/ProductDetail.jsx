@@ -31,15 +31,7 @@ export default function ProductDetail({
   ];
 
   const getEstimatedDeliveryDate = () => {
-    const today = new Date();
-    const deliveryDate = new Date(today);
-    deliveryDate.setDate(today.getDate() + 1); // Next day delivery
-    
-    return deliveryDate.toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'short',
-      day: 'numeric'
-    });
+    return selectedProduct?.deliveryEstimate || "Within 3-5 Business Days";
   };
 
   return (
@@ -48,7 +40,7 @@ export default function ProductDetail({
       <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-12 md:py-24">
         <button 
           onClick={() => { setSelectedProduct(null); navigate('/shop'); }}
-          className="mb-8 font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 bg-surface-container-highest px-4 py-2 rounded-full border border-outline-variant/30 w-fit"
+          className="mb-8 font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 bg-surface px-4 py-2 rounded-full border border-outline shadow-sm w-fit cursor-pointer"
         >
           <span className="material-symbols-outlined text-[14px]" data-icon="arrow_back">arrow_back</span>
           <span>Back to Catalog</span>
@@ -57,12 +49,12 @@ export default function ProductDetail({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
           {/* Image Gallery */}
           <div className="flex flex-col gap-6">
-            <div className="glass-card p-12 flex items-center justify-center relative min-h-[350px] md:min-h-[500px] overflow-hidden">
+            <div className="glass-card p-12 flex items-center justify-center relative min-h-[350px] md:min-h-[500px] overflow-hidden bg-surface border border-outline rounded-3xl">
               <img 
                 src={galleryImages[activeImageIndex].url} 
                 alt={selectedProduct.name} 
                 style={galleryImages[activeImageIndex].style}
-                className="w-full max-w-sm object-contain filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] animate-float mix-blend-screen transition-all duration-500" 
+                className="w-full max-w-sm object-contain filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] animate-float transition-all duration-500" 
               />
               {selectedProduct.discount > 0 && (
                 <div className="absolute top-8 left-8 bg-error/10 border border-error/20 text-error font-mono-technical text-[12px] px-3 py-1 rounded shadow-[0_0_15px_rgba(239,68,68,0.2)]">
@@ -79,17 +71,17 @@ export default function ProductDetail({
                   onClick={() => setActiveImageIndex(index)}
                   className={`w-20 h-20 rounded-xl glass-card border p-2 flex items-center justify-center transition-all duration-300 relative overflow-hidden cursor-pointer ${
                     activeImageIndex === index 
-                      ? 'border-[#8A2BE2] bg-[#8A2BE2]/10 shadow-[0_0_15px_rgba(138,43,226,0.4)]' 
-                      : 'border-white/10 hover:border-[#8A2BE2]/50 hover:bg-white/5'
+                      ? 'border-primary bg-primary/10 shadow-[0_0_15px_rgba(109,93,252,0.2)]' 
+                      : 'border-outline hover:border-primary/50 hover:bg-surface-container bg-surface'
                   }`}
                 >
                   <img 
                     src={img.url} 
                     alt={`${selectedProduct.name} thumbnail ${index}`} 
                     style={img.style}
-                    className="max-h-full max-w-full object-contain mix-blend-screen"
+                    className="max-h-full max-w-full object-contain"
                   />
-                  <div className="absolute bottom-0 inset-x-0 bg-black/60 text-[8px] font-mono-technical text-center py-0.5 text-on-surface-variant font-semibold">
+                  <div className="absolute bottom-0 inset-x-0 bg-surface/80 backdrop-blur-sm text-[8px] font-mono-technical text-center py-0.5 text-on-surface font-semibold border-t border-outline">
                     {img.label}
                   </div>
                 </button>
@@ -108,7 +100,7 @@ export default function ProductDetail({
             <div className="flex items-center gap-4 mb-6">
               <div className="flex text-amber-400 text-[14px]">
                 {Array.from({ length: 5 }).map((_, idx) => {
-                  const ratingVal = selectedProduct.rating ? selectedProduct.rating : (4.5 + (selectedProduct.id % 5) * 0.1);
+                  const ratingVal = selectedProduct.rating || 4.5;
                   const starIndex = idx + 1;
                   if (ratingVal >= starIndex) {
                     return <span key={idx} className="material-symbols-outlined fill-current" data-icon="star">star</span>;
@@ -120,7 +112,7 @@ export default function ProductDetail({
                 })}
               </div>
               <span className="font-mono-technical text-[12px] text-on-surface-variant underline decoration-outline-variant/30 underline-offset-4">
-                {(selectedProduct.rating ? selectedProduct.rating : (4.5 + (selectedProduct.id % 5) * 0.1)).toFixed(1)} ({20 + (selectedProduct.id % 7) * 47} Reviews)
+                {(selectedProduct.rating || 4.5).toFixed(1)} ({selectedProduct.reviewCount || 128} Reviews)
               </span>
             </div>
 
@@ -135,11 +127,11 @@ export default function ProductDetail({
                   </p>
                   {specsText && (
                     <div className="space-y-3">
-                      <h4 className="font-mono-technical text-[11px] text-[#8A2BE2] uppercase tracking-wider font-semibold">Technical Specifications</h4>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-[13px] text-on-surface-variant bg-white/5 p-4 rounded-xl border border-white/5">
+                      <h4 className="font-mono-technical text-[11px] text-primary uppercase tracking-wider font-semibold">Technical Specifications</h4>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-[13px] text-on-surface-variant bg-surface-container p-4 rounded-xl border border-outline">
                         {specsText.split(", ").map((spec, i) => (
                           <li key={i} className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#8A2BE2]" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                             <span>{spec}</span>
                           </li>
                         ))}
@@ -154,16 +146,19 @@ export default function ProductDetail({
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-[50px] -mr-10 -mt-10 pointer-events-none"></div>
               
               <div className="flex items-end gap-6 mb-6">
-                {selectedProduct.discount > 0 ? (
+                {selectedProduct.originalPrice && selectedProduct.discount > 0 ? (
                   <div className="flex flex-col">
-                    <span className="font-mono-technical text-[14px] text-on-surface-variant line-through mb-1 block">₹{selectedProduct.price.toFixed(2)}</span>
-                    <span className="font-mono-technical text-[32px] text-primary block leading-none">₹{(selectedProduct.price - selectedProduct.discount).toFixed(2)}</span>
+                    <span className="font-mono-technical text-[14px] text-on-surface-variant line-through mb-1 block">₹{selectedProduct.originalPrice.toLocaleString()}</span>
+                    <div className="flex items-end gap-3">
+                        <span className="font-mono-technical text-[32px] text-primary block leading-none">₹{selectedProduct.price.toLocaleString()}</span>
+                        <span className="font-mono-technical text-[12px] text-emerald-600 font-bold block pb-1">{selectedProduct.discount}% OFF</span>
+                    </div>
                   </div>
                 ) : (
-                  <span className="font-mono-technical text-[32px] text-primary block leading-none">₹{selectedProduct.price.toFixed(2)}</span>
+                  <span className="font-mono-technical text-[32px] text-primary block leading-none">₹{selectedProduct.price?.toLocaleString()}</span>
                 )}
-                <span className={`font-label-caps text-[10px] uppercase tracking-widest mb-1 ${selectedProduct.stock > 0 ? 'text-emerald-400' : 'text-error'}`}>
-                  {selectedProduct.stock > 0 ? 'In Stock' : 'Out of Stock'}
+                <span className={`font-label-caps text-[10px] uppercase tracking-widest mb-1 font-bold ${selectedProduct.stock > 0 ? (selectedProduct.stock <= 10 ? 'text-orange-500' : 'text-emerald-500') : 'text-error'}`}>
+                  {selectedProduct.stock > 0 ? (selectedProduct.stock <= 10 ? `Only ${selectedProduct.stock} Left` : 'In Stock') : 'Out of Stock'}
                 </span>
               </div>
 
@@ -173,7 +168,7 @@ export default function ProductDetail({
                     {qtyInCart === 0 ? (
                       <button 
                         onClick={() => addToCart(selectedProduct)}
-                        className="flex-grow py-4 bg-primary text-surface font-label-caps text-[12px] uppercase tracking-widest rounded-xl hover:bg-primary/90 transition-all shadow-[0_0_20px_rgba(138,43,226,0.3)] hover:shadow-[0_0_30px_rgba(138,43,226,0.5)] flex items-center justify-center gap-2 cursor-pointer font-bold"
+                        className="flex-grow py-4 bg-primary text-surface font-label-caps text-[12px] uppercase tracking-widest rounded-xl hover:bg-primary/90 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer font-bold"
                       >
                         <span className="material-symbols-outlined text-[18px]" data-icon="shopping_cart">shopping_cart</span>
                         <span>Add to Cart</span>
@@ -182,14 +177,14 @@ export default function ProductDetail({
                       <div className="flex-grow flex items-center justify-between bg-surface-container-highest border border-outline-variant/30 rounded-xl p-2 animate-fadeIn">
                         <button 
                           onClick={() => updateCartQty(selectedProduct.id, qtyInCart - 1)}
-                          className="w-10 h-10 flex items-center justify-center text-primary hover:bg-white/5 rounded-lg transition-colors cursor-pointer"
+                          className="w-10 h-10 flex items-center justify-center text-primary hover:bg-surface rounded-lg transition-colors cursor-pointer border border-transparent hover:border-outline shadow-sm"
                         >
                           <span className="material-symbols-outlined text-[18px]" data-icon="remove">remove</span>
                         </button>
                         <span className="font-mono-technical text-[16px] text-primary w-8 text-center">{qtyInCart}</span>
                         <button 
                           onClick={() => updateCartQty(selectedProduct.id, qtyInCart + 1)}
-                          className="w-10 h-10 flex items-center justify-center text-primary hover:bg-white/5 rounded-lg transition-colors cursor-pointer"
+                          className="w-10 h-10 flex items-center justify-center text-primary hover:bg-surface rounded-lg transition-colors cursor-pointer border border-transparent hover:border-outline shadow-sm"
                         >
                           <span className="material-symbols-outlined text-[18px]" data-icon="add">add</span>
                         </button>
@@ -197,7 +192,7 @@ export default function ProductDetail({
                     )}
                     <button 
                       onClick={() => toggleWishlist(selectedProduct)}
-                      className="w-14 h-14 flex items-center justify-center bg-surface-container-highest border border-outline-variant/30 text-on-surface-variant hover:text-error hover:border-error/50 rounded-xl transition-all cursor-pointer"
+                      className="w-14 h-14 flex items-center justify-center bg-surface border border-outline text-on-surface-variant hover:text-error hover:border-error/50 hover:bg-error/5 rounded-xl transition-all cursor-pointer shadow-sm"
                     >
                       <span className={`material-symbols-outlined text-[24px] ${wishlist.some(item => item.id === selectedProduct.id) ? "text-error" : ""}`} data-icon="favorite">favorite</span>
                     </button>
@@ -210,13 +205,13 @@ export default function ProductDetail({
                   </div>
                 </div>
               ) : (
-                <button disabled className="w-full py-4 bg-surface-variant text-on-surface-variant border border-outline-variant/30 font-label-caps text-[12px] uppercase tracking-widest rounded-xl cursor-not-allowed">
+                <button disabled className="w-full py-4 bg-surface-container text-on-surface-variant border border-outline font-label-caps text-[12px] uppercase tracking-widest rounded-xl cursor-not-allowed">
                   Out of Stock
                 </button>
               )}
             </div>
 
-            <div className="grid grid-cols-2 gap-4 border-t border-outline-variant/30 pt-8 mt-8">
+            <div className="grid grid-cols-2 gap-4 border-t border-outline pt-8 mt-8">
               <div className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-primary text-[20px]" data-icon="verified">verified</span>
                 <div>
@@ -238,7 +233,7 @@ export default function ProductDetail({
 
       {/* Related Products Section */}
       {similarProducts && similarProducts.length > 0 && (
-        <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-12 border-t border-outline-variant/30">
+        <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-12 border-t border-outline">
           <div className="mb-8">
             <h2 className="font-headline-lg text-[24px] text-primary mb-2">Related Products</h2>
             <p className="font-body-md text-[14px] text-on-surface-variant">Customers also viewed these items.</p>
@@ -264,10 +259,110 @@ export default function ProductDetail({
           </div>
         </section>
       )}
+      {/* Frequently Bought Together Section */}
+      {freqBought && freqBought.length > 0 && (
+        <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-12 border-t border-outline">
+          <div className="mb-8">
+            <h2 className="font-headline-lg text-[24px] text-primary mb-2">Frequently Bought Together</h2>
+            <p className="font-body-md text-[14px] text-on-surface-variant">Complete your setup with these items.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {freqBought.map(prod => {
+              const isWishlisted = wishlist.some(item => item.id === prod.id);
+              const cardQtyInCart = getProductCartQty(prod.id);
+              return (
+                <ProductCard 
+                  key={`freq-${prod.id}`}
+                  prod={prod}
+                  qtyInCart={cardQtyInCart}
+                  isWishlisted={isWishlisted}
+                  onCardClick={() => { setSelectedProductId(prod.id); fetchProductDetails(prod.id); navigate('/product/' + prod.id); window.scrollTo(0, 0); }}
+                  onAddToCart={addToCart}
+                  onUpdateCartQty={updateCartQty}
+                  onToggleWishlist={toggleWishlist}
+                  onQuickView={onQuickView}
+                />
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Customer Reviews Section */}
+      <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-12 border-t border-outline">
+        <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <h2 className="font-headline-lg text-[24px] text-primary mb-2">Customer Reviews</h2>
+            <p className="font-body-md text-[14px] text-on-surface-variant">Real feedback from verified buyers.</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="text-center">
+                <span className="font-mono-technical text-[32px] text-primary font-bold block leading-none">{(selectedProduct.rating || 4.5).toFixed(1)}</span>
+                <div className="flex text-amber-400 text-[12px] mt-1 justify-center">
+                  {[...Array(5)].map((_, i) => <span key={i} className="material-symbols-outlined fill-current" data-icon={i < Math.floor(selectedProduct.rating || 4.5) ? 'star' : 'star_outline'}>{i < Math.floor(selectedProduct.rating || 4.5) ? 'star' : 'star_outline'}</span>)}
+                </div>
+            </div>
+            <div className="h-12 w-px bg-outline hidden sm:block"></div>
+            <div className="flex flex-col gap-1">
+                {[5, 4, 3, 2, 1].map(star => (
+                    <div key={star} className="flex items-center gap-2 text-[10px] font-mono-technical">
+                        <span className="w-2">{star}</span>
+                        <span className="text-amber-400 material-symbols-outlined text-[10px] fill-current" data-icon="star">star</span>
+                        <div className="w-24 h-1.5 bg-surface-container rounded-full overflow-hidden">
+                            <div className="h-full bg-primary" style={{ width: `${star === 5 ? 70 : star === 4 ? 20 : star === 3 ? 5 : 2}%` }}></div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Mock Review 1 */}
+          <div className="p-6 bg-surface border border-outline rounded-2xl">
+              <div className="flex justify-between items-start mb-4">
+                  <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-[14px]">JD</div>
+                      <div>
+                          <p className="font-body-md text-[14px] text-primary font-bold">John Doe</p>
+                          <p className="font-mono-technical text-[10px] text-emerald-600 flex items-center gap-1"><span className="material-symbols-outlined text-[12px]">verified</span> Verified Buyer</p>
+                      </div>
+                  </div>
+                  <div className="flex text-amber-400 text-[12px]">
+                      {[...Array(5)].map((_, i) => <span key={i} className="material-symbols-outlined fill-current" data-icon="star">star</span>)}
+                  </div>
+              </div>
+              <h4 className="font-body-lg text-[15px] text-on-surface font-bold mb-2">Exceeded my expectations!</h4>
+              <p className="font-body-md text-[13px] text-on-surface-variant leading-relaxed">
+                  The build quality is incredibly premium and the performance is exactly as advertised. I've been using it for a week now and it hasn't skipped a beat.
+              </p>
+          </div>
+          
+          {/* Mock Review 2 */}
+          <div className="p-6 bg-surface border border-outline rounded-2xl">
+              <div className="flex justify-between items-start mb-4">
+                  <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-[14px]">AS</div>
+                      <div>
+                          <p className="font-body-md text-[14px] text-primary font-bold">Alice Smith</p>
+                          <p className="font-mono-technical text-[10px] text-emerald-600 flex items-center gap-1"><span className="material-symbols-outlined text-[12px]">verified</span> Verified Buyer</p>
+                      </div>
+                  </div>
+                  <div className="flex text-amber-400 text-[12px]">
+                      {[...Array(5)].map((_, i) => <span key={i} className="material-symbols-outlined fill-current" data-icon={i < 4 ? 'star' : 'star_outline'}>{i < 4 ? 'star' : 'star_outline'}</span>)}
+                  </div>
+              </div>
+              <h4 className="font-body-lg text-[15px] text-on-surface font-bold mb-2">Great value for the price</h4>
+              <p className="font-body-md text-[13px] text-on-surface-variant leading-relaxed">
+                  Really solid product. The delivery was fast and the packaging was excellent. Taking off one star because the manual could be a bit clearer.
+              </p>
+          </div>
+        </div>
+      </section>
 
       {/* Recently Viewed Section */}
       {recentlyViewed && recentlyViewed.length > 0 && (
-        <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-12 border-t border-outline-variant/30 mt-12">
+        <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-12 border-t border-outline mt-12">
           <div className="mb-8">
             <h2 className="font-headline-lg text-[24px] text-primary mb-2">Recently Viewed</h2>
             <p className="font-body-md text-[14px] text-on-surface-variant">Products you looked at recently.</p>

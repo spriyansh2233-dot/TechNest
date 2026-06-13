@@ -9,16 +9,16 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Profile Card */}
-        <div className="lg:col-span-1 glass-card p-8 h-max">
+        <div className="lg:col-span-1 glass-card bg-surface border border-outline shadow-sm p-8 h-max rounded-3xl">
           <div className="flex flex-col items-center text-center space-y-4">
-            <div className="w-20 h-20 rounded-full bg-surface-container-highest flex items-center justify-center text-primary mb-2">
+            <div className="w-20 h-20 rounded-full bg-surface-container flex items-center justify-center text-primary mb-2 shadow-inner">
               <span className="material-symbols-outlined text-[40px]" data-icon="person">person</span>
             </div>
             <div>
               <h3 className="font-headline-lg text-[24px] text-primary">{user?.name}</h3>
               <p className="font-body-md text-[14px] text-on-surface-variant mt-1">{user?.email}</p>
             </div>
-            <span className="px-3 py-1 text-[10px] font-mono-technical uppercase tracking-widest bg-primary/10 text-primary border border-primary/20 rounded">
+            <span className="px-3 py-1 text-[10px] font-mono-technical uppercase tracking-widest bg-primary/10 text-primary border border-primary/20 rounded-full">
               {user?.role === 'ADMIN' ? 'System Administrator' : 'Customer'}
             </span>
           </div>
@@ -26,11 +26,11 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
 
         {/* Orders History List */}
         <div className="lg:col-span-2 space-y-6">
-          <h3 className="font-headline-lg text-[20px] text-primary border-b border-outline-variant/30 pb-4 flex items-center justify-between">
+          <h3 className="font-headline-lg text-[20px] text-primary border-b border-outline pb-4 flex items-center justify-between">
             <span>Order History ({userOrders.length})</span>
             <button 
               onClick={() => { setIsChatOpen(true); handleSendMessage("Where is my order?"); }}
-              className="text-[12px] text-primary font-label-caps uppercase tracking-widest hover:text-white inline-flex items-center gap-2 transition-colors"
+              className="text-[12px] text-primary font-label-caps uppercase tracking-widest hover:text-primary/80 inline-flex items-center gap-2 transition-colors cursor-pointer"
             >
               <span>Track with AI</span>
               <span className="material-symbols-outlined text-[14px]" data-icon="auto_awesome">auto_awesome</span>
@@ -38,7 +38,7 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
           </h3>
 
           {userOrders.length === 0 ? (
-            <div className="glass-card p-12 text-center flex flex-col items-center">
+            <div className="glass-card bg-surface border border-outline shadow-sm p-12 text-center flex flex-col items-center rounded-3xl">
               <span className="material-symbols-outlined text-outline text-[40px] mb-4" data-icon="inventory_2">inventory_2</span>
               <h4 className="font-headline-lg text-[18px] text-primary mb-2">No active orders</h4>
               <p className="font-body-md text-[14px] text-on-surface-variant">Once you place an order, it will be logged here.</p>
@@ -48,7 +48,7 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
               {userOrders.map((order) => (
                 <div 
                   key={order.id} 
-                  className="glass-card p-6 space-y-4 relative overflow-hidden"
+                  className="glass-card bg-surface border border-outline shadow-sm hover:shadow-md transition-shadow p-6 space-y-4 relative overflow-hidden rounded-2xl"
                 >
                   <div className="flex items-center justify-between">
                     <div>
@@ -57,18 +57,18 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
                     </div>
                     
                     {/* Status Badge */}
-                    <span className={`px-3 py-1 rounded font-mono-technical text-[10px] uppercase tracking-widest border ${
-                      order.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
-                      order.status === 'SHIPPED' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
+                    <span className={`px-3 py-1 rounded-full font-mono-technical text-[10px] uppercase tracking-widest border ${
+                      order.status === 'PAID' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' :
+                      order.status === 'SHIPPED' ? 'bg-blue-100 text-blue-700 border-blue-200' :
                       order.status === 'CANCELLED' ? 'bg-error/10 text-error border-error/20' :
-                      'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                      'bg-amber-100 text-amber-700 border-amber-200'
                     }`}>
                       {order.status}
                     </span>
                   </div>
 
                   {/* List items inside order */}
-                  <div className="border-t border-b border-outline-variant/30 py-4 space-y-2">
+                  <div className="border-t border-b border-outline py-4 space-y-2">
                     {order.items?.map((item) => (
                       <div key={`orderItem-${item.id}`} className="flex justify-between items-center">
                         <span className="font-body-md text-[14px] text-on-surface-variant line-clamp-1 w-2/3">{item.product.name} (x{item.quantity})</span>
@@ -89,7 +89,7 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
                           setIsChatOpen(true);
                           handleSendMessage(`Check status for order id ${order.id}`);
                         }}
-                        className="px-4 py-2 bg-surface-container-highest border border-outline-variant/30 text-primary font-label-caps text-[10px] uppercase tracking-widest rounded hover:border-primary/50 transition-colors inline-flex items-center gap-2"
+                        className="px-4 py-2 bg-surface-container border border-outline text-primary font-label-caps text-[10px] uppercase tracking-widest rounded-lg hover:border-primary/50 transition-colors inline-flex items-center gap-2 cursor-pointer shadow-sm"
                       >
                         <span className="material-symbols-outlined text-[14px]" data-icon="local_shipping">local_shipping</span>
                         <span>Track Package</span>
@@ -98,7 +98,7 @@ export default function Dashboard({ user, userOrders, setIsChatOpen, handleSendM
                       {order.status !== 'CANCELLED' && order.status !== 'SHIPPED' && (
                         <button 
                           onClick={() => handleCancelOrder(order.id)}
-                          className="px-4 py-2 bg-error/10 text-error border border-error/20 font-label-caps text-[10px] uppercase tracking-widest rounded hover:bg-error/20 transition-colors inline-flex items-center gap-2"
+                          className="px-4 py-2 bg-error/5 text-error border border-error/20 font-label-caps text-[10px] uppercase tracking-widest rounded-lg hover:bg-error/10 transition-colors inline-flex items-center gap-2 cursor-pointer shadow-sm"
                         >
                           <span className="material-symbols-outlined text-[14px]" data-icon="cancel">cancel</span>
                           <span>Cancel Order</span>

@@ -233,7 +233,7 @@ export default function AdminDashboard({
                     <img 
                       src={editingProduct ? editingProduct.imageUrl : newProduct.imageUrl} 
                       alt="Preview" 
-                      className="h-32 w-full object-contain mix-blend-screen"
+                      className="h-32 w-full object-contain"
                     />
                   </div>
                 )}

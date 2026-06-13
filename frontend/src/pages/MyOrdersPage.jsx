@@ -121,7 +121,7 @@ export default function MyOrdersPage({
               <div className="space-y-4">
                 {order.items?.map((item) => (
                   <div key={`orderItem-${item.id}`} className="flex gap-4 items-center">
-                    <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-lg p-1.5 flex items-center justify-center mix-blend-screen flex-shrink-0">
+                    <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-lg p-1.5 flex items-center justify-center flex-shrink-0">
                       <img src={item.product.imageUrl} alt="" className="max-h-full object-contain filter drop-shadow-md" />
                     </div>
                     <div className="flex-grow min-w-0">

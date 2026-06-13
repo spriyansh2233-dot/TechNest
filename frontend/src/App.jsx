@@ -121,6 +121,19 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [priceRange, setPriceRange] = useState(30000);
+  const [recentSearches, setRecentSearches] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('technest_recent_searches')) || []; } catch(e) { return []; }
+  });
+
+  const handleSearchCommit = (term) => {
+    if (!term) return;
+    setSearchTerm(term);
+    setIsSearchFocused(false);
+    const updated = [term, ...recentSearches.filter(t => t !== term)].slice(0, 5);
+    setRecentSearches(updated);
+    localStorage.setItem('technest_recent_searches', JSON.stringify(updated));
+    navigate('/shop');
+  };
 
   // Premium UX states
   const [loadingProducts, setLoadingProducts] = useState(true);
@@ -778,10 +791,10 @@ export default function App() {
       {!perfModeEnabled && (
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
           {/* Faint futuristic tech grid overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(138,43,226,0.012)_1px,transparent_1px),linear-gradient(90deg,rgba(138,43,226,0.012)_1px,transparent_1px)] bg-[size:50px_50px] opacity-35 pointer-events-none" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(109,93,252,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(109,93,252,0.03)_1px,transparent_1px)] bg-[size:50px_50px] opacity-50 pointer-events-none" />
           
           {/* Deep atmospheric dark purple to violet mesh gradient base */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0f0822] via-[#080514] to-[#060b24] opacity-98" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#F8F9FB] via-[#F3F4F6] to-[#E5E7EB] opacity-98" />
 
           {/* Slow moving soft glow orbs */}
           <motion.div 
@@ -791,7 +804,7 @@ export default function App() {
               scale: [1, 1.15, 0.9, 1]
             }}
             transition={{ repeat: Infinity, duration: 25, ease: "easeInOut" }}
-            className="absolute top-[10%] left-[-15%] w-[45vw] h-[45vw] max-w-[650px] rounded-full bg-[#8A2BE2]/14 blur-[140px] will-change-transform"
+            className="absolute top-[10%] left-[-15%] w-[45vw] h-[45vw] max-w-[650px] rounded-full bg-[#6D5DFC]/5 blur-[140px] will-change-transform"
           />
           
           <motion.div 
@@ -801,32 +814,8 @@ export default function App() {
               scale: [1, 0.9, 1.1, 1]
             }}
             transition={{ repeat: Infinity, duration: 30, ease: "easeInOut" }}
-            className="absolute bottom-[10%] right-[-15%] w-[50vw] h-[50vw] max-w-[700px] rounded-full bg-[#4f46e5]/10 blur-[160px] will-change-transform"
+            className="absolute bottom-[10%] right-[-15%] w-[50vw] h-[50vw] max-w-[700px] rounded-full bg-[#8B7CFF]/5 blur-[160px] will-change-transform"
           />
-
-          <motion.div 
-            animate={{
-              x: [0, 40, -50, 0],
-              y: [0, 50, -60, 0],
-            }}
-            transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
-            className="absolute top-[50%] left-[20%] w-[35vw] h-[35vw] max-w-[500px] rounded-full bg-[#4f46e5]/8 blur-[130px] will-change-transform"
-          />
-
-          <motion.div 
-            animate={{
-              x: [0, -50, 60, 0],
-              y: [0, -40, 50, 0],
-            }}
-            transition={{ repeat: Infinity, duration: 28, ease: "easeInOut" }}
-            className="absolute top-[75%] right-[20%] w-[30vw] h-[30vw] max-w-[450px] rounded-full bg-[#8A2BE2]/10 blur-[110px] will-change-transform"
-          />
-
-          {/* Ultra-low opacity rotating atmospheric light streaks */}
-          <div className="absolute inset-0 opacity-[0.07] overflow-hidden">
-            <div className="absolute top-1/4 left-0 w-full h-[150px] bg-gradient-to-r from-transparent via-[#8A2BE2] to-transparent -rotate-12 transform scale-150 blur-[80px]" />
-            <div className="absolute top-2/3 right-0 w-full h-[200px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent rotate-12 transform scale-150 blur-[100px]" />
-          </div>
         </div>
       )}
 
@@ -858,7 +847,7 @@ export default function App() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative glass-card border border-white/20 p-8 max-w-md w-full z-10 shadow-[0_0_50px_rgba(138,43,226,0.4)] bg-[#0f0f0f]/95 backdrop-blur-2xl text-center"
+              className="relative glass-card border border-outline/50 p-8 max-w-md w-full z-10 shadow-2xl bg-surface/95 backdrop-blur-2xl text-center"
             >
               <button 
                 onClick={() => setShowGuestCheckoutModal(false)}
@@ -882,7 +871,7 @@ export default function App() {
                     setShowGuestCheckoutModal(false);
                     navigate('/login');
                   }}
-                  className="w-full py-3.5 bg-primary text-surface font-label-caps text-[12px] uppercase tracking-widest rounded-xl hover:bg-primary/95 shadow-[0_0_15px_rgba(138,43,226,0.4)] hover:shadow-[0_0_20px_rgba(138,43,226,0.6)] transition-all font-bold cursor-pointer"
+                  className="w-full py-3.5 bg-primary text-surface font-label-caps text-[12px] uppercase tracking-widest rounded-xl hover:bg-primary/95 shadow-[0_4px_15px_rgba(109,93,252,0.3)] hover:shadow-[0_6px_20px_rgba(109,93,252,0.4)] transition-all font-bold cursor-pointer"
                 >
                   Sign In to Account
                 </button>
@@ -891,7 +880,7 @@ export default function App() {
                     setShowGuestCheckoutModal(false);
                     navigate('/signup');
                   }}
-                  className="w-full py-3.5 bg-transparent border border-outline-variant hover:border-[#8A2BE2]/50 text-primary font-label-caps text-[12px] uppercase tracking-widest rounded-xl transition-all cursor-pointer"
+                  className="w-full py-3.5 bg-transparent border border-outline-variant hover:border-primary/50 text-primary font-label-caps text-[12px] uppercase tracking-widest rounded-xl transition-all cursor-pointer"
                 >
                   Create New Account
                 </button>
@@ -930,12 +919,12 @@ export default function App() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative w-full max-w-md bg-[#0f0f0f]/95 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(138,43,226,0.4)] border border-white/20 z-[161] text-left"
+              className="relative w-full max-w-md bg-surface/95 rounded-2xl overflow-hidden shadow-2xl border border-outline/50 z-[161] text-left"
             >
               {/* Header branding */}
-              <div className="bg-[#141414] px-8 py-6 flex items-center justify-between border-b border-white/10">
+              <div className="bg-surface-container px-8 py-6 flex items-center justify-between border-b border-outline">
                 <div className="flex items-center gap-3">
-                  <div className="bg-[#8A2BE2]/20 text-[#8A2BE2] border border-[#8A2BE2]/30 p-2 rounded font-mono-technical text-[10px] uppercase tracking-widest font-bold">
+                  <div className="bg-primary/10 text-primary border border-primary/20 p-2 rounded font-mono-technical text-[10px] uppercase tracking-widest font-bold">
                     PAY
                   </div>
                   <div>
@@ -949,7 +938,7 @@ export default function App() {
                 {paymentStep !== 'processing' && (
                   <button 
                     onClick={() => setShowPaymentMock(false)}
-                    className="p-2 hover:bg-white/5 text-on-surface-variant hover:text-[#8A2BE2] rounded-full transition-colors cursor-pointer"
+                    className="p-2 hover:bg-black/5 text-on-surface-variant hover:text-primary rounded-full transition-colors cursor-pointer"
                   >
                     <X size={18} />
                   </button>
@@ -961,7 +950,7 @@ export default function App() {
                 <div className="p-8 space-y-6">
                   
                   {/* Product/Amount summary */}
-                  <div className="flex justify-between items-center bg-white/5 border border-white/10 p-5 rounded-xl">
+                  <div className="flex justify-between items-center bg-surface-container border border-outline p-5 rounded-xl">
                     <div>
                       <h5 className="font-body-lg text-[14px] text-primary font-semibold">Order Summary</h5>
                       <p className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Checking out {cartCount} items</p>
@@ -975,11 +964,11 @@ export default function App() {
                     {/* Cards option */}
                     <div 
                       onClick={() => setPaymentMethod('card')}
-                      className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-4 hover:border-[#8A2BE2]/50 hover:bg-[#8A2BE2]/5 ${
-                        paymentMethod === 'card' ? 'border-[#8A2BE2] bg-[#8A2BE2]/10 shadow-[0_0_10px_rgba(138,43,226,0.15)]' : 'border-white/10 bg-white/5'
+                      className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-4 hover:border-primary/50 hover:bg-primary/5 ${
+                        paymentMethod === 'card' ? 'border-primary bg-primary/10 shadow-sm' : 'border-outline bg-surface'
                       }`}
                     >
-                      <input type="radio" checked={paymentMethod === 'card'} onChange={() => {}} className="accent-[#8A2BE2] cursor-pointer" />
+                      <input type="radio" checked={paymentMethod === 'card'} onChange={() => {}} className="accent-primary cursor-pointer" />
                       <div>
                         <p className="font-body-lg text-[14px] text-primary font-semibold">Credit / Debit Card</p>
                         <p className="font-body-md text-[12px] text-on-surface-variant mt-1">Pay with Visa, Mastercard, or AMEX</p>
@@ -989,11 +978,11 @@ export default function App() {
                     {/* UPI option */}
                     <div 
                       onClick={() => setPaymentMethod('upi')}
-                      className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-4 hover:border-[#8A2BE2]/50 hover:bg-[#8A2BE2]/5 ${
-                        paymentMethod === 'upi' ? 'border-[#8A2BE2] bg-[#8A2BE2]/10 shadow-[0_0_10px_rgba(138,43,226,0.15)]' : 'border-white/10 bg-white/5'
+                      className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-4 hover:border-primary/50 hover:bg-primary/5 ${
+                        paymentMethod === 'upi' ? 'border-primary bg-primary/10 shadow-sm' : 'border-outline bg-surface'
                       }`}
                     >
-                      <input type="radio" checked={paymentMethod === 'upi'} onChange={() => {}} className="accent-[#8A2BE2] cursor-pointer" />
+                      <input type="radio" checked={paymentMethod === 'upi'} onChange={() => {}} className="accent-primary cursor-pointer" />
                       <div>
                         <p className="font-body-lg text-[14px] text-primary font-semibold">UPI Transfer</p>
                         <p className="font-body-md text-[12px] text-on-surface-variant mt-1">Pay with any UPI app</p>
@@ -1003,7 +992,7 @@ export default function App() {
 
                   <button 
                     onClick={processMockPayment}
-                    className="w-full py-4 bg-primary text-surface font-label-caps text-[12px] uppercase tracking-widest rounded-xl hover:bg-primary/95 shadow-[0_0_15px_rgba(138,43,226,0.3)] transition-all text-center flex items-center justify-center gap-2 cursor-pointer font-bold"
+                    className="w-full py-4 bg-primary text-surface font-label-caps text-[12px] uppercase tracking-widest rounded-xl hover:bg-primary/95 shadow-[0_4px_15px_rgba(109,93,252,0.3)] transition-all text-center flex items-center justify-center gap-2 cursor-pointer font-bold"
                   >
                     <span className="material-symbols-outlined text-[16px]">lock</span>
                     <span>Pay ${cartSubtotal.toFixed(2)}</span>
@@ -1044,25 +1033,25 @@ export default function App() {
 
                   {/* Order Summary Snippet */}
                   {latestOrderSummary && (
-                    <div className="w-full bg-white/5 border border-white/10 rounded-xl p-4 space-y-3 text-left max-w-sm mx-auto shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
-                      <div className="flex justify-between items-center text-[12px] border-b border-white/5 pb-2.5">
+                    <div className="w-full bg-surface-container border border-outline rounded-xl p-4 space-y-3 text-left max-w-sm mx-auto shadow-sm">
+                      <div className="flex justify-between items-center text-[12px] border-b border-outline pb-2.5">
                         <div>
                           <span className="text-on-surface-variant text-[10px] uppercase tracking-wider block font-medium">Order ID</span>
                           <span className="font-mono-technical text-primary font-bold">#{latestOrderSummary.orderId}</span>
                         </div>
                         <div className="text-right">
                           <span className="text-on-surface-variant text-[10px] uppercase tracking-wider block font-medium">Total Paid</span>
-                          <span className="font-mono-technical text-[#8A2BE2] font-bold">${latestOrderSummary.total.toFixed(2)}</span>
+                          <span className="font-mono-technical text-primary font-bold">${latestOrderSummary.total.toFixed(2)}</span>
                         </div>
                       </div>
                       
                       {/* Product Thumbnails Grid */}
                       <div className="flex items-center gap-2.5 overflow-x-auto py-1 scrollbar-hide">
                         {latestOrderSummary.items.map((item, idx) => (
-                          <div key={idx} className="w-12 h-12 bg-white/5 border border-white/10 rounded-lg p-1.5 flex items-center justify-center mix-blend-screen flex-shrink-0 relative group" title={item.product.name}>
+                          <div key={idx} className="w-12 h-12 bg-surface border border-outline rounded-lg p-1.5 flex items-center justify-center flex-shrink-0 relative group" title={item.product.name}>
                             <img src={item.product.imageUrl} alt="" className="max-h-full object-contain filter drop-shadow-md" />
                             {item.quantity > 1 && (
-                              <span className="absolute -bottom-1 -right-1 bg-[#8A2BE2] text-white text-[8px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold border border-[#0f0f0f]">
+                              <span className="absolute -bottom-1 -right-1 bg-primary text-surface text-[8px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold border border-surface">
                                 {item.quantity}
                               </span>
                             )}
@@ -1076,13 +1065,13 @@ export default function App() {
                   <div className="w-full flex flex-col gap-3 max-w-sm mx-auto pt-2">
                     <button 
                       onClick={() => { setShowPaymentMock(false); setIsCartOpen(false); navigate('/orders'); }}
-                      className="w-full py-4 bg-primary text-surface font-label-caps text-[11px] uppercase tracking-widest rounded-xl hover:bg-primary/95 shadow-[0_0_15px_rgba(138,43,226,0.3)] hover:shadow-[0_0_20px_rgba(138,43,226,0.5)] transition-all cursor-pointer font-bold text-center active:scale-[0.98]"
+                      className="w-full py-4 bg-primary text-surface font-label-caps text-[11px] uppercase tracking-widest rounded-xl hover:bg-primary/95 shadow-md hover:shadow-lg transition-all cursor-pointer font-bold text-center active:scale-[0.98]"
                     >
                       View Orders
                     </button>
                     <button 
                       onClick={() => { setShowPaymentMock(false); setIsCartOpen(false); navigate('/shop'); }}
-                      className="w-full py-3.5 bg-transparent border border-white/15 hover:border-[#8A2BE2]/50 hover:bg-[#8A2BE2]/5 text-primary font-label-caps text-[11px] uppercase tracking-widest rounded-xl transition-all cursor-pointer font-bold text-center active:scale-[0.98]"
+                      className="w-full py-3.5 bg-transparent border border-outline hover:border-primary/50 hover:bg-primary/5 text-primary font-label-caps text-[11px] uppercase tracking-widest rounded-xl transition-all cursor-pointer font-bold text-center active:scale-[0.98]"
                     >
                       Continue Shopping
                     </button>
@@ -1101,7 +1090,7 @@ export default function App() {
             initial={{ opacity: 0, y: -20, x: 20 }}
             animate={{ opacity: 1, y: 0, x: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed top-6 right-6 z-[200] flex items-center gap-3.5 px-6 py-4 rounded-xl border border-white/20 shadow-2xl bg-[#0f0f0f]/90 backdrop-blur-2xl max-w-sm"
+            className="fixed top-6 right-6 z-[200] flex items-center gap-3.5 px-6 py-4 rounded-xl border border-outline/50 shadow-2xl bg-surface/90 backdrop-blur-2xl max-w-sm"
           >
             <div className={`p-2 rounded-full ${
               toast.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 
@@ -1121,12 +1110,12 @@ export default function App() {
       </AnimatePresence>
 
       {/* HEADER NAVBAR */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] border-b shadow-2xl ${
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] border-b shadow-md ${
         isScrolled 
           ? scrollDirection === 'down'
-            ? '-translate-y-3 bg-[#050505]/95 border-purple-500/15 shadow-black/60'
-            : 'translate-y-0 bg-[#050505]/85 border-white/10 shadow-black/40' 
-          : 'translate-y-0 bg-[#050505]/20 border-white/5'
+            ? '-translate-y-3 bg-surface/95 border-outline/50 shadow-sm'
+            : 'translate-y-0 bg-surface/90 border-outline shadow-sm' 
+          : 'translate-y-0 bg-surface/80 border-transparent shadow-none'
       } backdrop-blur-md`}>
         <div className={`flex justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isScrolled 
@@ -1138,13 +1127,13 @@ export default function App() {
           <div className="flex items-center gap-8">
             <button 
               onClick={handleLogoClick} 
-              className={`flex items-center gap-2 font-headline-lg text-headline-lg tracking-tighter text-primary cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-102 hover:text-[#8A2BE2] active:scale-98 group ${
+              className={`flex items-center gap-2 font-headline-lg text-headline-lg tracking-tighter text-primary cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-102 hover:text-primary active:scale-98 group ${
                 isScrolled && scrollDirection === 'down' ? 'scale-[0.92]' : 'scale-100'
               }`}
             >
-              <span className="material-symbols-outlined text-[28px] text-[#8A2BE2] group-hover:shadow-[0_0_15px_rgba(138,43,226,0.5)] rounded-lg transition-all duration-300" data-icon="deployed_code">deployed_code</span>
+              <span className="material-symbols-outlined text-[28px] text-primary group-hover:shadow-sm rounded-lg transition-all duration-300" data-icon="deployed_code">deployed_code</span>
               <span className="font-bold">
-                TechNest<span className="text-[#8A2BE2] text-[10px] uppercase align-super ml-1 border border-[#8A2BE2]/50 px-1 rounded shadow-[0_0_8px_rgba(138,43,226,0.3)] group-hover:border-[#8A2BE2] group-hover:shadow-[0_0_12px_rgba(138,43,226,0.6)] transition-all">PRO</span>
+                TechNest<span className="text-primary text-[10px] uppercase align-super ml-1 border border-primary/50 px-1 rounded group-hover:border-primary transition-all">PRO</span>
               </span>
             </button>
             <div className="hidden md:flex gap-6">
@@ -1156,7 +1145,7 @@ export default function App() {
               >
                 Home
                 {location.pathname === '/' && (
-                  <motion.div layoutId="activeNav" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#8A2BE2] shadow-[0_0_8px_#8A2BE2]" />
+                  <motion.div layoutId="activeNav" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary shadow-sm" />
                 )}
               </button>
               <button 
@@ -1167,7 +1156,7 @@ export default function App() {
               >
                 Shop
                 {location.pathname === '/shop' && (
-                  <motion.div layoutId="activeNav" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#8A2BE2] shadow-[0_0_8px_#8A2BE2]" />
+                  <motion.div layoutId="activeNav" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary shadow-sm" />
                 )}
               </button>
             </div>
@@ -1181,9 +1170,10 @@ export default function App() {
                   <Search className="text-on-surface-variant mr-2" size={15} />
                   <input 
                     type="text" 
-                    placeholder="Search products..." 
+                    placeholder="Search products, brands..." 
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') handleSearchCommit(searchTerm); }}
                     onFocus={() => setIsSearchFocused(true)}
                     onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
                     className="bg-transparent border-none outline-none w-full font-body-md text-body-md text-primary placeholder-on-surface-variant"
@@ -1195,10 +1185,10 @@ export default function App() {
 
                 {/* Suggestions Dropdown */}
                 {isSearchFocused && (
-                  <div className="absolute top-full right-0 mt-3 w-80 bg-[#0f0f0f]/95 border border-white/10 rounded-xl shadow-[0_15px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl p-4 z-50 space-y-4">
+                  <div className="absolute top-full right-0 mt-3 w-80 bg-surface border border-outline rounded-xl shadow-xl p-4 z-50 space-y-4">
                     {searchTerm ? (
                       <div>
-                        <h4 className="font-mono-technical text-[9px] text-[#8A2BE2] uppercase tracking-wider mb-2 font-bold">Product Suggestions</h4>
+                        <h4 className="font-mono-technical text-[9px] text-primary uppercase tracking-wider mb-2 font-bold">Product Suggestions</h4>
                         <div className="space-y-1">
                           {products
                             .filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -1206,12 +1196,8 @@ export default function App() {
                             .map(p => (
                               <button 
                                 key={p.id}
-                                onMouseDown={() => {
-                                  setSearchTerm(p.name);
-                                  setIsSearchFocused(false);
-                                  navigate('/shop');
-                                }}
-                                className="w-full text-left px-3 py-2 rounded-lg text-[13px] text-primary hover:bg-[#8A2BE2]/10 hover:text-[#8A2BE2] transition-all flex items-center gap-2 cursor-pointer font-medium"
+                                onMouseDown={() => handleSearchCommit(p.name)}
+                                className="w-full text-left px-3 py-2 rounded-lg text-[13px] text-primary hover:bg-surface-container hover:text-primary transition-all flex items-center gap-2 cursor-pointer font-medium"
                               >
                                 <span className="material-symbols-outlined text-[16px]">search</span>
                                 <span className="truncate">{p.name}</span>
@@ -1219,35 +1205,56 @@ export default function App() {
                             ))
                           }
                           {products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase())).length === 0 && (
-                            <p className="text-[12px] text-on-surface-variant px-3 py-2">No matching products found.</p>
+                            <div className="px-3 py-4 text-center">
+                                <span className="material-symbols-outlined text-[24px] text-on-surface-variant/50 mb-2">search_off</span>
+                                <p className="text-[12px] text-on-surface-variant mb-2">No matching products found.</p>
+                                <p className="text-[10px] text-primary/70">Try searching for generic terms like 'Audio' or 'Watch'.</p>
+                            </div>
                           )}
                         </div>
                       </div>
                     ) : (
                       <>
+                        {recentSearches.length > 0 && (
+                            <div className="mb-4">
+                              <div className="flex justify-between items-center mb-2">
+                                <h4 className="font-mono-technical text-[9px] text-primary uppercase tracking-wider font-bold">Recent Searches</h4>
+                                <button onMouseDown={(e) => { e.preventDefault(); setRecentSearches([]); localStorage.removeItem('technest_recent_searches'); }} className="text-[9px] text-error hover:underline cursor-pointer">Clear</button>
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {recentSearches.map(term => (
+                                  <button 
+                                    key={term}
+                                    onMouseDown={() => handleSearchCommit(term)}
+                                    className="px-3 py-1.5 rounded-full bg-surface-container border border-outline hover:border-primary/50 hover:bg-primary/5 text-on-surface-variant hover:text-primary text-[11px] font-label-caps transition-all cursor-pointer flex items-center gap-1"
+                                  >
+                                      <span className="material-symbols-outlined text-[12px]">history</span>
+                                      {term}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                        )}
                         <div>
-                          <h4 className="font-mono-technical text-[9px] text-[#8A2BE2] uppercase tracking-wider mb-2 font-bold">Trending Searches</h4>
+                          <h4 className="font-mono-technical text-[9px] text-primary uppercase tracking-wider mb-2 font-bold">Popular Searches</h4>
                           <div className="flex flex-wrap gap-2">
-                            {['Sonic Pro', 'Tracker Ring', 'K1 Pro', 'Nexus X', 'Audio'].map(term => (
+                            {['SonicX Pro', 'Titan Keyboard', 'Chronos Horizon', 'Nexus Plug', 'Audio'].map(term => (
                               <button 
                                 key={term}
-                                onMouseDown={() => {
-                                  setSearchTerm(term);
-                                  setIsSearchFocused(false);
-                                  navigate('/shop');
-                                }}
-                                className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-[#8A2BE2]/50 hover:bg-[#8A2BE2]/10 text-on-surface-variant hover:text-primary text-[11px] font-label-caps transition-all cursor-pointer font-semibold"
+                                onMouseDown={() => handleSearchCommit(term)}
+                                className="px-3 py-1.5 rounded-full bg-surface border border-outline hover:border-primary/50 hover:bg-primary/5 text-primary text-[11px] font-label-caps transition-all cursor-pointer font-semibold shadow-sm"
                               >
+                                  <span className="material-symbols-outlined text-[12px] mr-1 text-orange-500">local_fire_department</span>
                                   {term}
                               </button>
                             ))}
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-mono-technical text-[9px] text-[#8A2BE2] uppercase tracking-wider mb-2 font-bold">Categories</h4>
+                          <h4 className="font-mono-technical text-[9px] text-primary uppercase tracking-wider mb-2 font-bold">Categories</h4>
                            <div className="grid grid-cols-2 gap-2">
                              {[
-                               { name: 'Audio Gear', icon: 'headphones', color: '#8A2BE2' },
+                               { name: 'Audio Gear', icon: 'headphones', color: '#6D5DFC' },
                                { name: 'Smart Wearables', icon: 'watch', color: '#d97706' },
                                { name: 'Gaming', icon: 'sports_esports', color: '#4f46e5' },
                                { name: 'Accessories', icon: 'keyboard', color: '#0ea5e9' }
@@ -1259,7 +1266,7 @@ export default function App() {
                                    setIsSearchFocused(false);
                                    navigate('/shop');
                                  }}
-                                 className="text-left px-3 py-2 rounded-lg text-[12px] text-on-surface-variant hover:text-primary hover:bg-[#8A2BE2]/10 transition-all flex items-center gap-2 cursor-pointer"
+                                 className="text-left px-3 py-2 rounded-lg text-[12px] text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all flex items-center gap-2 cursor-pointer"
                                >
                                  <span className="material-symbols-outlined text-[16px]" style={{ color: cat.color }}>{cat.icon}</span>
                                  {cat.name}
@@ -1286,11 +1293,11 @@ export default function App() {
             
             <button 
               onClick={() => setIsCartOpen(!isCartOpen)}
-              className="text-primary hover:bg-white/5 transition-all duration-300 p-2 rounded-full active:scale-95 relative"
+              className="text-primary hover:bg-surface-container transition-all duration-300 p-2 rounded-full active:scale-95 relative"
             >
               <span className="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
               {cartCount > 0 && (
-                <span className="absolute top-1 right-1 bg-[#8A2BE2] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute top-1 right-1 bg-primary text-surface text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {cartCount}
                 </span>
               )}
@@ -1301,8 +1308,8 @@ export default function App() {
                 <button className="text-primary hover:bg-white/5 transition-all duration-300 p-2 rounded-full active:scale-95 flex items-center gap-2">
                   <span className="material-symbols-outlined text-[24px]" data-icon="account_circle">account_circle</span>
                 </button>
-                <div className="absolute right-0 top-full mt-2 w-48 bg-surface-container-highest border border-outline-variant/30 rounded-lg shadow-[0_10px_40px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right z-50">
-                  <div className="p-4 border-b border-outline-variant/30">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-surface-container border border-outline rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right z-50">
+                  <div className="p-4 border-b border-outline">
                     <p className="font-body-lg text-[14px] text-primary truncate font-semibold mb-1">{user.name}</p>
                     <p className="font-mono-technical text-[10px] text-on-surface-variant truncate">{user.email}</p>
                   </div>
@@ -1320,11 +1327,11 @@ export default function App() {
                       <span className="material-symbols-outlined text-[18px]">settings</span> Settings
                     </button>
                     {user.role === 'ADMIN' && (
-                      <button onClick={() => navigate('/admin')} className="w-full text-left px-3 py-2 font-body-md text-[13px] text-[#8A2BE2] hover:bg-[#8A2BE2]/10 rounded transition-colors flex items-center gap-3 border-t border-outline-variant/30 mt-1 pt-2">
+                      <button onClick={() => navigate('/admin')} className="w-full text-left px-3 py-2 font-body-md text-[13px] text-primary hover:bg-primary/10 rounded transition-colors flex items-center gap-3 border-t border-outline mt-1 pt-2">
                         <span className="material-symbols-outlined text-[18px]">admin_panel_settings</span> Admin Panel
                       </button>
                     )}
-                    <button onClick={handleLogout} className="w-full text-left px-3 py-2 font-body-md text-[13px] text-error hover:bg-error/10 rounded transition-colors flex items-center gap-3 border-t border-outline-variant/30 mt-1 pt-2">
+                    <button onClick={handleLogout} className="w-full text-left px-3 py-2 font-body-md text-[13px] text-error hover:bg-error/10 rounded transition-colors flex items-center gap-3 border-t border-outline mt-1 pt-2">
                       <span className="material-symbols-outlined text-[18px]">logout</span> Logout
                     </button>
                   </div>
@@ -1334,7 +1341,7 @@ export default function App() {
               <div className="hidden md:flex items-center gap-4">
                 <button 
                   onClick={() => navigate('/login')} 
-                  className="font-body-md text-body-md text-primary hover:text-[#8A2BE2] transition-colors cursor-pointer"
+                  className="font-body-md text-body-md text-primary hover:text-primary/70 transition-colors cursor-pointer"
                 >
                   Login
                 </button>
@@ -1349,7 +1356,7 @@ export default function App() {
 
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className="text-primary hover:bg-white/5 transition-all duration-300 p-2 rounded-full active:scale-95 md:hidden"
+              className="text-primary hover:bg-surface-container transition-all duration-300 p-2 rounded-full active:scale-95 md:hidden"
             >
               <span className="material-symbols-outlined" data-icon="menu">menu</span>
             </button>
@@ -1366,16 +1373,16 @@ export default function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm z-[110]"
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm z-[110]"
             />
             <motion.div 
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="relative w-72 bg-[#0f0f0f]/95 border-l border-white/10 h-full shadow-2xl z-[111] flex flex-col p-6 space-y-6 text-left"
+              className="relative w-72 bg-surface border-l border-outline h-full shadow-2xl z-[111] flex flex-col p-6 space-y-6 text-left"
             >
-              <div className="flex justify-between items-center border-b border-white/5 pb-4">
+              <div className="flex justify-between items-center border-b border-outline pb-4">
                 <span className="font-headline-lg text-[18px] text-primary font-bold">Menu</span>
                 <button 
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -1388,29 +1395,29 @@ export default function App() {
               <div className="flex flex-col gap-4">
                 <button 
                   onClick={() => { navigate('/'); setIsMobileMenuOpen(false); }}
-                  className="text-left font-body-lg text-[16px] text-primary hover:text-[#8A2BE2] py-2 border-b border-white/5 cursor-pointer bg-transparent border-none"
+                  className="text-left font-body-lg text-[16px] text-primary hover:text-primary/70 py-2 border-b border-outline cursor-pointer bg-transparent border-none"
                 >
                   Home
                 </button>
                 <button 
                   onClick={() => { navigate('/shop'); setIsMobileMenuOpen(false); }}
-                  className="text-left font-body-lg text-[16px] text-primary hover:text-[#8A2BE2] py-2 border-b border-white/5 cursor-pointer bg-transparent border-none"
+                  className="text-left font-body-lg text-[16px] text-primary hover:text-primary/70 py-2 border-b border-outline cursor-pointer bg-transparent border-none"
                 >
                   Shop
                 </button>
                 <button 
                   onClick={() => { navigate('/wishlist'); setIsMobileMenuOpen(false); }}
-                  className="text-left font-body-lg text-[16px] text-primary hover:text-[#8A2BE2] py-2 border-b border-white/5 flex items-center gap-2 cursor-pointer bg-transparent border-none"
+                  className="text-left font-body-lg text-[16px] text-primary hover:text-primary/70 py-2 border-b border-outline flex items-center gap-2 cursor-pointer bg-transparent border-none"
                 >
                   Wishlist {wishlist.length > 0 && <span className="w-2 h-2 bg-error rounded-full" />}
                 </button>
               </div>
 
-              <div className="mt-auto border-t border-white/5 pt-6 space-y-4">
+              <div className="mt-auto border-t border-outline pt-6 space-y-4">
                 {user ? (
                   <>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#8A2BE2]/10 border border-[#8A2BE2]/30 flex items-center justify-center text-primary font-bold font-mono-technical uppercase flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary font-bold font-mono-technical uppercase flex-shrink-0">
                         {user.name.slice(0, 2)}
                       </div>
                       <div className="min-w-0">
@@ -1430,13 +1437,13 @@ export default function App() {
                         <span className="material-symbols-outlined text-[18px]">settings</span> Settings
                       </button>
                       {user.role === 'ADMIN' && (
-                        <button onClick={() => { navigate('/admin'); setIsMobileMenuOpen(false); }} className="w-full text-left py-2 text-[13px] text-[#8A2BE2] flex items-center gap-3 cursor-pointer bg-transparent border-none">
+                        <button onClick={() => { navigate('/admin'); setIsMobileMenuOpen(false); }} className="w-full text-left py-2 text-[13px] text-primary flex items-center gap-3 cursor-pointer bg-transparent border-none">
                           <span className="material-symbols-outlined text-[18px]">admin_panel_settings</span> Admin Panel
                         </button>
                       )}
                       <button 
                         onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}
-                        className="w-full text-left py-2 text-[13px] text-error flex items-center gap-3 border-t border-white/5 mt-2 pt-4 cursor-pointer bg-transparent border-none"
+                        className="w-full text-left py-2 text-[13px] text-error flex items-center gap-3 border-t border-outline mt-2 pt-4 cursor-pointer bg-transparent border-none"
                       >
                         <span className="material-symbols-outlined text-[18px]">logout</span> Logout
                       </button>
@@ -1446,7 +1453,7 @@ export default function App() {
                   <div className="flex flex-col gap-3">
                     <button 
                       onClick={() => { navigate('/login'); setIsMobileMenuOpen(false); }}
-                      className="w-full py-3 bg-transparent border border-white/10 hover:border-[#8A2BE2]/50 text-primary font-label-caps text-[11px] uppercase tracking-widest rounded-xl transition-all cursor-pointer font-bold text-center"
+                      className="w-full py-3 bg-transparent border border-outline hover:border-primary/50 text-primary font-label-caps text-[11px] uppercase tracking-widest rounded-xl transition-all cursor-pointer font-bold text-center"
                     >
                       Login
                     </button>
@@ -1466,8 +1473,8 @@ export default function App() {
 
       {/* MOBILE SEARCH BAR */}
       {(location.pathname === '/' || location.pathname === '/shop') && (
-        <div className="md:hidden px-margin-mobile py-3 bg-surface border-b border-white/5 mt-[72px]">
-          <div className="flex items-center bg-surface-container-highest/30 rounded-full px-4 py-2 border border-outline-variant/30 focus-within:border-primary/50">
+        <div className="md:hidden px-margin-mobile py-3 bg-surface border-b border-outline mt-[72px]">
+          <div className="flex items-center bg-surface-container rounded-full px-4 py-2 border border-outline focus-within:border-primary/50">
             <Search className="text-on-surface-variant mr-2" size={16} />
             <input 
               type="text" 
@@ -1503,15 +1510,15 @@ export default function App() {
         </AnimatePresence>
 </main>
       {/* FOOTER */}
-      <footer className="bg-[#050505]/40 backdrop-blur-xl border-t border-white/10 pt-20 pb-10 px-margin-mobile md:px-margin-desktop mt-auto relative z-10">
-        <div className="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-outline-variant/30">
+      <footer className="bg-surface backdrop-blur-xl border-t border-outline pt-20 pb-10 px-margin-mobile md:px-margin-desktop mt-auto relative z-10">
+        <div className="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-outline">
           
           {/* Col 1: Brand Details */}
           <div className="space-y-6">
             <div className="flex items-center gap-2 cursor-pointer group" onClick={handleLogoClick}>
-              <span className="material-symbols-outlined text-[32px] text-primary group-hover:text-[#8A2BE2] transition-colors" data-icon="deployed_code">deployed_code</span>
-              <span className="font-headline-lg text-headline-lg tracking-tight text-primary group-hover:text-[#8A2BE2] transition-colors hidden sm:block">
-                TechNest<span className="text-[#8A2BE2] text-[12px] uppercase align-super ml-1 border border-[#8A2BE2] px-1 rounded">PRO</span>
+              <span className="material-symbols-outlined text-[32px] text-primary transition-colors" data-icon="deployed_code">deployed_code</span>
+              <span className="font-headline-lg text-headline-lg tracking-tight text-primary transition-colors hidden sm:block">
+                TechNest<span className="text-primary text-[12px] uppercase align-super ml-1 border border-primary/50 px-1 rounded">PRO</span>
               </span>
             </div>
             <p className="font-body-md text-[14px] text-on-surface-variant leading-relaxed">
@@ -1519,13 +1526,13 @@ export default function App() {
             </p>
             {/* Social Icons */}
             <div className="flex items-center gap-4 pt-2">
-              <a href="#" className="w-10 h-10 rounded-full bg-surface border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-colors" title="Facebook">
+              <a href="#" className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-colors" title="Facebook">
                 <span className="material-symbols-outlined text-[18px]" data-icon="share">share</span>
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-surface border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-colors" title="Twitter">
+              <a href="#" className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-colors" title="Twitter">
                 <span className="material-symbols-outlined text-[18px]" data-icon="language">language</span>
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-surface border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-colors" title="Instagram">
+              <a href="#" className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/50 transition-colors" title="Instagram">
                 <span className="material-symbols-outlined text-[18px]" data-icon="photo_camera">photo_camera</span>
               </a>
             </div>
@@ -1581,7 +1588,7 @@ export default function App() {
                 showToast("Successfully subscribed to the newsletter!", "success"); 
                 e.target.reset(); 
               }}
-              className="flex items-center bg-surface border border-outline-variant/30 rounded p-2 focus-within:border-primary/50 transition-colors"
+              className="flex items-center bg-surface border border-outline rounded p-2 focus-within:border-primary/50 transition-colors"
             >
               <input 
                 type="email" 

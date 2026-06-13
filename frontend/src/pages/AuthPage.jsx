@@ -68,10 +68,10 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-transparent py-20 px-4">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-surface py-20 px-4">
       {/* Background Orbs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#8A2BE2]/20 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -79,7 +79,7 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md z-10"
       >
-        <div className="glass-card p-10 backdrop-blur-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+        <div className="glass-card bg-surface p-10 border border-outline shadow-2xl rounded-3xl relative z-10">
           <div className="text-center mb-10">
             <h2 className="font-display-lg text-[32px] text-primary mb-2">
               {mode === 'login' && 'Welcome Back'}
@@ -112,7 +112,7 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
                     value={authForm.name} 
                     onChange={(e) => setAuthForm({...authForm, name: e.target.value})}
                     placeholder="e.g. John Doe" 
-                    className="w-full bg-surface-container-highest/50 border border-outline-variant/30 rounded-lg py-4 pl-12 pr-4 font-body-md text-[14px] text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder-on-surface-variant/50"
+                    className="w-full bg-surface-container border border-outline rounded-lg py-4 pl-12 pr-4 font-body-md text-[14px] text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder-on-surface-variant/50 shadow-sm hover:shadow-md"
                   />
                 </div>
               </div>
@@ -129,7 +129,7 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
                   value={authForm.email} 
                   onChange={(e) => setAuthForm({...authForm, email: e.target.value})}
                   placeholder="e.g. you@example.com" 
-                  className="w-full bg-surface-container-highest/50 border border-outline-variant/30 rounded-lg py-4 pl-12 pr-4 font-body-md text-[14px] text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder-on-surface-variant/50"
+                  className="w-full bg-surface-container border border-outline rounded-lg py-4 pl-12 pr-4 font-body-md text-[14px] text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder-on-surface-variant/50 shadow-sm hover:shadow-md"
                 />
               </div>
             </div>
@@ -139,7 +139,7 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
                 <div className="flex justify-between items-center mb-2">
                   <label className="font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant transition-colors group-focus-within:text-primary">Password</label>
                   {mode === 'login' && (
-                    <Link to="/forgot-password" className="font-label-caps text-[10px] text-primary hover:text-[#8A2BE2] transition-colors uppercase tracking-widest">Forgot?</Link>
+                    <Link to="/forgot-password" className="font-label-caps text-[10px] text-primary hover:text-primary/80 transition-colors uppercase tracking-widest">Forgot?</Link>
                   )}
                 </div>
                 <div className="relative">
@@ -151,7 +151,7 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
                     value={authForm.password} 
                     onChange={(e) => setAuthForm({...authForm, password: e.target.value})}
                     placeholder="••••••••" 
-                    className="w-full bg-surface-container-highest/50 border border-outline-variant/30 rounded-lg py-4 pl-12 pr-4 font-body-md text-[14px] text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder-on-surface-variant/50"
+                    className="w-full bg-surface-container border border-outline rounded-lg py-4 pl-12 pr-4 font-body-md text-[14px] text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder-on-surface-variant/50 shadow-sm hover:shadow-md"
                   />
                 </div>
               </div>
@@ -159,7 +159,7 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
 
             {mode === 'login' && (
               <div className="flex items-center gap-2 mt-2">
-                <input type="checkbox" id="remember" className="accent-primary w-4 h-4 rounded border-outline-variant/30 bg-surface-container-highest" />
+                <input type="checkbox" id="remember" className="accent-primary w-4 h-4 rounded border-outline bg-surface-container cursor-pointer" />
                 <label htmlFor="remember" className="font-body-md text-[12px] text-on-surface-variant cursor-pointer">Remember me for 30 days</label>
               </div>
             )}
@@ -167,7 +167,7 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
             <button 
               type="submit" 
               disabled={isLoading}
-              className="w-full py-4 mt-6 bg-primary text-surface font-label-caps text-[12px] rounded-lg hover:bg-primary/90 transition-all text-center uppercase tracking-widest shadow-[0_0_20px_rgba(138,43,226,0.3)] hover:shadow-[0_0_30px_rgba(138,43,226,0.5)] disabled:opacity-70 flex justify-center items-center gap-2"
+              className="w-full py-4 mt-6 bg-primary text-surface font-label-caps text-[12px] rounded-lg hover:bg-primary/90 transition-all text-center uppercase tracking-widest shadow-md hover:shadow-lg disabled:opacity-70 flex justify-center items-center gap-2 font-bold cursor-pointer"
             >
               {isLoading ? (
                 <span className="material-symbols-outlined animate-spin text-[18px]" data-icon="sync">sync</span>
@@ -177,18 +177,18 @@ export default function AuthPage({ mode, user, setUser, showToast }) {
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-outline-variant/30 text-center">
+          <div className="mt-8 pt-6 border-t border-outline text-center">
             {mode === 'login' ? (
               <p className="font-body-md text-[13px] text-on-surface-variant">
                 Don't have an account?{' '}
-                <Link to="/signup" className="text-primary hover:underline font-semibold transition-colors hover:text-[#8A2BE2]">
+                <Link to="/signup" className="text-primary hover:underline font-semibold transition-colors hover:text-primary/80">
                   Sign Up
                 </Link>
               </p>
             ) : (
               <p className="font-body-md text-[13px] text-on-surface-variant">
                 Already have an account?{' '}
-                <Link to="/login" className="text-primary hover:underline font-semibold transition-colors hover:text-[#8A2BE2]">
+                <Link to="/login" className="text-primary hover:underline font-semibold transition-colors hover:text-primary/80">
                   Sign In
                 </Link>
               </p>

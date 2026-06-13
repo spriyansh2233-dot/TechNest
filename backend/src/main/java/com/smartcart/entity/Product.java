@@ -41,6 +41,16 @@ public class Product {
 
     private Double rating;
 
+    private Integer reviewCount;
+    
+    private String deliveryEstimate;
+    
+    private Boolean isBestSeller;
+    
+    private Boolean isFreeDelivery;
+    
+    private BigDecimal originalPrice;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 }
